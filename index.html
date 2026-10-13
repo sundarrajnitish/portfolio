@@ -1,463 +1,460 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nitish Sundarraj Balaji — Electrical &amp; Control Systems Engineering</title>
+<title>Nitish Sundarraj Balaji</title>
+<meta name="description" content="Electrical and control systems engineer in Montréal. Fourteen of my projects, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on one page.">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0A0E13;
-    --bg-alt:#0D131A;
-    --panel:#121922;
-    --panel-hi:#161F2A;
-    --border:#223040;
-    --border-soft:#1A2430;
-    --text:#E8EDF2;
-    --text-muted:#8A97A6;
-    --text-dim:#57687A;
-    --cyan:#35C4E8;
-    --cyan-dim:#1D6E85;
-    --amber:#F2A93B;
-    --green:#3ED598;
-    --red:#E4574C;
-    --violet:#8B7CF6;
-    --radius:10px;
-    --font-display:'Space Grotesk', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'IBM Plex Mono', monospace;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg); color:var(--text); font-family:var(--font-body); line-height:1.6; -webkit-font-smoothing:antialiased;}
-  body::before{
-    content:""; position:fixed; inset:0;
-    background-image:linear-gradient(var(--border-soft) 1px, transparent 1px), linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
-    background-size:64px 64px; opacity:0.22; pointer-events:none; z-index:0;
-  }
-  .wrap{position:relative; z-index:1;}
-  a{color:inherit;}
-  .container{max-width:1120px; margin:0 auto; padding:0 28px;}
-
-  header.nav{position:sticky; top:0; z-index:50; backdrop-filter:blur(10px); background:rgba(10,14,19,0.85); border-bottom:1px solid var(--border-soft);}
-  .nav-inner{max-width:1120px; margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between;}
-  .brand{font-family:var(--font-mono); font-size:13px; letter-spacing:0.06em; text-decoration:none; display:flex; align-items:center; gap:8px;}
-  .brand-dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); flex-shrink:0;}
-  nav.links{display:flex; gap:28px; font-size:13px; color:var(--text-muted);}
-  nav.links a{text-decoration:none; transition:color .15s ease;}
-  nav.links a:hover{color:var(--cyan);}
-  .nav-cta{font-family:var(--font-mono); font-size:12px; color:var(--bg); background:var(--cyan); padding:9px 16px; border-radius:6px; text-decoration:none; font-weight:600; white-space:nowrap;}
-  @media (max-width:760px){ nav.links{display:none;} }
-
-  .hero{padding:84px 0 40px;}
-  .eyebrow{font-family:var(--font-mono); font-size:12px; letter-spacing:0.12em; color:var(--cyan); text-transform:uppercase; margin-bottom:20px; display:flex; align-items:center; gap:10px;}
-  .eyebrow::before{content:""; width:24px; height:1px; background:var(--cyan);}
-  h1{font-family:var(--font-display); font-weight:700; font-size:clamp(2rem,4.6vw,3.4rem); line-height:1.1; letter-spacing:-0.01em; max-width:820px; margin-bottom:18px;}
-  h1 .hl{color:var(--cyan);}
-  .hero-sub{font-size:16.5px; color:var(--text-muted); max-width:600px; margin-bottom:14px;}
-  .hero-meta{font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); margin-bottom:32px; display:flex; gap:18px; flex-wrap:wrap;}
-  .hero-meta span{display:flex; align-items:center; gap:6px;}
-  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:52px;}
-  .btn{font-family:var(--font-mono); font-size:13px; padding:12px 20px; border-radius:6px; text-decoration:none; font-weight:500; display:inline-flex; align-items:center; gap:8px; transition:all .15s ease; border:1px solid transparent; cursor:pointer;}
-  .btn-primary{background:var(--cyan); color:#04131A; font-weight:600;}
-  .btn-primary:hover{background:#4FD0F0;}
-  .btn-ghost{border-color:var(--border); color:var(--text);}
-  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan);}
-
-  /* DASHBOARD SIGNATURE */
-  .dash-panel{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;}
-  .dash-head{display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid var(--border-soft); font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); letter-spacing:0.05em;}
-  .status-live{color:var(--green); display:flex; align-items:center; gap:6px;}
-  .status-live .pulse{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 1.6s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.3;}}
-
-  .sector-tabs{display:flex; border-bottom:1px solid var(--border-soft); overflow-x:auto;}
-  .sector-tab{
-    flex:1; min-width:140px; font-family:var(--font-mono); font-size:12px; letter-spacing:0.03em;
-    padding:14px 10px; text-align:center; color:var(--text-dim); background:none; border:none; cursor:pointer;
-    border-right:1px solid var(--border-soft); transition:all .15s ease; position:relative;
-  }
-  .sector-tab:last-child{border-right:none;}
-  .sector-tab:hover{color:var(--text-muted); background:var(--panel-hi);}
-  .sector-tab.active{color:var(--cyan); background:var(--panel-hi);}
-  .sector-tab.active::after{content:""; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:var(--cyan);}
-
-  .dash-body{padding:26px 24px;}
-  .dash-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
-  .metric{background:var(--bg-alt); border:1px solid var(--border-soft); border-radius:8px; padding:16px 18px;}
-  .metric-label{font-family:var(--font-mono); font-size:10.5px; color:var(--text-dim); letter-spacing:0.05em; margin-bottom:10px; text-transform:uppercase;}
-  .metric-val{font-family:var(--font-mono); font-size:24px; font-weight:600; color:var(--text);}
-  .metric-val.ok{color:var(--green);}
-  .metric-val.warn{color:var(--amber);}
-  .metric-sub{font-size:11.5px; color:var(--text-dim); margin-top:4px;}
-  .bar-track{width:100%; height:5px; background:var(--border-soft); border-radius:3px; margin-top:10px; overflow:hidden;}
-  .bar-fill{height:100%; background:var(--cyan); border-radius:3px; transition:width .5s ease;}
-  @media (max-width:760px){ .dash-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:480px){ .dash-grid{grid-template-columns:1fr;} }
-
-  .dash-footer{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; padding:14px 24px; border-top:1px solid var(--border-soft); background:var(--bg-alt); font-family:var(--font-mono); font-size:12px; color:var(--text-muted);}
-  .placeholder-note{font-family:var(--font-mono); font-size:11px; color:var(--text-dim); text-align:center; padding:14px 0 0;}
-
-  section{padding:80px 0;}
-  .section-head{margin-bottom:42px; max-width:640px;}
-  .section-eyebrow{font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; margin-bottom:10px;}
-  h2{font-family:var(--font-display); font-size:clamp(1.4rem,2.8vw,2rem); font-weight:600; letter-spacing:-0.01em; margin-bottom:12px;}
-  .section-desc{color:var(--text-muted); font-size:15px;}
-
-  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:start;}
-  .about-body p{color:var(--text-muted); font-size:15px; margin-bottom:16px;}
-  .about-body p:last-child{margin-bottom:0;}
-  .facts{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:4px;}
-  .fact{padding:15px 18px; border-bottom:1px solid var(--border-soft); display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
-  .fact:last-child{border-bottom:none;}
-  .fact-label{font-family:var(--font-mono); font-size:11px; color:var(--text-dim); letter-spacing:0.03em;}
-  .fact-val{font-family:var(--font-mono); font-size:13.5px; color:var(--cyan); font-weight:600; text-align:right;}
-  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
-
-  .cap-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border-soft); border:1px solid var(--border-soft); border-radius:var(--radius); overflow:hidden;}
-  .cap-card{background:var(--panel); padding:24px 22px; transition:background .15s ease;}
-  .cap-card:hover{background:var(--panel-hi);}
-  .cap-icon{width:32px; height:32px; margin-bottom:14px; color:var(--cyan);}
-  .cap-card h3{font-family:var(--font-display); font-size:15.5px; font-weight:600; margin-bottom:8px;}
-  .cap-card p{font-size:13.5px; color:var(--text-muted);}
-  @media (max-width:860px){ .cap-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:560px){ .cap-grid{grid-template-columns:1fr;} }
-
-  /* TIMELINE */
-  .timeline{border-left:2px solid var(--border); margin-left:6px; padding-left:32px; display:flex; flex-direction:column; gap:36px;}
-  .tl-item{position:relative;}
-  .tl-item::before{content:""; position:absolute; left:-39.5px; top:4px; width:11px; height:11px; border-radius:50%; background:var(--bg); border:2px solid var(--cyan);}
-  .tl-item.past::before{border-color:var(--text-dim);}
-  .tl-date{font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); letter-spacing:0.03em; margin-bottom:6px;}
-  .tl-item h3{font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px;}
-  .tl-item .tl-org{color:var(--cyan); font-size:13.5px; font-weight:500; margin-bottom:8px;}
-  .tl-item p{font-size:14px; color:var(--text-muted); max-width:640px;}
-
-  /* EDU + CERTS */
-  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
-  @media (max-width:760px){ .two-col{grid-template-columns:1fr;} }
-  .edu-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; margin-bottom:14px;}
-  .edu-card:last-child{margin-bottom:0;}
-  .edu-card h3{font-family:var(--font-display); font-size:15px; font-weight:600; margin-bottom:4px;}
-  .edu-card .edu-school{color:var(--cyan); font-size:13px; margin-bottom:4px;}
-  .edu-card .edu-date{font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim);}
-
-  .chip-row{display:flex; flex-wrap:wrap; gap:10px;}
-  .chip{font-family:var(--font-mono); font-size:12px; color:var(--text-muted); border:1px solid var(--border); border-radius:20px; padding:9px 15px; display:flex; align-items:center; gap:8px;}
-  .chip .dot{width:5px; height:5px; border-radius:50%; background:var(--amber);}
-  .chip.cert .dot{background:var(--violet);}
-  .chip.lang .dot{background:var(--green);}
-  .chip.goal{border-style:dashed; border-color:var(--cyan-dim); color:var(--text);}
-  .chip.goal .dot{background:var(--cyan);}
-
-  .skills-block{margin-top:32px;}
-  .skills-title{font-family:var(--font-mono); font-size:11px; color:var(--text-dim); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:12px;}
-
-  .honor-card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:22px 24px; display:flex; align-items:center; gap:16px;}
-  .honor-icon{width:38px; height:38px; flex-shrink:0; color:var(--amber);}
-  .honor-card h3{font-family:var(--font-display); font-size:15.5px; font-weight:600; margin-bottom:3px;}
-  .honor-card p{font-size:13px; color:var(--text-muted);}
-
-  footer{border-top:1px solid var(--border-soft); padding:72px 0 40px;}
-  .contact-inner{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px; margin-bottom:48px;}
-  .contact-inner h2{margin-bottom:0; max-width:380px;}
-  .contact-links{display:flex; flex-direction:column; gap:16px; font-family:var(--font-mono); font-size:14px;}
-  .contact-links a{
-    text-decoration:none; color:var(--text-muted); transition:all .15s ease;
-    display:flex; align-items:center; gap:12px;
-    border:1px solid var(--border); border-radius:8px; padding:12px 18px;
-    background:var(--panel);
-  }
-  .contact-links a:hover{color:var(--cyan); border-color:var(--cyan-dim); background:var(--panel-hi);}
-  .contact-icon{width:18px; height:18px; flex-shrink:0;}
-  .foot-bottom{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-family:var(--font-mono); font-size:11.5px; color:var(--text-dim); padding-top:24px; border-top:1px solid var(--border-soft);}
-
-  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001s !important; animation-iteration-count:1 !important; transition-duration:0.001s !important;} }
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  // pick the language before first paint: saved choice, else the browser's
+  (function () {
+    var saved = localStorage.getItem('lang');
+    var lang = saved || ((navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en');
+    document.documentElement.dataset.lang = lang;
+    document.documentElement.lang = lang;
+  })();
+</script>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="nav">
-    <div class="nav-inner">
-      <a href="#" class="brand"><span class="brand-dot"></span>N. SUNDARRAJ BALAJI</a>
-      <nav class="links">
-        <a href="#about">About</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-      </nav>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+<div class="character" id="character" aria-hidden="true"></div>
+
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">Nitish</a>
+    <nav class="nav-links">
+      <a href="#now"><span lang="en">Now</span><span lang="fr">Aujourd’hui</span></a>
+      <a href="#timeline"><span lang="en">Timeline</span><span lang="fr">Parcours</span></a>
+      <a href="#about"><span lang="en">About</span><span lang="fr">À propos</span></a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language / Langue">
+      <button type="button" data-set-lang="en">EN</button>
+      <button type="button" data-set-lang="fr">FR</button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="hero container">
-      <div class="eyebrow">Electrical &amp; Control Systems Engineering — Schneider Electric</div>
-      <h1>I connect electrical infrastructure to <span class="hl">the control systems that keep it running.</span></h1>
-      <p class="hero-sub">I work across power distribution, protection, and the control layers that monitor them — building EPMS and IT/OT integrations for data centers, industrial operations, healthcare facilities, and large real estate portfolios across Eastern Canada. Grounded in electrical and controls engineering, moving deliberately toward systems engineering.</p>
-      <div class="hero-meta">
-        <span>📍 Montréal, Québec</span>
-        <span>🎓 CPI — Candidat à la profession d'ingénieur</span>
-        <span>🗣️ EN / FR / தமிழ்</span>
-      </div>
-      <div class="hero-actions">
-        <a href="#experience" class="btn btn-primary">See experience</a>
-        <a href="#contact" class="btn btn-ghost">Get in touch</a>
-      </div>
+<main id="top">
 
-      <div class="dash-panel">
-        <div class="dash-head">
-          <span>ELECTRICAL &amp; CONTROL SYSTEMS — MULTI-SECTOR MONITORING</span>
-          <span class="status-live"><span class="pulse"></span>LIVE</span>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner" id="heroInner">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span lang="en">Electrical &amp; control systems engineer · Montréal</span>
+          <span lang="fr">Ingénieur en systèmes électriques et de contrôle · Montréal</span>
+        </p>
+        <h1 class="hero-title">Nitish Sundarraj Balaji.</h1>
+        <p class="hero-tag">
+          <span lang="en">I can build anything I put my mind to.</span>
+          <span lang="fr">Je peux construire tout ce que je me mets en tête.</span>
+        </p>
+        <p class="hero-sub">
+          <span lang="en">Fourteen of my projects, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on this page. Scroll back in time.</span>
+          <span lang="fr">Quatorze de mes projets, d’un synoptique SCADA de centre de données à un pipeline MIPS à cinq étages, fonctionnent en direct sur cette page. Remontez le temps en défilant.</span>
+        </p>
+      </div>
+      <div class="visage" id="visage" role="img" aria-label="Line-art portrait of Nitish surrounded by his work"></div>
+    </div>
+    <a class="scroll-cue" href="#manifesto" aria-label="Scroll"><span></span></a>
+  </section>
+
+  <!-- MANIFESTO: words light up as you scroll -->
+  <section class="manifesto" id="manifesto">
+    <p class="scrub" lang="en">I connect switchgear to the SCADA systems that watch over it. Before that, I built robots that plant seeds, processors from full adders, F1 telemetry over a CAN bus and auction houses on AWS. This year I rebuilt every one of them so you can play with it, right here.</p>
+    <p class="scrub" lang="fr">Je relie l’appareillage électrique aux systèmes SCADA qui le surveillent. Avant cela, j’ai construit des robots qui sèment, des processeurs à partir d’additionneurs complets, de la télémétrie F1 sur bus CAN et des maisons d’enchères sur AWS. Cette année, je les ai tous reconstruits pour que vous puissiez les essayer, ici même.</p>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline" id="timeline">
+    <div class="timeline-head reveal">
+      <p class="eyebrow"><span lang="en">Timeline</span><span lang="fr">Parcours</span></p>
+      <h2 class="display"><span lang="en">From now, back to<br>the first robot.</span><span lang="fr">D’aujourd’hui<br>au premier robot.</span></h2>
+    </div>
+
+    <div class="rail" aria-hidden="true"><span id="railFill"></span></div>
+
+    <!-- ===================== NOW ===================== -->
+    <article class="chapter" id="now" data-year="2025">
+      <div class="chapter-year"><span class="yr">2025</span><span class="yr-sub"><span lang="en">to now</span><span lang="fr">à aujourd’hui</span></span></div>
+      <div class="chapter-body">
+        <div class="entry reveal">
+          <p class="kicker work"><span lang="en">Work · Current role</span><span lang="fr">Emploi · Poste actuel</span></p>
+          <h3><span lang="en">Specialist, Power Application Engineering</span><span lang="fr">Spécialiste, ingénierie d’applications de puissance</span></h3>
+          <p class="org">Schneider Electric · Dollard-des-Ormeaux, QC · <span lang="en">Aug 2025 – present</span><span lang="fr">août 2025 – aujourd’hui</span></p>
+          <p class="lede">
+            <span lang="en">I deliver electrical power monitoring (EPMS) and IT/OT integrations across Eastern Canada for data centres, hospitals, industrial sites and real-estate portfolios. In practice that means connecting switchgear, UPSs and protection relays to the SCADA and BMS screens operators trust when something trips at 3 a.m.</span>
+            <span lang="fr">Je réalise des intégrations de surveillance de l’énergie électrique (EPMS) et TI/TO dans l’Est du Canada, pour des centres de données, des hôpitaux, des sites industriels et des parcs immobiliers. Concrètement : relier l’appareillage, les ASI et les relais de protection aux écrans SCADA et GTB sur lesquels les opérateurs comptent quand quelque chose déclenche à 3 h du matin.</span>
+          </p>
         </div>
-        <div class="sector-tabs" id="sectorTabs">
-          <button class="sector-tab active" data-sector="datacenter">Data Center</button>
-          <button class="sector-tab" data-sector="healthcare">Healthcare</button>
-          <button class="sector-tab" data-sector="industrial">Industrial</button>
-          <button class="sector-tab" data-sector="realestate">Real Estate</button>
-        </div>
-        <div class="dash-body">
-          <div class="dash-grid">
-            <div class="metric">
-              <div class="metric-label">Power Quality</div>
-              <div class="metric-val ok" id="mQuality">99.98%</div>
-              <div class="metric-sub" id="mQualitySub">THD within spec</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Load</div>
-              <div class="metric-val" id="mLoad">64%</div>
-              <div class="bar-track"><div class="bar-fill" id="mLoadBar" style="width:64%"></div></div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Active Alarms</div>
-              <div class="metric-val ok" id="mAlarms">0</div>
-              <div class="metric-sub" id="mAlarmsSub">All clear</div>
-            </div>
-            <div class="metric">
-              <div class="metric-label">Uptime</div>
-              <div class="metric-val" id="mUptime">100%</div>
-              <div class="metric-sub" id="mUptimeSub">Rolling 30 days</div>
-            </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head">
+            <p><span lang="en">Try it: a 2N data-centre one-line. Click a breaker to open or close it, or cut a utility feed and watch the UPS ride through while the generator starts.</span><span lang="fr">Essayez : un unifilaire de centre de données 2N. Cliquez sur un disjoncteur pour l’ouvrir ou le fermer, ou coupez une alimentation réseau et regardez l’ASI tenir la charge pendant que la génératrice démarre.</span></p>
           </div>
-        </div>
-        <div class="dash-footer">
-          <span id="dashDesc">Redundant power path monitored across N+1 UPS distribution and utility feed.</span>
-        </div>
-      </div>
-      <p class="placeholder-note">Sample dashboard illustrating cross-sector EPMS monitoring — swap in real site data.</p>
-    </section>
-
-    <section id="about" class="container">
-      <div class="about-grid">
-        <div class="about-body">
-          <div class="section-eyebrow">About</div>
-          <h2>Electrical foundations, systems-level thinking.</h2>
-          <p>I'm currently a Specialist in Power Application Engineering at Schneider Electric, where I deliver electrical power monitoring and control system integrations for commercial and industrial customers across Eastern Canada. Most of my work sits at the IT/OT boundary — connecting switchgear, distribution, and protection equipment to the SCADA and BMS layers that supervise them across data centers, industrial operations, healthcare facilities, and large real estate portfolios.</p>
-          <p>My academic background is built for that intersection: a Master of Engineering in Electrical and Computer Engineering from Concordia, and a Bachelor's in Mechatronics, Robotics, and Automation Engineering from SRMIST. Together they cover power systems, controls, and automation — the three disciplines that systems engineering sits on top of.</p>
-          <p>That's the direction I'm deliberately building toward: from electrical and controls delivery today, into a systems engineering role that owns the integration across hardware, controls, and software — not just one layer of it. Two years in outside sales before engineering also means I scope and communicate systems in terms a client or stakeholder actually trusts, not just what's technically correct.</p>
-        </div>
-        <div class="facts">
-          <div class="fact"><span class="fact-label">ROLE</span><span class="fact-val">Electrical &amp; Controls Eng.</span></div>
-          <div class="fact"><span class="fact-label">COMPANY</span><span class="fact-val">Schneider Electric</span></div>
-          <div class="fact"><span class="fact-label">REGION</span><span class="fact-val">Eastern Canada</span></div>
-          <div class="fact"><span class="fact-label">FOCUS</span><span class="fact-val">Power, Controls &amp; IT/OT</span></div>
-          <div class="fact"><span class="fact-label">TRAJECTORY</span><span class="fact-val">→ Systems Engineering</span></div>
-          <div class="fact"><span class="fact-label">STATUS</span><span class="fact-val">CPI (QC)</span></div>
+          <div class="demo glass" data-demo="scada"></div>
+          <p class="demo-note"><span lang="en">Illustrative mimic built for this page, not a client system. Red = closed, green = open (North American convention).</span><span lang="fr">Synoptique illustratif conçu pour cette page, pas un système client. Rouge = fermé, vert = ouvert (convention nord-américaine).</span></p>
         </div>
       </div>
-    </section>
+    </article>
 
-    <section id="capabilities" class="container">
-      <div class="section-head">
-        <div class="section-eyebrow">Capabilities</div>
-        <h2>Where I add value on a project</h2>
-        <p class="section-desc">Electrical and controls depth today, applied with the integration mindset systems engineering demands.</p>
-      </div>
-      <div class="cap-grid">
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M7 20h10M12 16v4"/><path d="M7 8h4M7 11h6"/></svg>
-          <h3>EPMS &amp; Controls Integration</h3>
-          <p>Configuring Electrical Power Monitoring Systems and tying them into the control logic that acts on their data in real time.</p>
+    <!-- ===================== 2026 ===================== -->
+    <article class="chapter" data-year="2026">
+      <div class="chapter-year"><span class="yr">2026</span><span class="yr-sub"><span lang="en">rebuild season</span><span lang="fr">saison des refontes</span></span></div>
+      <div class="chapter-body">
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Robotics</span><span lang="fr">Projet · Robotique</span></p>
+          <h3>Monte Carlo Localization</h3>
+          <p class="lede">
+            <span lang="en">A particle filter that works out where a robot is in a 28 m hallway from odometry and a 180-beam laser. On the real log it keeps the median scan end-point 4 cm from a wall; odometry alone drifts to 36 cm. Augmented MCL recovers a kidnapped robot in 5 runs out of 5.</span>
+            <span lang="fr">Un filtre particulaire qui détermine où se trouve un robot dans un couloir de 28 m, à partir de l’odométrie et d’un laser à 180 faisceaux. Sur le vrai journal, l’extrémité médiane des balayages reste à 4 cm d’un mur ; l’odométrie seule dérive jusqu’à 36 cm. Le MCL augmenté retrouve un robot kidnappé dans 5 essais sur 5.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Monte-Carlo-Localization/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Monte-Carlo-Localization">GitHub ↗</a></p>
         </div>
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg>
-          <h3>IT/OT Systems Integration</h3>
-          <p>Bridging the operational technology and IT layers so electrical data reaches the SCADA and BMS systems that act on it.</p>
-        </div>
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg>
-          <h3>Protection, Automation &amp; Controls</h3>
-          <p>Working across switchgear, distribution, and the automation layer that governs how they respond under normal and fault conditions.</p>
-        </div>
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 4v5c0 5-3.2 7.6-7 9-3.8-1.4-7-4-7-9V7l7-4z"/></svg>
-          <h3>Multi-Sector Systems Delivery</h3>
-          <p>Data centers, industrial operations, healthcare facilities, and large real estate portfolios — each with different tolerances for downtime.</p>
-        </div>
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h5l2 8 4-16 2 8h5"/></svg>
-          <h3>Health &amp; Safety Compliance</h3>
-          <p>Construction-site health and safety certified (WHMIS) — comfortable working live sites across Eastern Canada.</p>
-        </div>
-
-        <div class="cap-card">
-          <svg class="cap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M9.5 10.2L6.5 6.5M14.5 10.2l3-3.7M9.5 13.8l-3 3.7M14.5 13.8l3 3.7"/></svg>
-          <h3>Systems Engineering Mindset</h3>
-          <p>Trained across electrical, controls, and software — the discipline crossover a systems role is built on, applied day to day.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="experience" class="container">
-      <div class="section-head">
-        <div class="section-eyebrow">Experience</div>
-        <h2>Building toward systems engineering, one integration at a time</h2>
-        <p class="section-desc">Each role has added a layer — client-facing judgment first, then the electrical and controls depth it now sits on top of.</p>
-      </div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-date">Aug 2025 — Present · 1 yr 1 mo</div>
-          <h3>Specialist, Power Application Engineering</h3>
-          <div class="tl-org">Schneider Electric · Dollard-des-Ormeaux, QC</div>
-          <p>Delivering electrical power monitoring and IT/OT control system integration for commercial and industrial customers across Eastern Canada — supporting data centers, industrial operations, healthcare facilities, and large real estate portfolios where power and controls have to work as one system.</p>
-        </div>
-        <div class="tl-item past">
-          <div class="tl-date">May 2025 — Aug 2025 · 4 mos</div>
-          <h3>Customer Service Specialist</h3>
-          <div class="tl-org">Alorica · Montreal, QC</div>
-          <p>Handled customer inquiries and resolved concerns through phone and digital channels, maintaining positive client relationships under volume.</p>
-        </div>
-        <div class="tl-item past">
-          <div class="tl-date">Dec 2022 — Nov 2024 · 2 yrs</div>
-          <h3>Outside Sales Representative</h3>
-          <div class="tl-org">IO Solutions Contact Center · Montreal, QC</div>
-          <p>Balanced academic responsibilities with hands-on sales and customer service experience — building persuasion and relationship-building skills across a diverse client base in a fast-moving environment.</p>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Scatter the particles and watch them converge, then kidnap the robot.</span><span lang="fr">Dispersez les particules et regardez-les converger, puis kidnappez le robot.</span></p></div>
+          <div class="demo glass" data-demo="mcl"></div>
         </div>
       </div>
-    </section>
+    </article>
 
-    <section id="education" class="container">
-      <div class="two-col">
-        <div>
-          <div class="section-eyebrow">Education</div>
-          <h2 style="margin-bottom:20px;">Academic background</h2>
-          <div class="edu-card">
-            <h3>Master of Engineering, Electrical and Computer Engineering</h3>
-            <div class="edu-school">Concordia University</div>
-            <div class="edu-date">September 2022 — May 2025</div>
-          </div>
-          <div class="edu-card">
-            <h3>Bachelor of Technology, Mechatronics, Robotics &amp; Automation Engineering</h3>
-            <div class="edu-school">SRM Institute of Science and Technology (SRMIST)</div>
-            <div class="edu-date">June 2018 — May 2022</div>
-          </div>
+    <!-- ===================== 2025 ===================== -->
+    <article class="chapter" data-year="2025b">
+      <div class="chapter-year"><span class="yr">2025</span></div>
+      <div class="chapter-body">
+        <div class="entry compact reveal">
+          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
+          <h3><span lang="en">Customer Service Specialist</span><span lang="fr">Spécialiste du service à la clientèle</span></h3>
+          <p class="org">Alorica · Montréal · <span lang="en">May – Aug 2025</span><span lang="fr">mai – août 2025</span></p>
+          <p><span lang="en">Resolved customer issues by phone and digital channels under volume, in English and French.</span><span lang="fr">Résolution de demandes clients par téléphone et canaux numériques, à fort volume, en anglais et en français.</span></p>
         </div>
-        <div>
-          <div class="section-eyebrow">Certifications</div>
-          <h2 style="margin-bottom:20px;">Credentials</h2>
-          <div class="chip-row">
-            <span class="chip cert"><span class="dot"></span>CPI — Candidat à la profession d'ingénieur</span>
-            <span class="chip cert"><span class="dot"></span>Santé et sécurité — Chantiers de construction</span>
-            <span class="chip cert"><span class="dot"></span>WHMIS</span>
-            <span class="chip cert"><span class="dot"></span>Self Driving Cars Specialization</span>
-            <span class="chip cert"><span class="dot"></span>Kaizen — Internet of Things</span>
-          </div>
-          <div class="skills-block">
-            <div class="skills-title">Languages</div>
-            <div class="chip-row">
-              <span class="chip lang"><span class="dot"></span>English — Native/Bilingual</span>
-              <span class="chip lang"><span class="dot"></span>French — Professional Working</span>
-              <span class="chip lang"><span class="dot"></span>Tamil — Native/Bilingual</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="container" style="padding-bottom:120px;">
-      <div class="section-head">
-        <div class="section-eyebrow">Recognition</div>
-        <h2>Honors</h2>
-      </div>
-      <div class="honor-card">
-        <svg class="honor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z"/><path d="M7 5H4a3 3 0 003 3M17 5h3a3 3 0 01-3 3"/></svg>
-        <div>
-          <h3>Winner — Techknow Competition</h3>
-          <p>Recognized for technical problem-solving in a competitive engineering format.</p>
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Automotive networks</span><span lang="fr">Projet · Réseaux automobiles</span></p>
+          <h3>F1 CAN Telemetry</h3>
+          <p class="lede">
+            <span lang="en">Real telemetry from the 2023 Canadian Grand Prix, streamed over a 500 kbit/s CAN bus to a simulated pit wall, then logged and analysed in Python, MATLAB and Simulink from one shared message catalogue. Every frame carries a rolling counter and a CRC-8 (SAE J1850).</span>
+            <span lang="fr">De la vraie télémétrie du Grand Prix du Canada 2023, transmise sur un bus CAN à 500 kbit/s vers un muret des stands simulé, puis journalisée et analysée en Python, MATLAB et Simulink à partir d’un même catalogue de messages. Chaque trame porte un compteur cyclique et un CRC-8 (SAE J1850).</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/F1-CAN-Telemetry-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/F1-CAN-Telemetry-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Set the car’s state, then flip any bit of the frame and see whether the receiver catches it.</span><span lang="fr">Réglez l’état de la voiture, puis inversez n’importe quel bit de la trame et voyez si le récepteur le détecte.</span></p></div>
+          <div class="demo glass" data-demo="f1can"></div>
+        </div>
+
+        <div class="entry compact reveal">
+          <p class="kicker edu"><span lang="en">Education</span><span lang="fr">Formation</span></p>
+          <h3><span lang="en">Master of Engineering, Electrical &amp; Computer Engineering</span><span lang="fr">Maîtrise en ingénierie, génie électrique et informatique</span></h3>
+          <p class="org"><span lang="en">Concordia University · Sep 2022 – May 2025</span><span lang="fr">Université Concordia · sept. 2022 – mai 2025</span></p>
+          <p><span lang="en">Computer architecture, digital systems design, functional and formal hardware verification, robotics. Several of the projects below started as course projects here.</span><span lang="fr">Architecture des ordinateurs, conception de systèmes numériques, vérification fonctionnelle et formelle du matériel, robotique. Plusieurs projets ci-dessous sont nés de cours suivis ici.</span></p>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Cloud</span><span lang="fr">Projet · Infonuagique</span></p>
+          <h3>SoftHub</h3>
+          <p class="lede">
+            <span lang="en">A serverless marketplace for software licences on AWS. Buyers pay by card and receive licence keys by e-mail within seconds. Licences are granted only by Stripe’s signed webhook, so a closed tab or a forged “payment succeeded” can neither grant nor lose one. Launch-day load test: about US$0.07 of AWS per day.</span>
+            <span lang="fr">Une place de marché sans serveur pour licences logicielles sur AWS. Les acheteurs paient par carte et reçoivent leurs clés de licence par courriel en quelques secondes. Seul le webhook signé de Stripe accorde une licence : un onglet fermé ou un faux « paiement réussi » ne peut ni en accorder ni en perdre une. Test de charge du jour du lancement : environ 0,07 $ US d’AWS par jour.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/SoftHub-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/SoftHub-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Buy something with the test card and follow the payment through the backend. Double-click Pay: you still get one order.</span><span lang="fr">Achetez quelque chose avec la carte de test et suivez le paiement dans le backend. Double-cliquez sur Payer : vous n’obtenez toujours qu’une commande.</span></p></div>
+          <div class="demo glass" data-demo="softhub"></div>
         </div>
       </div>
-    </section>
-  </main>
+    </article>
 
-  <footer id="contact" class="container">
-    <div class="contact-inner">
-      <div>
-        <div class="section-eyebrow">Get in touch</div>
-        <h2>Let's talk about electrical &amp; control systems.</h2>
+    <!-- ===================== 2024 ===================== -->
+    <article class="chapter" data-year="2024">
+      <div class="chapter-year"><span class="yr">2024</span></div>
+      <div class="chapter-body">
+        <div class="entry compact reveal">
+          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
+          <h3><span lang="en">Outside Sales Representative</span><span lang="fr">Représentant des ventes externes</span></h3>
+          <p class="org">IO Solutions · Montréal · <span lang="en">Dec 2022 – Nov 2024</span><span lang="fr">déc. 2022 – nov. 2024</span></p>
+          <p><span lang="en">Two years of sales alongside my master’s. It taught me to scope a system in terms a client actually trusts, not just what’s technically correct.</span><span lang="fr">Deux ans de vente en parallèle de ma maîtrise. J’y ai appris à présenter un système dans des termes auxquels un client fait vraiment confiance, pas seulement ce qui est techniquement exact.</span></p>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Cloud</span><span lang="fr">Projet · Infonuagique</span></p>
+          <h3>AuctionHub</h3>
+          <p class="lede">
+            <span lang="en">Live auctions on serverless AWS: proxy bidding, soft close and WebSocket pushes, with a compare-and-swap bid path on DynamoDB. In an evening-sale load test with 300 live members, bids had a p95 of 43 ms and none were lost.</span>
+            <span lang="fr">Des enchères en direct sur AWS sans serveur : enchères par procuration, fermeture souple et notifications WebSocket, avec un chemin de mise en compare-and-swap sur DynamoDB. Lors d’un test de charge en soirée avec 300 membres connectés, le p95 des mises était de 43 ms, sans aucune mise perdue.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/AuctionSystem-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/AuctionSystem-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Set a hidden maximum and bid against two simulated members. A late bid pushes the close back by 30 seconds.</span><span lang="fr">Fixez un maximum caché et misez contre deux membres simulés. Une mise tardive repousse la fermeture de 30 secondes.</span></p></div>
+          <div class="demo glass" data-demo="auction"></div>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Hardware verification</span><span lang="fr">Projet · Vérification matérielle</span></p>
+          <h3><span lang="en">Calc1 &amp; Calc3 Functional Verification</span><span lang="fr">Vérification fonctionnelle de Calc1 et Calc3</span></h3>
+          <p class="lede">
+            <span lang="en">A layered, self-checking SystemVerilog testbench for IBM’s four-port calculator designs. It catches 14 of 14 injected bugs with no false failures. Going back to the 2024 logs, I found the root cause of every ADD failure: a bridge between the bit-4 and bit-5 nets that reproduces all 3,321 failing lines digit for digit.</span>
+            <span lang="fr">Un banc d’essai SystemVerilog autovérifiant, en couches, pour les calculateurs à quatre ports d’IBM. Il détecte 14 bogues injectés sur 14, sans fausse alerte. En reprenant les journaux de 2024, j’ai trouvé la cause de chaque échec d’addition : un pont entre les nœuds des bits 4 et 5, qui reproduit les 3 321 lignes fautives chiffre pour chiffre.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Calc-Functional-Verification/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Calc-Functional-Verification">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Inject a bug into the real 4-state Calc1 model, run the regression and see whether the scoreboard catches it.</span><span lang="fr">Injectez un bogue dans le vrai modèle Calc1 à 4 états, lancez la régression et voyez si le tableau de bord le détecte.</span></p></div>
+          <div class="demo glass" data-demo="calc"></div>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Formal verification</span><span lang="fr">Projet · Vérification formelle</span></p>
+          <h3><span lang="en">DDS Synthesizer, formally verified</span><span lang="fr">Synthétiseur DDS, vérifié formellement</span></h3>
+          <p class="lede">
+            <span lang="en">A direct digital synthesizer checked from RTL to gates. Equivalence checking finds the 14 bugs planted in a netlist (11 wrong cell types, 3 mis-wired flip-flops) and repairs them automatically in about 5 seconds, using open-source tools only.</span>
+            <span lang="fr">Un synthétiseur numérique direct vérifié du RTL jusqu’aux portes. La vérification d’équivalence trouve les 14 bogues cachés dans une netlist (11 cellules erronées, 3 bascules mal câblées) et les répare automatiquement en environ 5 secondes, avec des outils libres seulement.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/DDS-Synthesizer/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/DDS-Synthesizer">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Turn the tuning word and watch the phase accumulator drive the sine ROM. Plant a netlist bug and compare it against the RTL.</span><span lang="fr">Tournez le mot d’accord et regardez l’accumulateur de phase piloter la ROM sinus. Plantez un bogue dans la netlist et comparez-la au RTL.</span></p></div>
+          <div class="demo glass" data-demo="dds"></div>
+        </div>
       </div>
-      <div class="contact-links">
-        <a href="https://www.linkedin.com/in/sundarrajnithish" target="_blank" rel="noopener">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-3.2a1.8 1.8 0 013.6 0V16M12 12.8V16"/></svg>
-          linkedin.com/in/sundarrajnithish
-        </a>
-        <a href="https://github.com/sundarrajnithish" target="_blank" rel="noopener">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2-.2 4.5-1 4.5-4.5a3.5 3.5 0 00-1-2.5 3.3 3.3 0 00-.1-2.5s-.9-.3-3 1a10.2 10.2 0 00-5.4 0c-2.1-1.3-3-1-3-1a3.3 3.3 0 00-.1 2.5 3.5 3.5 0 00-1 2.5c0 3.5 2.5 4.3 4.5 4.5-.4.4-.6.9-.5 1.5V19"/></svg>
-          github.com/sundarrajnithish
-        </a>
+    </article>
+
+    <!-- ===================== 2023 ===================== -->
+    <article class="chapter" data-year="2023">
+      <div class="chapter-year"><span class="yr">2023</span></div>
+      <div class="chapter-body">
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Digital design</span><span lang="fr">Projet · Conception numérique</span></p>
+          <h3><span lang="en">Arithmetic Unit</span><span lang="fr">Unité arithmétique</span></h3>
+          <p class="lede">
+            <span lang="en">A synchronous arithmetic unit in structural VHDL, built up from full adders: P = A·B/2<sup>C</sup> + D, with array and Dadda multipliers. The 2023 version didn’t compile as submitted. Version 2 passes 83 regression runs and has measured fmax.</span>
+            <span lang="fr">Une unité arithmétique synchrone en VHDL structurel, construite à partir d’additionneurs complets : P = A·B/2<sup>C</sup> + D, avec multiplieurs en réseau et de Dadda. La version de 2023 ne compilait pas telle que remise. La version 2 réussit 83 essais de régression, avec une fmax mesurée.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Arithmetic-Unit-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Arithmetic-Unit-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Pick two operands and step the 8×8 partial products through every Dadda stage. Each dot is a real bit.</span><span lang="fr">Choisissez deux opérandes et faites passer les produits partiels 8×8 par chaque étage de Dadda. Chaque point est un vrai bit.</span></p></div>
+          <div class="demo glass" data-demo="arith"></div>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Computer architecture</span><span lang="fr">Projet · Architecture des ordinateurs</span></p>
+          <h3>mini-MIPS</h3>
+          <p class="lede">
+            <span lang="en">A 32-bit, 5-stage pipelined MIPS subset in VHDL-2008, with branches resolved in ID, a load-use interlock, and EX and ID forwarding. It runs 1,000 constrained-random programs against a golden ISS (aggregate CPI 1.298). The simulator below is the JavaScript twin checked cycle-for-cycle against the RTL over 98,669 cycles.</span>
+            <span lang="fr">Un sous-ensemble MIPS 32 bits en pipeline à 5 étages, en VHDL-2008, avec branchements résolus en ID, verrouillage load-use et anticipation en EX et en ID. Il exécute 1 000 programmes aléatoires contraints face à un ISS de référence (CPI global 1,298). Le simulateur ci-dessous est son jumeau JavaScript, vérifié cycle par cycle contre le RTL sur 98 669 cycles.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/mini-MIPS/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/mini-MIPS">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale wide">
+          <div class="demo-head"><p><span lang="en">Step the pipeline one clock edge at a time. Watch stalls, flushes and forwarding paths happen, or edit the program.</span><span lang="fr">Avancez le pipeline d’un front d’horloge à la fois. Observez les suspensions, les vidages et les chemins d’anticipation, ou modifiez le programme.</span></p></div>
+          <div class="demo glass" data-demo="mips"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================== 2022 ===================== -->
+    <article class="chapter" data-year="2022">
+      <div class="chapter-year"><span class="yr">2022</span></div>
+      <div class="chapter-body">
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Front end</span><span lang="fr">Projet · Interface web</span></p>
+          <h3>Le Crimson</h3>
+          <p class="lede">
+            <span lang="en">A personalised news reader. Pick your interests and get a feed built around them, with search, bookmarks and a community feed. Rebuilt in 2026 from a Create React App sprint project to React 19, TanStack Query and Tailwind 4, with axe-core accessibility checks in CI.</span>
+            <span lang="fr">Un lecteur de nouvelles personnalisé. Choisissez vos intérêts et obtenez un fil construit autour d’eux, avec recherche, signets et fil communautaire. Refait en 2026 : d’un projet sprint Create React App à React 19, TanStack Query et Tailwind 4, avec des contrôles d’accessibilité axe-core en intégration continue.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/le-crimson-frontend/"><span lang="en">Open the app</span><span lang="fr">Ouvrir l’appli</span> ↗</a><a href="https://github.com/sundarrajnitish/le-crimson-frontend">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Choose your interests and search. Search ignores accents, so “montreal” finds “Montréal”.</span><span lang="fr">Choisissez vos intérêts et cherchez. La recherche ignore les accents : « montreal » trouve « Montréal ».</span></p></div>
+          <div class="demo glass" data-demo="crimson"></div>
+        </div>
+
+        <div class="entry compact reveal">
+          <p class="kicker edu"><span lang="en">Education</span><span lang="fr">Formation</span></p>
+          <h3><span lang="en">B.Tech, Mechatronics, Robotics &amp; Automation Engineering</span><span lang="fr">B.Tech, génie mécatronique, robotique et automatisation</span></h3>
+          <p class="org"><span lang="en">SRM Institute of Science and Technology · Jun 2018 – May 2022</span><span lang="fr">SRM Institute of Science and Technology · juin 2018 – mai 2022</span></p>
+          <p><span lang="en">Where the robots below were born. Winner of the Techknow technical competition.</span><span lang="fr">C’est là que sont nés les robots ci-dessous. Lauréat du concours technique Techknow.</span></p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================== 2021 ===================== -->
+    <article class="chapter" data-year="2021">
+      <div class="chapter-year"><span class="yr">2021</span></div>
+      <div class="chapter-body">
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Telerobotics</span><span lang="fr">Projet · Télérobotique</span></p>
+          <h3>RTMC-HG</h3>
+          <p class="lede">
+            <span lang="en">Real-time telerobotic manipulator control using hand gestures. A webcam names one of 20 gestures, the command crosses the internet, and five servos pull the tendons of a robot hand somewhere else. Version 2 adds a confidence gate, CRC-checked serial frames and newest-only transport, so the robot keeps up with a person.</span>
+            <span lang="fr">Commande télérobotique en temps réel d’un manipulateur par gestes de la main. Une webcam reconnaît l’un de 20 gestes, la commande traverse Internet, et cinq servomoteurs tirent les tendons d’une main robotique ailleurs. La version 2 ajoute un seuil de confiance, des trames série vérifiées par CRC et un transport qui ne garde que la commande la plus récente : le robot suit enfin le rythme d’une personne.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/RTMC-HG-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/RTMC-HG-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Pick a gesture or bend the fingers yourself. Then corrupt the serial frame and watch the Arduino reject it.</span><span lang="fr">Choisissez un geste ou pliez les doigts vous-même. Puis corrompez la trame série et regardez l’Arduino la rejeter.</span></p></div>
+          <div class="demo glass" data-demo="rtmc"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===================== 2020 ===================== -->
+    <article class="chapter" data-year="2020">
+      <div class="chapter-year"><span class="yr">2020</span><span class="yr-sub"><span lang="en">where it started</span><span lang="fr">là où tout a commencé</span></span></div>
+      <div class="chapter-body">
+        <div class="entry compact reveal">
+          <p class="kicker edu"><span lang="en">Training</span><span lang="fr">Formation</span></p>
+          <h3><span lang="en">Kaizen Robotics Program</span><span lang="fr">Programme de robotique Kaizen</span></h3>
+          <p class="org"><span lang="en">Internet of Things certification · 2020</span><span lang="fr">Certification Internet des objets · 2020</span></p>
+          <p><span lang="en">Embedded and IoT projects from the training program, all on <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span><span lang="fr">Projets embarqués et IdO du programme de formation, tous sur <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span></p>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · My first robot</span><span lang="fr">Projet · Mon premier robot</span></p>
+          <h3>Handwriting-Machine</h3>
+          <p class="lede">
+            <span lang="en">An ATmega16, two A4988 stepper drivers and a servo-lifted pen on an acrylic frame. It interprets G-code (<code>G01</code> to move, <code>M03</code> pen down, <code>M05</code> pen up) and writes whatever it’s given on a 155 × 155 mm bed.</span>
+            <span lang="fr">Un ATmega16, deux pilotes pas-à-pas A4988 et un stylo levé par servo sur un châssis en acrylique. Il interprète le G-code (<code>G01</code> pour se déplacer, <code>M03</code> stylo baissé, <code>M05</code> stylo levé) et écrit tout ce qu’on lui donne sur une surface de 155 × 155 mm.</span>
+          </p>
+          <p class="links"><a href="https://github.com/sundarrajnitish/Handwriting-Machine">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Type something. It becomes G-code, and the plotter writes it.</span><span lang="fr">Tapez quelque chose. Le texte devient du G-code, et la table traçante l’écrit.</span></p></div>
+          <div class="demo glass" data-demo="plotter"></div>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Agricultural robotics</span><span lang="fr">Projet · Robotique agricole</span></p>
+          <h3>FARM-E</h3>
+          <p class="lede">
+            <span lang="en">A tracked plantation robot. It drives a bed in serpentine rows, stops at a set spacing, drops seed, waters it and moves on, braking within milliseconds when its sonar sees the edge. An Arduino UNO drives it; a NodeMCU serves the phone controls over Wi-Fi, linked by CRC-checked frames.</span>
+            <span lang="fr">Un robot de plantation à chenilles. Il parcourt une planche en rangs serpentins, s’arrête à un espacement donné, dépose la semence, l’arrose et repart, en freinant en quelques millisecondes quand son sonar détecte le bord. Un Arduino UNO le pilote ; un NodeMCU sert les commandes du téléphone par Wi-Fi, reliés par des trames vérifiées par CRC.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/FARM-E-Plantation-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/FARM-E-Plantation-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Set the spacing and start a planting run. Hit STOP like the phone would.</span><span lang="fr">Réglez l’espacement et lancez une plantation. Appuyez sur ARRÊT comme le ferait le téléphone.</span></p></div>
+          <div class="demo glass" data-demo="farme"></div>
+        </div>
+
+        <div class="entry reveal">
+          <p class="kicker project"><span lang="en">Project · Control systems</span><span lang="fr">Projet · Systèmes de contrôle</span></p>
+          <h3>Hydroponinator</h3>
+          <p class="lede">
+            <span lang="en">An Arduino Mega controller for a soil-free grow rack. It keeps the nutrient solution between pH 5.5 and 6.5 using dose-and-wait control, runs the lights, pump and climate on a schedule, and stops dosing when a sensor lies. In a simulated 14-day grow, pH stayed in band 100% of the time.</span>
+            <span lang="fr">Un contrôleur Arduino Mega pour une culture hors sol. Il maintient la solution nutritive entre pH 5,5 et 6,5 par dosage et attente, gère l’éclairage, la pompe et le climat selon un horaire, et cesse de doser quand un capteur ment. Sur 14 jours de culture simulée, le pH est resté dans la plage 100 % du temps.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Automated-Hydroponics-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Automated-Hydroponics-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Refill the tank with hard tap water, or break the pH probe, and watch the controller respond.</span><span lang="fr">Remplissez le réservoir d’eau du robinet calcaire, ou brisez la sonde de pH, et regardez le contrôleur réagir.</span></p></div>
+          <div class="demo glass" data-demo="hydro"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal" id="stats">
+    <div class="stat"><span class="num" data-count="14">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
+    <div class="stat"><span class="num" data-count="7">0</span><span class="lbl"><span lang="en">years of building</span><span lang="fr">années à construire</span></span></div>
+    <div class="stat"><span class="num" data-count="9">0</span><span class="lbl"><span lang="en">layers, gates to cloud</span><span lang="fr">couches, des portes au nuage</span></span></div>
+    <div class="stat"><span class="num" data-count="3">0</span><span class="lbl"><span lang="en">languages spoken</span><span lang="fr">langues parlées</span></span></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-head reveal">
+      <p class="eyebrow"><span lang="en">About</span><span lang="fr">À propos</span></p>
+      <h2 class="display"><span lang="en">Electrical foundations.<br>Systems-level thinking.</span><span lang="fr">Des bases en électricité.<br>Une vision système.</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="glass card reveal">
+        <h4><span lang="en">Where I’m heading</span><span lang="fr">Où je m’en vais</span></h4>
+        <p><span lang="en">From electrical and controls delivery today to a systems engineering role that owns the integration across hardware, controls and software, not just one layer of it.</span><span lang="fr">De la réalisation en électricité et en contrôle aujourd’hui vers un rôle d’ingénierie des systèmes qui porte l’intégration entre matériel, contrôle et logiciel, et pas seulement une couche.</span></p>
+      </div>
+      <div class="glass card reveal">
+        <h4><span lang="en">What I bring</span><span lang="fr">Ce que j’apporte</span></h4>
+        <ul class="ticks">
+          <li><span lang="en">EPMS and controls integration</span><span lang="fr">Intégration EPMS et contrôle</span></li>
+          <li><span lang="en">IT/OT bridging to SCADA and BMS</span><span lang="fr">Passerelles TI/TO vers SCADA et GTB</span></li>
+          <li><span lang="en">Protection, automation and switchgear</span><span lang="fr">Protection, automatisation et appareillage</span></li>
+          <li><span lang="en">RTL design and hardware verification</span><span lang="fr">Conception RTL et vérification matérielle</span></li>
+          <li><span lang="en">Embedded firmware and robotics</span><span lang="fr">Micrologiciel embarqué et robotique</span></li>
+          <li><span lang="en">Serverless cloud and web front ends</span><span lang="fr">Infonuagique sans serveur et interfaces web</span></li>
+        </ul>
+      </div>
+      <div class="glass card reveal">
+        <h4><span lang="en">Credentials</span><span lang="fr">Titres</span></h4>
+        <ul class="plain">
+          <li>CPI · <span lang="en">Engineer in training (OIQ)</span><span lang="fr">Candidat à la profession d’ingénieur (OIQ)</span></li>
+          <li><span lang="en">Construction site health &amp; safety (ASP)</span><span lang="fr">Santé et sécurité générale sur les chantiers de construction</span></li>
+          <li>WHMIS / SIMDUT</li>
+          <li><span lang="en">Self-Driving Cars Specialization</span><span lang="fr">Spécialisation Voitures autonomes</span></li>
+          <li><span lang="en">Kaizen · Internet of Things</span><span lang="fr">Kaizen · Internet des objets</span></li>
+          <li><span lang="en">Winner, Techknow competition</span><span lang="fr">Lauréat, concours Techknow</span></li>
+        </ul>
+      </div>
+      <div class="glass card reveal">
+        <h4><span lang="en">Languages</span><span lang="fr">Langues</span></h4>
+        <ul class="plain">
+          <li>English · <span lang="en">native / bilingual</span><span lang="fr">langue maternelle / bilingue</span></li>
+          <li>Français · <span lang="en">professional working</span><span lang="fr">compétence professionnelle</span></li>
+          <li>தமிழ் · <span lang="en">native / bilingual</span><span lang="fr">langue maternelle / bilingue</span></li>
+        </ul>
       </div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 NITISH SUNDARRAJ BALAJI</span>
-      <span>MONTRÉAL, QC, CANADA</span>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2 class="display reveal"><span lang="en">Let’s build<br>something.</span><span lang="fr">Construisons<br>quelque chose.</span></h2>
+    <p class="contact-sub reveal"><span lang="en">Electrical, controls, silicon or software: if it can be built, I’d like to try.</span><span lang="fr">Électricité, contrôle, silicium ou logiciel : si ça peut se construire, j’aimerais essayer.</span></p>
+    <div class="contact-links reveal">
+      <a class="pill" href="https://www.linkedin.com/in/sundarrajnithish" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="pill ghost" href="https://github.com/sundarrajnitish" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-  </footer>
+  </section>
+</main>
 
-</div>
+<footer class="foot">
+  <span>© 2026 Nitish Sundarraj Balaji</span>
+  <span>Montréal, QC</span>
+</footer>
 
-<script>
-  const sectors = {
-    datacenter: { quality:'99.98%', qualitySub:'THD within spec', load:'64%', loadPct:64, alarms:'0', alarmsSub:'All clear', uptime:'100%', uptimeSub:'Rolling 30 days', desc:'Redundant power path monitored across N+1 UPS distribution and utility feed.' },
-    healthcare: { quality:'99.95%', qualitySub:'Life-safety circuits nominal', load:'71%', loadPct:71, alarms:'0', alarmsSub:'All clear', uptime:'100%', uptimeSub:'Rolling 30 days', desc:'Emergency power and life-safety loads monitored to CSA Z32 requirements.' },
-    industrial: { quality:'99.7%', qualitySub:'Harmonics within limit', load:'83%', loadPct:83, alarms:'1', alarmsSub:'Minor — motor start transient', uptime:'99.9%', uptimeSub:'Rolling 30 days', desc:'Process load monitoring across MV distribution and motor control centers.' },
-    realestate: { quality:'99.9%', qualitySub:'THD within spec', load:'48%', loadPct:48, alarms:'0', alarmsSub:'All clear', uptime:'100%', uptimeSub:'Rolling 30 days', desc:'Portfolio-wide energy monitoring across multiple building submeters.' }
-  };
-
-  const tabs = document.querySelectorAll('.sector-tab');
-  const mQuality = document.getElementById('mQuality');
-  const mQualitySub = document.getElementById('mQualitySub');
-  const mLoad = document.getElementById('mLoad');
-  const mLoadBar = document.getElementById('mLoadBar');
-  const mAlarms = document.getElementById('mAlarms');
-  const mAlarmsSub = document.getElementById('mAlarmsSub');
-  const mUptime = document.getElementById('mUptime');
-  const mUptimeSub = document.getElementById('mUptimeSub');
-  const dashDesc = document.getElementById('dashDesc');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const s = sectors[tab.dataset.sector];
-      mQuality.textContent = s.quality;
-      mQualitySub.textContent = s.qualitySub;
-      mLoad.textContent = s.load;
-      mLoadBar.style.width = s.loadPct + '%';
-      mAlarms.textContent = s.alarms;
-      mAlarmsSub.textContent = s.alarmsSub;
-      mAlarms.className = 'metric-val ' + (s.alarms === '0' ? 'ok' : 'warn');
-      mUptime.textContent = s.uptime;
-      mUptimeSub.textContent = s.uptimeSub;
-      dashDesc.textContent = s.desc;
-    });
-  });
-</script>
+<script src="js/vendor/mips-core.js"></script>
+<script src="js/data/f1-lap.js"></script>
+<script src="js/vendor/calc1-model.js"></script>
+<script src="js/core.js"></script>
+<script src="js/portrait.js"></script>
+<script src="js/demos/scada.js"></script>
+<script src="js/demos/mcl.js"></script>
+<script src="js/demos/f1can.js"></script>
+<script src="js/demos/softhub.js"></script>
+<script src="js/demos/auction.js"></script>
+<script src="js/demos/calc.js"></script>
+<script src="js/demos/dds.js"></script>
+<script src="js/demos/arith.js"></script>
+<script src="js/demos/mips.js"></script>
+<script src="js/demos/crimson.js"></script>
+<script src="js/demos/rtmc.js"></script>
+<script src="js/demos/plotter.js"></script>
+<script src="js/demos/farme.js"></script>
+<script src="js/demos/hydro.js"></script>
+<script src="js/visage.js"></script>
+<script src="js/character.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
