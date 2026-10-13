@@ -62,8 +62,8 @@
   <g clip-path="url(#vzClip)">
     <g class="vz-face">${Portrait.head({ body: true, gear: ['sunglasses'] })}</g>
     <g class="vz-hud">
-      <polyline class="vz-wave" points="${Array.from({ length: 24 }, (_, i) => `${148 + i * 2},${194 + Math.sin(i / 2) * 4}`).join(' ')}"/>
-      <text x="214" y="190">BUILD</text><text x="214" y="201" class="vz-blink">MODE: ON</text>
+      <polyline class="vz-wave" points="${Array.from({ length: 24 }, (_, i) => `${146 + i * 1.9},${154 + Math.sin(i / 2) * 4}`).join(' ')}"/>
+      <text x="230" y="148">BUILD</text><text x="230" y="160" class="vz-blink">MODE: ON</text>
     </g>
     <rect class="vz-scan" x="0" y="-40" width="400" height="40" fill="url(#vzScan)"/>
   </g>

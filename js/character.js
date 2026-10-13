@@ -1,6 +1,7 @@
-/* Background character: the same traced head on a seated body, re-dressed for each chapter of the timeline.
- * now -> hard hat, safety glasses, hi-vis vest at switchgear · 2026 -> laptop and a lidar rover · 2025 -> headset
- * and live telemetry · 2024/2023 -> glasses and dual monitors · 2022 -> grad cap · 2021 -> robot hand · 2020 -> workbench */
+/* Side character: Nitish's traced figure at a laptop, re-dressed for each chapter as the page scrolls.
+ * now -> hard hat, safety glasses, hi-vis vest at switchgear · 2026 -> lidar rover · 2025 -> headset and telemetry
+ * 2024/2023 -> glasses and dual monitors · 2022 -> graduation cap, B.Tech done, M.Eng starts · 2021 -> robot hand
+ * 2020 -> workbench. Anywhere else (summary, about, contact): sunglasses, as in the portrait. */
 (function () {
   'use strict';
   const host = document.getElementById('character');
@@ -8,115 +9,124 @@
   const T = (en, fr) => (document.documentElement.dataset.lang === 'fr' ? fr : en);
 
   const SCENES = {
+    base: { gear: ['sunglasses'], cap: ['Building something', 'En pleine construction'] },
     site: { gear: ['hardhat', 'safety'], vest: true, cap: ['On site · Schneider Electric', 'Sur le chantier · Schneider Electric'] },
     rover: { gear: ['eyes'], cap: ['Rebuild season · robotics', 'Saison des refontes · robotique'] },
     pit: { gear: ['headset', 'eyes'], cap: ['Pit wall · live telemetry', 'Muret des stands · télémétrie'] },
     desk: { gear: ['glasses'], cap: ['Master’s · Concordia', 'Maîtrise · Concordia'] },
-    grad: { gear: ['gradcap', 'eyes'], cap: ['Graduation · SRMIST', 'Diplôme · SRMIST'] },
+    grad: { gear: ['gradcap', 'eyes'], noLaptop: true, cap: ['B.Tech done → M.Eng from Sep 2022', 'B.Tech terminé → M.Eng dès sept. 2022'] },
     hand: { gear: ['eyes'], cap: ['Telerobotics · gestures', 'Télérobotique · gestes'] },
     bench: { gear: ['goggles', 'eyes'], cap: ['Workbench · first robots', 'Établi · premiers robots'] },
   };
   const BY_YEAR = { 2025: 'site', 2026: 'rover', '2025b': 'pit', 2024: 'desk', 2023: 'desk', 2022: 'grad', 2021: 'hand', 2020: 'bench' };
 
-  // props live in the 400 x 520 scene; the desk top is at y = 430
+  // The figure occupies x 0..400, y 0..400 (portrait space); the desk top is at y = 500.
+  // Props sit in the margins (x -120..0 and 400..520) and behind the figure.
   const PROPS = {
+    base: `<g class="c-prop"><path d="M440 500v-52h44v52"/><path d="M462 448c-10 -18 -6 -40 6 -52c4 16 4 34 -6 52zM462 448c12 -14 30 -18 42 -12c-8 12 -24 16 -42 12z" class="c-green"/></g>`,
     site: `
       <g class="c-prop">
-        ${[0, 1, 2].map((k) => `<rect x="${6 + k * 34}" y="150" width="32" height="280" rx="2"/><path d="M${10 + k * 34} 190h24M${10 + k * 34} 260h24M${10 + k * 34} 330h24"/>
-        <circle class="c-led ${k === 1 ? 'g' : 'r'}" cx="${22 + k * 34}" cy="170" r="3"/><rect x="${14 + k * 34}" y="200" width="16" height="10" rx="1"/>`).join('')}
-        <path d="M330 150l34 58h-68z"/><path d="M332 170l-8 16h10l-6 14" class="c-amber"/>
-        <text x="330" y="226" text-anchor="middle">600 V</text>
+        ${[0, 1, 2].map((k) => `<rect x="${-118 + k * 38}" y="150" width="36" height="350" rx="2"/><path d="M${-114 + k * 38} 200h28M${-114 + k * 38} 290h28M${-114 + k * 38} 380h28"/>
+        <circle class="c-led ${k === 1 ? 'g' : 'r'}" cx="${-100 + k * 38}" cy="172" r="4"/><rect x="${-110 + k * 38}" y="212" width="20" height="12" rx="1"/>`).join('')}
+        <path d="M466 150l40 68h-80z"/><path d="M468 172l-9 18h12l-7 16" class="c-amber"/>
+        <text x="466" y="236" text-anchor="middle">600 V</text>
       </g>`,
     rover: `
       <g class="c-prop">
-        <rect x="300" y="396" width="72" height="26" rx="6"/><circle cx="314" cy="426" r="7"/><circle cx="358" cy="426" r="7"/>
-        <rect x="324" y="380" width="24" height="16" rx="4"/><g class="c-sweep"><path d="M336 388l50 -26" class="c-blue"/><path d="M336 388l50 -6" class="c-blue"/></g>
-        <g class="c-blue c-parts">${Array.from({ length: 14 }, (_, i) => `<circle cx="${30 + (i * 37) % 80}" cy="${300 + (i * 23) % 100}" r="1.6"/>`).join('')}</g>
+        <rect x="420" y="462" width="86" height="30" rx="7"/><circle cx="436" cy="496" r="8"/><circle cx="490" cy="496" r="8"/>
+        <rect x="448" y="444" width="28" height="18" rx="5"/><g class="c-sweep"><path d="M462 452l-60 -40" class="c-blue"/><path d="M462 452l-64 -12" class="c-blue"/></g>
+        <g class="c-blue c-parts">${Array.from({ length: 16 }, (_, i) => `<circle cx="${-110 + (i * 37) % 100}" cy="${300 + (i * 23) % 160}" r="2"/>`).join('')}</g>
       </g>`,
     pit: `
       <g class="c-prop">
-        <rect x="290" y="250" width="104" height="72" rx="6"/><path d="M342 322v40M322 362h40"/>
-        <polyline class="c-blue c-trace" points="${Array.from({ length: 40 }, (_, i) => `${296 + i * 2.4},${300 - Math.abs(Math.sin(i / 5)) * 34}`).join(' ')}"/>
-        <text x="298" y="266">P1 · 311 km/h</text>
-        <path d="M12 404h70l10 -14h-30l-8 -8h-24l-6 8h-12z"/><circle cx="26" cy="408" r="8"/><circle cx="72" cy="408" r="8"/>
+        <rect x="404" y="250" width="116" height="80" rx="7"/><path d="M462 330v44M438 374h48"/>
+        <polyline class="c-blue c-trace" points="${Array.from({ length: 44 }, (_, i) => `${410 + i * 2.4},${314 - Math.abs(Math.sin(i / 5)) * 38}`).join(' ')}"/>
+        <text x="412" y="268">P1 · 311 km/h</text>
+        <path d="M-118 474h80l12 -16h-34l-10 -10h-28l-8 10h-12z"/><circle cx="-102" cy="480" r="9"/><circle cx="-50" cy="480" r="9"/>
       </g>`,
     desk: `
       <g class="c-prop">
-        <path d="M2 236l100 14v104l-100 14z"/><path d="M52 360v70M30 430h46"/>
-        <polyline class="c-blue c-wave" points="${Array.from({ length: 20 }, (_, i) => `${10 + i * 4.5},${(i % 4 < 2 ? 280 : 300) + i * 0.6}`).join(' ')}"/>
-        <path d="M398 236l-100 14v104l100 14z"/><path d="M348 360v70M326 430h46"/>
-        <g class="c-code">${[0, 1, 2, 3, 4, 5].map((k) => `<path d="M${310 + (k % 3) * 6} ${266 + k * 13}h${40 + ((k * 17) % 34)}"/>`).join('')}</g>
-        <path d="M70 404h22v26h-22zM92 410c8 0 8 12 0 12"/><path class="c-steam" d="M76 398c-4 -8 4 -10 0 -18M86 398c-4 -8 4 -10 0 -18"/>
+        <path d="M-120 250l112 16v118l-112 16z"/><path d="M-64 392v108M-90 500h52"/>
+        <polyline class="c-blue c-wave" points="${Array.from({ length: 22 }, (_, i) => `${-112 + i * 4.6},${(i % 4 < 2 ? 300 : 322) + i * 0.6}`).join(' ')}"/>
+        <path d="M520 250l-112 16v118l112 16z"/><path d="M464 392v108M438 500h52"/>
+        <g class="c-code">${[0, 1, 2, 3, 4, 5].map((k) => `<path d="M${420 + (k % 3) * 7} ${284 + k * 15}h${44 + ((k * 17) % 36)}"/>`).join('')}</g>
+        <path d="M410 470h24v30h-24zM434 476c9 0 9 14 0 14"/><path class="c-steam" d="M416 462c-4 -8 4 -10 0 -18M428 462c-4 -8 4 -10 0 -18"/>
       </g>`,
     grad: `
       <g class="c-prop">
-        <rect x="18" y="396" width="86" height="22" rx="11"/><path d="M60 396v22" class="c-amber"/>
-        <g class="c-confetti">${Array.from({ length: 16 }, (_, i) => `<rect x="${(i * 53) % 400}" y="${-20 - (i * 31) % 160}" width="5" height="9" style="animation-delay:-${(i * 0.37).toFixed(2)}s"/>`).join('')}</g>
+        <g class="c-sign"><rect x="-120" y="250" width="112" height="70" rx="10"/><text x="-64" y="278" text-anchor="middle">B.Tech</text><text x="-64" y="300" text-anchor="middle" class="t-dim">SRMIST · 2022 ✓</text></g>
+        <g class="c-sign now"><rect x="408" y="250" width="112" height="70" rx="10"/><text x="464" y="278" text-anchor="middle">M.Eng</text><text x="464" y="300" text-anchor="middle" class="t-dim">${T('Concordia · Sep 22', 'Concordia · sept. 22')}</text></g>
+        <path class="c-route" d="M-8 286C80 200 320 200 408 286"/>
+        <g class="c-plane"><path d="M-8 -5L10 0L-8 5L-4 0Z"/></g>
+        <g class="c-confetti">${Array.from({ length: 18 }, (_, i) => `<rect x="${-110 + (i * 53) % 620}" y="${-30 - (i * 31) % 180}" width="6" height="10" style="animation-delay:-${(i * 0.37).toFixed(2)}s"/>`).join('')}</g>
       </g>`,
     hand: `
       <g class="c-prop">
-        <rect x="300" y="372" width="66" height="44" rx="12"/><rect x="318" y="416" width="30" height="14"/>
-        ${[0, 1, 2, 3].map((k) => `<rect class="c-finger" style="animation-delay:-${k * 0.25}s" x="${304 + k * 16}" y="326" width="12" height="46" rx="6"/>`).join('')}
-        <path d="M30 330l18 100M66 330l-18 100M48 330v100"/><rect x="28" y="306" width="40" height="26" rx="5"/><circle cx="48" cy="319" r="7"/><circle class="c-led r" cx="62" cy="311" r="2.5"/>
+        <rect x="414" y="430" width="78" height="52" rx="14"/><rect x="436" y="482" width="34" height="18"/>
+        ${[0, 1, 2, 3].map((k) => `<rect class="c-finger" style="animation-delay:-${k * 0.25}s" x="${418 + k * 18}" y="374" width="14" height="56" rx="7"/>`).join('')}
+        <path d="M-96 380l22 120M-52 380l-22 120M-74 380v120"/><rect x="-98" y="352" width="48" height="30" rx="6"/><circle cx="-74" cy="367" r="8"/><circle class="c-led r" cx="-58" cy="358" r="3"/>
       </g>`,
     bench: `
       <g class="c-prop">
-        <path d="M292 430v-40h70v40M300 390l20 -20h38"/><path d="M356 370l20 -30"/><path class="c-steam" d="M378 334c-6 -8 6 -12 0 -22M386 336c-6 -8 6 -12 0 -22"/>
-        <rect x="14" y="404" width="80" height="18" rx="5"/><rect x="30" y="384" width="44" height="20" rx="3"/><circle cx="24" cy="424" r="6"/><circle cx="84" cy="424" r="6"/>
-        <rect x="40" y="378" width="14" height="10" class="c-amber"/>
+        <path d="M410 500v-46h80v46M418 454l24 -24h44"/><path d="M484 430l22 -34"/><path class="c-steam" d="M508 390c-6 -8 6 -12 0 -22M516 392c-6 -8 6 -12 0 -22"/>
+        <rect x="-118" y="470" width="96" height="22" rx="6"/><rect x="-100" y="446" width="52" height="24" rx="3"/><circle cx="-108" cy="494" r="7"/><circle cx="-32" cy="494" r="7"/>
+        <rect x="-88" y="438" width="16" height="12" class="c-amber"/>
       </g>`,
   };
 
-  const body = (vest) => `
-    <g class="c-body">
-      <path d="M170 216C150 226 120 236 104 252C96 262 96 300 100 430"/><path d="M232 216C252 226 280 236 296 252C304 262 304 300 300 430"/>
-      <path d="M170 216L156 236L186 248L200 236L214 248L244 236L232 216"/>
-      <g class="c-arms"><path d="M104 256C92 290 88 320 92 342C110 360 130 372 152 382"/><path d="M120 300C116 320 118 336 126 348C138 358 150 364 160 368"/></g>
-      <g class="c-arms r"><path d="M296 256C308 290 312 320 308 342C290 360 270 372 248 382"/><path d="M280 300C284 320 282 336 274 348C262 358 250 364 240 368"/></g>
-      ${vest ? `<g class="c-vest"><path d="M150 230L132 430h52l16 -170l16 170h52L250 230L214 262h-28z"/><path class="c-refl" d="M138 350h48M216 350h48M136 380h50M214 380h50"/></g>` : ''}
-    </g>
-    <path class="c-desk" d="M10 430H390M22 438H378"/>
-    <g class="c-laptop"><path d="M130 430L140 344H260L270 430Z"/><circle cx="200" cy="388" r="9"/><path d="M196 388l4 -5l4 5l-4 5z"/></g>`;
+  const arms = `
+    <g class="c-arms"><path d="M40 338C18 380 12 420 18 446C44 470 94 480 136 486"/><path d="M76 376C68 402 66 422 72 436C96 450 124 458 144 462"/></g>
+    <g class="c-arms r"><path d="M360 338C382 380 388 420 382 446C356 470 306 480 264 486"/><path d="M324 376C332 402 334 422 328 436C304 450 276 458 256 462"/></g>`;
+  const vest = `<g class="c-vest"><path d="M96 302C76 330 70 380 72 500H168V372L146 312Z"/><path d="M304 302C324 330 330 380 328 500H232V372L254 312Z"/>
+    <path class="c-refl" d="M74 420H166M74 456H166M234 420H326M234 456H326"/></g>`;
+  // MacBook-style laptop, seen from behind the lid
+  const laptop = `
+    <g class="c-laptop">
+      <path class="lid" d="M124 384H276C281 384 284 387 284 392L290 486H110L116 392C116 387 119 384 124 384Z"/>
+      <circle class="logo" cx="200" cy="434" r="11"/><path class="logo" d="M200 426l6 8l-6 8l-6 -8z"/>
+      <path class="base" d="M92 486H308C312 486 314 490 312 494L308 500H92L88 494C86 490 88 486 92 486Z"/>
+      <path class="notch" d="M184 486h32"/>
+    </g>`;
+  const diploma = `
+    <g class="c-diploma"><rect x="112" y="452" width="176" height="30" rx="15"/><path d="M140 452v30M260 452v30"/><path class="c-amber" d="M200 452v30M192 482l8 14l8 -14"/></g>`;
 
   let current = null;
   function render(name, el = host) {
     const sc = SCENES[name];
     el.innerHTML = `
-      <svg viewBox="0 0 400 520" class="ch">
+      <svg viewBox="-124 -24 648 536" class="ch">
         <g class="c-scene">${PROPS[name]}</g>
         <g class="c-breathe">
-          ${body(sc.vest)}
-          <g class="c-head" transform="translate(58 0) scale(.7)">${Portrait.head({ gear: sc.gear })}</g>
+          <path class="c-torso" d="M0 350L92 300L140 262H260L306 300L400 354V500H0Z"/>
+          <g class="c-fig">${Portrait.head({ gear: sc.gear, body: true, fill: true })}</g>
+          ${sc.vest ? vest : ''}
+          ${arms}
+          ${sc.noLaptop ? diploma : laptop}
         </g>
+        <path class="c-desk" d="M-124 500H524"/>
       </svg>
       <div class="ch-cap">${T(...sc.cap)}</div>`;
     el.dataset.scene = name;
-    // gear drops on with a little bounce
     el.querySelectorAll('.p-hat, .p-cap, .p-headset, .p-goggles, .p-glasses').forEach((g) => g.classList.add('drop'));
   }
   function setScene(name) {
     if (name === current) return;
     current = name;
     host.classList.add('swap');
-    setTimeout(() => { render(name); host.classList.remove('swap'); }, current === null ? 0 : 260);
+    clearTimeout(setScene.t);
+    setScene.t = setTimeout(() => { render(name); host.classList.remove('swap'); }, 220);
   }
 
-  // which chapter is under the middle of the viewport?
   const chapters = [...document.querySelectorAll('.chapter')];
-  const hero = document.getElementById('hero'), timeline = document.getElementById('timeline');
   function onScroll() {
-    const mid = innerHeight * 0.55;
+    const mid = innerHeight * 0.5;
     let ch = null;
     for (const c of chapters) { const r = c.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) ch = c; }
-    const tl = timeline.getBoundingClientRect();
-    const inTimeline = tl.top < innerHeight * 0.6 && tl.bottom > innerHeight * 0.4;
-    host.classList.toggle('on', inTimeline && !!ch);
-    if (ch) setScene(BY_YEAR[ch.dataset.year] || 'desk');
+    setScene(ch ? (BY_YEAR[ch.dataset.year] || 'base') : 'base');
   }
   window.Character = { render, scenes: Object.keys(SCENES) };
-  render('site'); current = 'site';
-  addEventListener('scroll', () => requestAnimationFrame(onScroll), { passive: true });
-  document.addEventListener('langchange', () => { const n = current; current = null; render(n); current = n; });
+  render('base'); current = 'base';
+  addEventListener('scroll', onScroll, { passive: true });
+  document.addEventListener('langchange', () => render(current));
   onScroll();
-  void hero;
 })();
