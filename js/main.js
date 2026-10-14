@@ -11,7 +11,7 @@
     root.lang = lang;
     localStorage.setItem('lang', lang);
     $$('[data-set-lang]').forEach((b) => b.classList.toggle('on', b.dataset.setLang === lang));
-    document.title = lang === 'fr' ? 'Nitish Sundarraj Balaji · Professionnel en ingénierie' : 'Nitish Sundarraj Balaji · Engineering Professional';
+    document.title = lang === 'fr' ? 'Nitish Sundarraj · Professionnel en ingénierie' : 'Nitish Sundarraj · Engineering Professional';
     document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
     measureScrub();
   }
