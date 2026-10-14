@@ -20,10 +20,10 @@
     leaf: '<path d="M-8 9c0 -12 6 -17 17 -18c0 11 -5 17 -17 18z"/><path d="M-8 9l10 -11"/>',
   };
   const NODES = [
-    ['scada', 'SCADA', 'SCADA', '#now'], ['mcl', 'MCL', 'MCL', '[data-year="2026"]'], ['can', 'CAN bus', 'Bus CAN', '[data-year="2025b"]'],
-    ['cloud', 'AWS λ', 'AWS λ', '[data-year="2024"]'], ['sine', 'DDS', 'DDS', '[data-year="2024"] .entry:nth-of-type(4)'],
-    ['chip', 'RTL', 'RTL', '[data-year="2023"]'], ['hand', 'Robot hand', 'Main robot', '[data-year="2021"]'],
-    ['pen', 'G-code', 'G-code', '[data-year="2020"]'], ['leaf', 'pH 6.0', 'pH 6,0', '[data-year="2020"] .entry:last-of-type'],
+    ['scada', 'SCADA', 'SCADA', '#p-scada'], ['mcl', 'MCL', 'MCL', '#p-mcl'], ['can', 'CAN bus', 'Bus CAN', '#p-f1'],
+    ['cloud', 'AWS λ', 'AWS λ', '#p-auction'], ['sine', 'DDS', 'DDS', '#p-dds'],
+    ['chip', 'RTL', 'RTL', '#p-mips'], ['hand', 'Robot hand', 'Main robot', '#p-rtmc'],
+    ['pen', 'G-code', 'G-code', '#p-plotter'], ['leaf', 'pH 6.0', 'pH 6,0', '#p-hydro'],
   ];
   const R = 238;
   const nodeXY = (i) => { const a = (-90 + (i * 360) / NODES.length) * Math.PI / 180; return [CX + Math.cos(a) * R, CY + Math.sin(a) * R]; };

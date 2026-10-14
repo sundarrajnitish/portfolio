@@ -26,28 +26,30 @@
       // ears
       'M128 140C118 132 106 136 104 150C102 166 108 182 120 190C124 192 128 192 132 190', 'M114 152C118 158 118 166 116 172',
       'M280 140C290 132 300 136 300 150C302 166 296 180 286 188C282 190 278 190 274 188', 'M290 152C286 158 286 166 288 172',
-      // nose
-      'M194 172C182 174 178 186 186 192C192 196 200 196 204 194C210 196 218 196 222 190C228 184 224 174 212 172',
-      'M190 186C192 190 196 190 198 188', 'M210 188C212 190 216 190 218 186',
-      // mouth: open smile with teeth
-      'M166 204C184 199 222 199 242 204', 'M166 204C176 220 230 220 242 204', 'M172 208C190 212 218 212 236 208',
-      'M184 208V214M194 209V216M204 209V216M214 209V216M224 208V214',
-      'M182 224C194 230 214 230 226 224',
+      // mouth: a small open smile showing the top teeth
+      'M180 205C194 208 216 208 230 205', 'M180 205C186 224 224 224 230 205', 'M183 211C196 214 214 214 227 211',
       // neck
       'M140 236C142 252 142 270 140 300', 'M258 236C258 252 258 270 260 300',
     ],
     beard: [
-      'M168 198C176 190 188 190 198 194C206 190 222 188 238 196',            // moustache
-      'M174 196L176 192M182 194L184 190M190 194L192 190M214 192L216 188M222 192L224 188M230 194L232 190',
       'M196 230V236M202 231V238M208 230V236',                                   // chin tuft
       'M166 248C178 260 192 264 204 264C218 262 230 256 238 248',               // beard edge
       'M172 250V256M182 254V260M192 256V262M216 256V262M226 252V258',
     ],
-    stubble: 'M140 222C150 238 164 250 180 256M268 206C260 226 248 242 232 252',
-    eyes: [
-      'M156 142C164 134 180 134 188 142C180 148 164 148 156 142Z', 'M222 142C230 134 246 134 254 142C246 148 230 148 222 142Z',
+    stubble: 'M140 222C150 238 164 250 180 256M268 206C260 226 248 242 232 252M176 198C186 193 196 194 204 196C212 194 222 193 232 198',
+    // regular nose: two soft bridge lines, rounded base with nostril wings (as in the drawing)
+    nose: [
+      'M206 146C206 160 204 170 200 176', 'M196 178C198 184 206 186 212 182',
     ],
-    pupils: [[172, 141], [238, 141]],
+    // one almond eye (left); the right eye is this mirrored about the face centre (x = 204)
+    eye: {
+      shape: 'M153 142C160 135 169 133 177 134C184 135 189 138 192 143C186 148 178 150 171 149C163 148 157 146 153 142Z',
+      lid: 'M152 143C159 134 169 132 178 133C185 134 190 138 193 144',
+      crease: 'M156 132C164 126 177 125 188 130',
+      lashes: 'M153 142L148 139M160 137L158 134M167 134L166 131M175 133L175 130',
+      under: 'M160 152C166 154 176 154 183 151',
+      iris: [173, 142, 5.8], pupil: 2.5, glint: [175, 140, 1.3],
+    },
     sunglasses: [
       'M118 124H290',
       'M140 124V150C140 166 148 174 164 174H180C188 174 192 168 192 160V124',
@@ -91,6 +93,14 @@
     return `<g class="${cls}" ${extra}>${paths.map((d) => `<path d="${d}" pathLength="1"/>`).join('')}</g>`;
   }
 
+  function eye(mirror) {
+    const E = P.eye, t = mirror ? 'transform="translate(408 0) scale(-1 1)"' : '';
+    return `<g ${t}>` + group('p-eyes', [E.shape, E.lid, E.crease, E.lashes, E.under]) +
+      `<g class="p-ball"><circle class="p-iris" cx="${E.iris[0]}" cy="${E.iris[1]}" r="${E.iris[2]}"/>` +
+      `<circle class="p-pupil" cx="${E.iris[0]}" cy="${E.iris[1]}" r="${E.pupil}"/>` +
+      `<circle class="p-hl" cx="${E.glint[0]}" cy="${E.glint[1]}" r="${E.glint[2]}"/></g></g>`;
+  }
+
   /** Figure layers as SVG markup (in 400x400 space).
    * gear: sunglasses | glasses | eyes | safety | hardhat | headset | gradcap | goggles. body: draw collar and shoulders. */
   function head(opts = {}) {
@@ -102,9 +112,10 @@
     if (!g.has('hardhat')) s += group('p-brows', P.brows);
     s += group('p-face', P.face);
     s += group('p-beard', P.beard);
+    s += group('p-nose', P.nose);
     if (opts.body) s += group('p-body', P.body) + `<circle class="p-btn" cx="${P.button[0]}" cy="${P.button[1]}" r="3"/>`;
     s += `<path class="p-stubble" d="${P.stubble}" pathLength="1"/>`;
-    if (eyesOn) s += group('p-eyes', P.eyes) + P.pupils.map(([x, y]) => `<circle class="p-pupil" cx="${x}" cy="${y}" r="4.5"/>`).join('');
+    if (eyesOn) s += eye(false) + eye(true);
     if (g.has('sunglasses')) s += `<g class="p-lens"><path d="${P.sunglasses[1]}Z"/><path d="${P.sunglasses[2]}Z"/></g>` + group('p-sun', P.sunglasses);
     if (g.has('glasses') || g.has('safety')) s += group('p-glasses' + (g.has('safety') ? ' safety' : ''), P.glasses);
     if (g.has('hardhat')) s += group('p-hat', P.hardhat);

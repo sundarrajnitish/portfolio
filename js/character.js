@@ -1,5 +1,5 @@
 /* Side character: Nitish's traced figure at a laptop, re-dressed for each chapter as the page scrolls.
- * now -> hard hat, safety glasses, hi-vis vest at switchgear · 2026 -> lidar rover · 2025 -> headset and telemetry
+ * now -> hard hat, safety glasses, hi-vis vest at switchgear · 2025 -> headset and telemetry
  * 2024/2023 -> glasses and dual monitors · 2022 -> graduation cap, B.Tech done, M.Eng starts · 2021 -> robot hand
  * 2020 -> workbench. Anywhere else (summary, about, contact): sunglasses, as in the portrait. */
 (function () {
@@ -11,14 +11,14 @@
   const SCENES = {
     base: { gear: ['sunglasses'], cap: ['Building something', 'En pleine construction'] },
     site: { gear: ['hardhat', 'safety'], vest: true, cap: ['On site · Schneider Electric', 'Sur le chantier · Schneider Electric'] },
-    rover: { gear: ['eyes'], cap: ['Rebuild season · robotics', 'Saison des refontes · robotique'] },
     pit: { gear: ['headset', 'eyes'], cap: ['Pit wall · live telemetry', 'Muret des stands · télémétrie'] },
     desk: { gear: ['glasses'], cap: ['Master’s · Concordia', 'Maîtrise · Concordia'] },
     grad: { gear: ['gradcap', 'eyes'], noLaptop: true, cap: ['B.Tech done → M.Eng from Sep 2022', 'B.Tech terminé → M.Eng dès sept. 2022'] },
     hand: { gear: ['eyes'], cap: ['Telerobotics · gestures', 'Télérobotique · gestes'] },
     bench: { gear: ['goggles', 'eyes'], cap: ['Workbench · first robots', 'Établi · premiers robots'] },
+    chair: { gear: ['eyes'], cap: ['First prototype · Bluetooth wheelchair', 'Premier prototype · fauteuil Bluetooth'] },
   };
-  const BY_YEAR = { 2025: 'site', 2026: 'rover', '2025b': 'pit', 2024: 'desk', 2023: 'desk', 2022: 'grad', 2021: 'hand', 2020: 'bench' };
+  const BY_YEAR = { 2025: 'site', '2025b': 'pit', 2024: 'desk', 2023: 'desk', 2022: 'grad', 2021: 'hand', 2020: 'bench', 2019: 'bench', 2018: 'chair' };
 
   // The figure occupies x 0..400, y 0..400 (portrait space); the desk top is at y = 500.
   // Props sit in the margins (x -120..0 and 400..520) and behind the figure.
@@ -30,12 +30,6 @@
         <circle class="c-led ${k === 1 ? 'g' : 'r'}" cx="${-100 + k * 38}" cy="172" r="4"/><rect x="${-110 + k * 38}" y="212" width="20" height="12" rx="1"/>`).join('')}
         <path d="M466 150l40 68h-80z"/><path d="M468 172l-9 18h12l-7 16" class="c-amber"/>
         <text x="466" y="236" text-anchor="middle">600 V</text>
-      </g>`,
-    rover: `
-      <g class="c-prop">
-        <rect x="420" y="462" width="86" height="30" rx="7"/><circle cx="436" cy="496" r="8"/><circle cx="490" cy="496" r="8"/>
-        <rect x="448" y="444" width="28" height="18" rx="5"/><g class="c-sweep"><path d="M462 452l-60 -40" class="c-blue"/><path d="M462 452l-64 -12" class="c-blue"/></g>
-        <g class="c-blue c-parts">${Array.from({ length: 16 }, (_, i) => `<circle cx="${-110 + (i * 37) % 100}" cy="${300 + (i * 23) % 160}" r="2"/>`).join('')}</g>
       </g>`,
     pit: `
       <g class="c-prop">
@@ -65,6 +59,13 @@
         <rect x="414" y="430" width="78" height="52" rx="14"/><rect x="436" y="482" width="34" height="18"/>
         ${[0, 1, 2, 3].map((k) => `<rect class="c-finger" style="animation-delay:-${k * 0.25}s" x="${418 + k * 18}" y="374" width="14" height="56" rx="7"/>`).join('')}
         <path d="M-96 380l22 120M-52 380l-22 120M-74 380v120"/><rect x="-98" y="352" width="48" height="30" rx="6"/><circle cx="-74" cy="367" r="8"/><circle class="c-led r" cx="-58" cy="358" r="3"/>
+      </g>`,
+    chair: `
+      <g class="c-prop">
+        <circle cx="448" cy="468" r="26"/><circle cx="448" cy="468" r="4"/><circle cx="410" cy="490" r="10"/>
+        <path d="M424 470V420H446M424 436H470L482 468M470 436V420"/><rect x="476" y="440" width="22" height="9" rx="3" class="c-blue"/>
+        <g class="c-sweep"><path d="M498 444C514 440 520 430 520 418" class="c-blue"/><path d="M498 448C522 444 534 428 534 410" class="c-blue"/></g>
+        <path d="M-118 500v-30h60v30M-108 470l8 -22h38" /><rect x="-78" y="438" width="26" height="12" rx="3" class="c-amber"/>
       </g>`,
     bench: `
       <g class="c-prop">

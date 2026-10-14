@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nitish Sundarraj Balaji</title>
-<meta name="description" content="Multidisciplinary engineering professional in Montréal: electrical power, controls, hardware, robotics and software. Fourteen of my projects, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on one page.">
+<meta name="description" content="Multidisciplinary Engineering Professional in Montréal: electrical power, controls, hardware, robotics and software. Fifteen of my demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on one page.">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="brand">Nitish</a>
+    <a href="#top" class="brand"><span class="wave" aria-hidden="true">👋</span> <span lang="en">Welcome to My Portfolio</span><span lang="fr">Bienvenue dans mon portfolio</span></a>
     <nav class="nav-links">
       <a href="#now"><span lang="en">Now</span><span lang="fr">Aujourd’hui</span></a>
       <a href="#timeline"><span lang="en">Timeline</span><span lang="fr">Parcours</span></a>
@@ -48,7 +48,7 @@
     <div class="hero-inner" id="heroInner">
       <div class="hero-copy">
         <p class="eyebrow">
-          <span lang="en">Multidisciplinary engineering professional · Montréal</span>
+          <span lang="en">Multidisciplinary Engineering Professional · Montréal</span>
           <span lang="fr">Professionnel en ingénierie multidisciplinaire · Montréal</span>
         </p>
         <h1 class="hero-title">Nitish Sundarraj Balaji.</h1>
@@ -57,8 +57,8 @@
           <span lang="fr">Je peux construire tout ce que je me mets en tête.</span>
         </p>
         <p class="hero-sub">
-          <span lang="en">Fourteen of my projects, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on this page. Scroll back in time.</span>
-          <span lang="fr">Quatorze de mes projets, d’un synoptique SCADA de centre de données à un pipeline MIPS à cinq étages, fonctionnent en direct sur cette page. Remontez le temps en défilant.</span>
+          <span lang="en">Fifteen of my demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on this page. Scroll back in time.</span>
+          <span lang="fr">Quinze de mes démos, d’un synoptique SCADA de centre de données à un pipeline MIPS à cinq étages, fonctionnent en direct sur cette page. Remontez le temps en défilant.</span>
         </p>
       </div>
       <div class="visage" id="visage" role="img" aria-label="Line-art portrait of Nitish surrounded by his work"></div>
@@ -71,7 +71,7 @@
 
   <!-- MANIFESTO: words light up as you scroll -->
   <section class="manifesto" id="manifesto">
-    <p class="scrub" lang="en">I’m a multidisciplinary engineering professional. Electrical power and controls by day; embedded firmware, digital hardware, robotics and cloud software the rest of the time. I don’t stay in one layer: I learn what the problem needs, then carry it from first sketch to something that works. Everything below runs live on this page.</p>
+    <p class="scrub" lang="en">I’m a Multidisciplinary Engineering Professional. Electrical power and controls by day; embedded firmware, digital hardware, robotics and cloud software the rest of the time. I don’t stay in one layer: I learn what the problem needs, then carry it from first sketch to something that works. Everything below runs live on this page.</p>
     <p class="scrub" lang="fr">Je suis un professionnel en ingénierie multidisciplinaire. L’énergie électrique et le contrôle le jour ; le micrologiciel embarqué, le matériel numérique, la robotique et le logiciel infonuagique le reste du temps. Je ne reste pas dans une seule couche : j’apprends ce que le problème exige, puis je le mène du premier croquis à quelque chose qui fonctionne. Tout ce qui suit fonctionne en direct sur cette page.</p>
   </section>
 
@@ -84,12 +84,11 @@
 
     <div class="rail" aria-hidden="true"><span id="railFill"></span></div>
 
-    <!-- ===================== NOW ===================== -->
     <article class="chapter" id="now" data-year="2025">
       <div class="chapter-year"><span class="yr">2025</span><span class="yr-sub"><span lang="en">to now</span><span lang="fr">à aujourd’hui</span></span></div>
       <div class="chapter-body">
-        <div class="entry reveal">
-          <p class="kicker work"><span lang="en">Work · Current role</span><span lang="fr">Emploi · Poste actuel</span></p>
+        <div class="entry reveal" id="p-scada">
+          <p class="kicker work"><span lang="en">Work · Current Role</span><span lang="fr">Emploi · Poste actuel</span></p>
           <h3><span lang="en">Specialist, Power Application Engineering</span><span lang="fr">Spécialiste, ingénierie d’applications de puissance</span></h3>
           <p class="org">Schneider Electric · Dollard-des-Ormeaux, QC · <span lang="en">Aug 2025 – present</span><span lang="fr">août 2025 – aujourd’hui</span></p>
           <p class="lede">
@@ -107,27 +106,6 @@
       </div>
     </article>
 
-    <!-- ===================== 2026 ===================== -->
-    <article class="chapter" data-year="2026">
-      <div class="chapter-year"><span class="yr">2026</span><span class="yr-sub"><span lang="en">rebuild season</span><span lang="fr">saison des refontes</span></span></div>
-      <div class="chapter-body">
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Robotics</span><span lang="fr">Projet · Robotique</span></p>
-          <h3>Monte Carlo Localization</h3>
-          <p class="lede">
-            <span lang="en">A particle filter that works out where a robot is in a 28 m hallway from odometry and a 180-beam laser. On the real log it keeps the median scan end-point 4 cm from a wall; odometry alone drifts to 36 cm. Augmented MCL recovers a kidnapped robot in 5 runs out of 5.</span>
-            <span lang="fr">Un filtre particulaire qui détermine où se trouve un robot dans un couloir de 28 m, à partir de l’odométrie et d’un laser à 180 faisceaux. Sur le vrai journal, l’extrémité médiane des balayages reste à 4 cm d’un mur ; l’odométrie seule dérive jusqu’à 36 cm. Le MCL augmenté retrouve un robot kidnappé dans 5 essais sur 5.</span>
-          </p>
-          <p class="links"><a href="https://sundarrajnitish.github.io/Monte-Carlo-Localization/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Monte-Carlo-Localization">GitHub ↗</a></p>
-        </div>
-        <div class="demo-wrap reveal-scale">
-          <div class="demo-head"><p><span lang="en">Scatter the particles and watch them converge, then kidnap the robot.</span><span lang="fr">Dispersez les particules et regardez-les converger, puis kidnappez le robot.</span></p></div>
-          <div class="demo" data-demo="mcl"></div>
-        </div>
-      </div>
-    </article>
-
-    <!-- ===================== 2025 ===================== -->
     <article class="chapter" data-year="2025b">
       <div class="chapter-year"><span class="yr">2025</span></div>
       <div class="chapter-body">
@@ -137,10 +115,10 @@
           <p class="org">Alorica · Montréal · <span lang="en">May – Aug 2025</span><span lang="fr">mai – août 2025</span></p>
           <p><span lang="en">Resolved customer issues by phone and digital channels under volume, in English and French.</span><span lang="fr">Résolution de demandes clients par téléphone et canaux numériques, à fort volume, en anglais et en français.</span></p>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Automotive networks</span><span lang="fr">Projet · Réseaux automobiles</span></p>
+        <div class="entry reveal" id="p-f1">
+          <p class="kicker project"><span lang="en">Project · Automotive Networks</span><span lang="fr">Projet · Réseaux automobiles</span></p>
           <h3>F1 CAN Telemetry</h3>
+          <p class="when"><span lang="en">May 2025</span><span lang="fr">mai 2025</span></p>
           <p class="lede">
             <span lang="en">Real telemetry from the 2023 Canadian Grand Prix, streamed over a 500 kbit/s CAN bus to a simulated pit wall, then logged and analysed in Python, MATLAB and Simulink from one shared message catalogue. Every frame carries a rolling counter and a CRC-8 (SAE J1850).</span>
             <span lang="fr">De la vraie télémétrie du Grand Prix du Canada 2023, transmise sur un bus CAN à 500 kbit/s vers un muret des stands simulé, puis journalisée et analysée en Python, MATLAB et Simulink à partir d’un même catalogue de messages. Chaque trame porte un compteur cyclique et un CRC-8 (SAE J1850).</span>
@@ -151,44 +129,22 @@
           <div class="demo-head"><p><span lang="en">Set the car’s state, then flip any bit of the frame and see whether the receiver catches it.</span><span lang="fr">Réglez l’état de la voiture, puis inversez n’importe quel bit de la trame et voyez si le récepteur le détecte.</span></p></div>
           <div class="demo" data-demo="f1can"></div>
         </div>
-
         <div class="entry compact reveal">
           <p class="kicker edu"><span lang="en">Education · Completed</span><span lang="fr">Formation · Terminée</span></p>
           <h3><span lang="en">Master of Engineering, Electrical &amp; Computer Engineering</span><span lang="fr">Maîtrise en ingénierie, génie électrique et informatique</span></h3>
           <p class="org"><span lang="en">Concordia University · Sep 2022 – May 2025</span><span lang="fr">Université Concordia · sept. 2022 – mai 2025</span></p>
           <p><span lang="en">Computer architecture, digital systems design, functional and formal hardware verification, robotics. Several of the projects below started as course projects here.</span><span lang="fr">Architecture des ordinateurs, conception de systèmes numériques, vérification fonctionnelle et formelle du matériel, robotique. Plusieurs projets ci-dessous sont nés de cours suivis ici.</span></p>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Cloud</span><span lang="fr">Projet · Infonuagique</span></p>
-          <h3>SoftHub</h3>
-          <p class="lede">
-            <span lang="en">A serverless marketplace for software licences on AWS. Buyers pay by card and receive licence keys by e-mail within seconds. Licences are granted only by Stripe’s signed webhook, so a closed tab or a forged “payment succeeded” can neither grant nor lose one. Launch-day load test: about US$0.07 of AWS per day.</span>
-            <span lang="fr">Une place de marché sans serveur pour licences logicielles sur AWS. Les acheteurs paient par carte et reçoivent leurs clés de licence par courriel en quelques secondes. Seul le webhook signé de Stripe accorde une licence : un onglet fermé ou un faux « paiement réussi » ne peut ni en accorder ni en perdre une. Test de charge du jour du lancement : environ 0,07 $ US d’AWS par jour.</span>
-          </p>
-          <p class="links"><a href="https://sundarrajnitish.github.io/SoftHub-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/SoftHub-Lab">GitHub ↗</a></p>
-        </div>
-        <div class="demo-wrap reveal-scale">
-          <div class="demo-head"><p><span lang="en">Buy something with the test card and follow the payment through the backend. Double-click Pay: you still get one order.</span><span lang="fr">Achetez quelque chose avec la carte de test et suivez le paiement dans le backend. Double-cliquez sur Payer : vous n’obtenez toujours qu’une commande.</span></p></div>
-          <div class="demo" data-demo="softhub"></div>
-        </div>
       </div>
     </article>
 
-    <!-- ===================== 2024 ===================== -->
     <article class="chapter" data-year="2024">
       <div class="chapter-year"><span class="yr">2024</span></div>
       <div class="chapter-body">
-        <div class="entry compact reveal">
-          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
-          <h3><span lang="en">Outside Sales Representative</span><span lang="fr">Représentant des ventes externes</span></h3>
-          <p class="org">IO Solutions · Montréal · <span lang="en">Dec 2022 – Nov 2024</span><span lang="fr">déc. 2022 – nov. 2024</span></p>
-          <p><span lang="en">Two years of sales alongside my master’s. It taught me to scope a system in terms a client actually trusts, not just what’s technically correct.</span><span lang="fr">Deux ans de vente en parallèle de ma maîtrise. J’y ai appris à présenter un système dans des termes auxquels un client fait vraiment confiance, pas seulement ce qui est techniquement exact.</span></p>
-        </div>
-
-        <div class="entry reveal">
+        <div class="entry reveal" id="p-auction">
           <p class="kicker project"><span lang="en">Project · Cloud</span><span lang="fr">Projet · Infonuagique</span></p>
           <h3>AuctionHub</h3>
+          <p class="when"><span lang="en">Dec 2024</span><span lang="fr">déc. 2024</span></p>
           <p class="lede">
             <span lang="en">Live auctions on serverless AWS: proxy bidding, soft close and WebSocket pushes, with a compare-and-swap bid path on DynamoDB. In an evening-sale load test with 300 live members, bids had a p95 of 43 ms and none were lost.</span>
             <span lang="fr">Des enchères en direct sur AWS sans serveur : enchères par procuration, fermeture souple et notifications WebSocket, avec un chemin de mise en compare-and-swap sur DynamoDB. Lors d’un test de charge en soirée avec 300 membres connectés, le p95 des mises était de 43 ms, sans aucune mise perdue.</span>
@@ -199,24 +155,30 @@
           <div class="demo-head"><p><span lang="en">Set a hidden maximum and bid against two simulated members. A late bid pushes the close back by 30 seconds.</span><span lang="fr">Fixez un maximum caché et misez contre deux membres simulés. Une mise tardive repousse la fermeture de 30 secondes.</span></p></div>
           <div class="demo" data-demo="auction"></div>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Hardware verification</span><span lang="fr">Projet · Vérification matérielle</span></p>
-          <h3><span lang="en">Calc1 &amp; Calc3 Functional Verification</span><span lang="fr">Vérification fonctionnelle de Calc1 et Calc3</span></h3>
+        <div class="entry reveal" id="p-softhub">
+          <p class="kicker project"><span lang="en">Project · Cloud</span><span lang="fr">Projet · Infonuagique</span></p>
+          <h3>SoftHub</h3>
+          <p class="when"><span lang="en">Sep 2024 – Nov 2024</span><span lang="fr">sept. 2024 – nov. 2024</span></p>
           <p class="lede">
-            <span lang="en">A layered, self-checking SystemVerilog testbench for IBM’s four-port calculator designs. It catches 14 of 14 injected bugs with no false failures. Going back to the 2024 logs, I found the root cause of every ADD failure: a bridge between the bit-4 and bit-5 nets that reproduces all 3,321 failing lines digit for digit.</span>
-            <span lang="fr">Un banc d’essai SystemVerilog autovérifiant, en couches, pour les calculateurs à quatre ports d’IBM. Il détecte 14 bogues injectés sur 14, sans fausse alerte. En reprenant les journaux de 2024, j’ai trouvé la cause de chaque échec d’addition : un pont entre les nœuds des bits 4 et 5, qui reproduit les 3 321 lignes fautives chiffre pour chiffre.</span>
+            <span lang="en">A serverless marketplace for software licences on AWS. Buyers pay by card and receive licence keys by e-mail within seconds. Reviews are summarised with sentiment analysis for providers. Licences are granted only by Stripe’s signed webhook, so a closed tab or a forged “payment succeeded” can neither grant nor lose one. Launch-day load test: about US$0.07 of AWS per day.</span>
+            <span lang="fr">Une place de marché sans serveur pour licences logicielles sur AWS. Les acheteurs paient par carte et reçoivent leurs clés de licence par courriel en quelques secondes. Les avis sont résumés avec analyse de sentiment pour les fournisseurs. Seul le webhook signé de Stripe accorde une licence : un onglet fermé ou un faux « paiement réussi » ne peut ni en accorder ni en perdre une. Test de charge du jour du lancement : environ 0,07 $ US d’AWS par jour.</span>
           </p>
-          <p class="links"><a href="https://sundarrajnitish.github.io/Calc-Functional-Verification/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Calc-Functional-Verification">GitHub ↗</a></p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/SoftHub-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/SoftHub-Lab">GitHub ↗</a></p>
         </div>
         <div class="demo-wrap reveal-scale">
-          <div class="demo-head"><p><span lang="en">Inject a bug into the real 4-state Calc1 model, run the regression and see whether the scoreboard catches it.</span><span lang="fr">Injectez un bogue dans le vrai modèle Calc1 à 4 états, lancez la régression et voyez si le tableau de bord le détecte.</span></p></div>
-          <div class="demo" data-demo="calc"></div>
+          <div class="demo-head"><p><span lang="en">Buy something with the test card and follow the payment through the backend. Double-click Pay: you still get one order.</span><span lang="fr">Achetez quelque chose avec la carte de test et suivez le paiement dans le backend. Double-cliquez sur Payer : vous n’obtenez toujours qu’une commande.</span></p></div>
+          <div class="demo" data-demo="softhub"></div>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Formal verification</span><span lang="fr">Projet · Vérification formelle</span></p>
-          <h3><span lang="en">DDS Synthesizer, formally verified</span><span lang="fr">Synthétiseur DDS, vérifié formellement</span></h3>
+        <div class="entry compact reveal">
+          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
+          <h3><span lang="en">Outside Sales Representative</span><span lang="fr">Représentant des ventes externes</span></h3>
+          <p class="org">IO Solutions · Montréal · <span lang="en">Dec 2022 – Nov 2024</span><span lang="fr">déc. 2022 – nov. 2024</span></p>
+          <p><span lang="en">Two years of sales alongside my master’s. It taught me to scope a system in terms a client actually trusts, not just what’s technically correct.</span><span lang="fr">Deux ans de vente en parallèle de ma maîtrise. J’y ai appris à présenter un système dans des termes auxquels un client fait vraiment confiance, pas seulement ce qui est techniquement exact.</span></p>
+        </div>
+        <div class="entry reveal" id="p-dds">
+          <p class="kicker project"><span lang="en">Project · Formal Verification</span><span lang="fr">Projet · Vérification formelle</span></p>
+          <h3><span lang="en">DDS Synthesizer, Formally Verified</span><span lang="fr">Synthétiseur DDS, vérifié formellement</span></h3>
+          <p class="when"><span lang="en">May 2024 – Jun 2024</span><span lang="fr">mai 2024 – juin 2024</span></p>
           <p class="lede">
             <span lang="en">A direct digital synthesizer checked from RTL to gates. Equivalence checking finds the 14 bugs planted in a netlist (11 wrong cell types, 3 mis-wired flip-flops) and repairs them automatically in about 5 seconds, using open-source tools only.</span>
             <span lang="fr">Un synthétiseur numérique direct vérifié du RTL jusqu’aux portes. La vérification d’équivalence trouve les 14 bogues cachés dans une netlist (11 cellules erronées, 3 bascules mal câblées) et les répare automatiquement en environ 5 secondes, avec des outils libres seulement.</span>
@@ -227,16 +189,44 @@
           <div class="demo-head"><p><span lang="en">Turn the tuning word and watch the phase accumulator drive the sine ROM. Plant a netlist bug and compare it against the RTL.</span><span lang="fr">Tournez le mot d’accord et regardez l’accumulateur de phase piloter la ROM sinus. Plantez un bogue dans la netlist et comparez-la au RTL.</span></p></div>
           <div class="demo" data-demo="dds"></div>
         </div>
+        <div class="entry reveal" id="p-calc">
+          <p class="kicker project"><span lang="en">Project · Hardware Verification</span><span lang="fr">Projet · Vérification matérielle</span></p>
+          <h3><span lang="en">Calc1 &amp; Calc3 Functional Verification</span><span lang="fr">Vérification fonctionnelle de Calc1 et Calc3</span></h3>
+          <p class="when"><span lang="en">Jan 2024 – Apr 2024</span><span lang="fr">janv. 2024 – avr. 2024</span></p>
+          <p class="lede">
+            <span lang="en">A self-checking SystemVerilog testbench for IBM’s four-port Calc1 design and a UVM-based environment for Calc3. It catches 14 of 14 injected bugs with no false failures. Going back to the 2024 logs, I found the root cause of every ADD failure: a bridge between the bit-4 and bit-5 nets that reproduces all 3,321 failing lines digit for digit.</span>
+            <span lang="fr">Un banc d’essai SystemVerilog autovérifiant pour le calculateur Calc1 à quatre ports d’IBM, et un environnement UVM pour Calc3. Il détecte 14 bogues injectés sur 14, sans fausse alerte. En reprenant les journaux de 2024, j’ai trouvé la cause de chaque échec d’addition : un pont entre les nœuds des bits 4 et 5, qui reproduit les 3 321 lignes fautives chiffre pour chiffre.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Calc-Functional-Verification/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Calc-Functional-Verification">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Inject a bug into the real 4-state Calc1 model, run the regression and see whether the scoreboard catches it.</span><span lang="fr">Injectez un bogue dans le vrai modèle Calc1 à 4 états, lancez la régression et voyez si le tableau de bord le détecte.</span></p></div>
+          <div class="demo" data-demo="calc"></div>
+        </div>
       </div>
     </article>
 
-    <!-- ===================== 2023 ===================== -->
     <article class="chapter" data-year="2023">
       <div class="chapter-year"><span class="yr">2023</span></div>
       <div class="chapter-body">
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Digital design</span><span lang="fr">Projet · Conception numérique</span></p>
+        <div class="entry reveal" id="p-mcl">
+          <p class="kicker project"><span lang="en">Project · Robotics</span><span lang="fr">Projet · Robotique</span></p>
+          <h3>Monte Carlo Localization</h3>
+          <p class="when"><span lang="en">Nov 2023 – Dec 2023</span><span lang="fr">nov. 2023 – déc. 2023</span></p>
+          <p class="lede">
+            <span lang="en">A particle filter that works out where a robot is in a 28 m hallway from odometry and a 180-beam laser. On the real log it keeps the median scan end-point 4 cm from a wall; odometry alone drifts to 36 cm. Augmented MCL recovers a kidnapped robot in 5 runs out of 5.</span>
+            <span lang="fr">Un filtre particulaire qui détermine où se trouve un robot dans un couloir de 28 m, à partir de l’odométrie et d’un laser à 180 faisceaux. Sur le vrai journal, l’extrémité médiane des balayages reste à 4 cm d’un mur ; l’odométrie seule dérive jusqu’à 36 cm. Le MCL augmenté retrouve un robot kidnappé dans 5 essais sur 5.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/Monte-Carlo-Localization/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/Monte-Carlo-Localization">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Scatter the particles and watch them converge, then kidnap the robot.</span><span lang="fr">Dispersez les particules et regardez-les converger, puis kidnappez le robot.</span></p></div>
+          <div class="demo" data-demo="mcl"></div>
+        </div>
+        <div class="entry reveal" id="p-arith">
+          <p class="kicker project"><span lang="en">Project · Digital Design</span><span lang="fr">Projet · Conception numérique</span></p>
           <h3><span lang="en">Arithmetic Unit</span><span lang="fr">Unité arithmétique</span></h3>
+          <p class="when"><span lang="en">Sep 2023 – Dec 2023</span><span lang="fr">sept. 2023 – déc. 2023</span></p>
           <p class="lede">
             <span lang="en">A synchronous arithmetic unit in structural VHDL, built up from full adders: P = A·B/2<sup>C</sup> + D, with array and Dadda multipliers. The 2023 version didn’t compile as submitted. Version 2 passes 83 regression runs and has measured fmax.</span>
             <span lang="fr">Une unité arithmétique synchrone en VHDL structurel, construite à partir d’additionneurs complets : P = A·B/2<sup>C</sup> + D, avec multiplieurs en réseau et de Dadda. La version de 2023 ne compilait pas telle que remise. La version 2 réussit 83 essais de régression, avec une fmax mesurée.</span>
@@ -247,10 +237,10 @@
           <div class="demo-head"><p><span lang="en">Pick two operands and step the 8×8 partial products through every Dadda stage. Each dot is a real bit.</span><span lang="fr">Choisissez deux opérandes et faites passer les produits partiels 8×8 par chaque étage de Dadda. Chaque point est un vrai bit.</span></p></div>
           <div class="demo" data-demo="arith"></div>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Computer architecture</span><span lang="fr">Projet · Architecture des ordinateurs</span></p>
+        <div class="entry reveal" id="p-mips">
+          <p class="kicker project"><span lang="en">Project · Computer Architecture</span><span lang="fr">Projet · Architecture des ordinateurs</span></p>
           <h3>mini-MIPS</h3>
+          <p class="when"><span lang="en">Jan 2023 – Apr 2023</span><span lang="fr">janv. 2023 – avr. 2023</span></p>
           <p class="lede">
             <span lang="en">A 32-bit, 5-stage pipelined MIPS subset in VHDL-2008, with branches resolved in ID, a load-use interlock, and EX and ID forwarding. It runs 1,000 constrained-random programs against a golden ISS (aggregate CPI 1.298). The simulator below is the JavaScript twin checked cycle-for-cycle against the RTL over 98,669 cycles.</span>
             <span lang="fr">Un sous-ensemble MIPS 32 bits en pipeline à 5 étages, en VHDL-2008, avec branchements résolus en ID, verrouillage load-use et anticipation en EX et en ID. Il exécute 1 000 programmes aléatoires contraints face à un ISS de référence (CPI global 1,298). Le simulateur ci-dessous est son jumeau JavaScript, vérifié cycle par cycle contre le RTL sur 98 669 cycles.</span>
@@ -264,13 +254,13 @@
       </div>
     </article>
 
-    <!-- ===================== 2022 ===================== -->
     <article class="chapter" data-year="2022">
       <div class="chapter-year"><span class="yr">2022</span></div>
       <div class="chapter-body">
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Front end</span><span lang="fr">Projet · Interface web</span></p>
+        <div class="entry reveal" id="p-crimson">
+          <p class="kicker project"><span lang="en">Project · Front End</span><span lang="fr">Projet · Interface web</span></p>
           <h3>Le Crimson</h3>
+          <p class="when"><span lang="en">Sep 2022 – Dec 2022</span><span lang="fr">sept. 2022 – déc. 2022</span></p>
           <p class="lede">
             <span lang="en">A personalised news reader. Pick your interests and get a feed built around them, with search, bookmarks and a community feed. Rebuilt in 2026 from a Create React App sprint project to React 19, TanStack Query and Tailwind 4, with axe-core accessibility checks in CI.</span>
             <span lang="fr">Un lecteur de nouvelles personnalisé. Choisissez vos intérêts et obtenez un fil construit autour d’eux, avec recherche, signets et fil communautaire. Refait en 2026 : d’un projet sprint Create React App à React 19, TanStack Query et Tailwind 4, avec des contrôles d’accessibilité axe-core en intégration continue.</span>
@@ -281,11 +271,10 @@
           <div class="demo-head"><p><span lang="en">Choose your interests and search. Search ignores accents, so “montreal” finds “Montréal”.</span><span lang="fr">Choisissez vos intérêts et cherchez. La recherche ignore les accents : « montreal » trouve « Montréal ».</span></p></div>
           <div class="demo" data-demo="crimson"></div>
         </div>
-
         <div class="milestone reveal">
-          <p class="kicker edu"><span lang="en">Milestone · New chapter</span><span lang="fr">Jalon · Nouveau chapitre</span></p>
+          <p class="kicker edu"><span lang="en">Milestone · New Chapter</span><span lang="fr">Jalon · Nouveau chapitre</span></p>
           <div class="ms-date"><span lang="en">Sep 2022</span><span lang="fr">Sept. 2022</span></div>
-          <h3><span lang="en">Started my Master’s at Concordia, in Montréal</span><span lang="fr">Début de ma maîtrise à Concordia, à Montréal</span></h3>
+          <h3><span lang="en">Started My Master’s at Concordia, in Montréal</span><span lang="fr">Début de ma maîtrise à Concordia, à Montréal</span></h3>
           <p class="lede"><span lang="en">Four months after finishing my bachelor’s, I moved to Montréal to start a Master of Engineering in Electrical &amp; Computer Engineering. The silicon, verification and cloud projects above all began here.</span><span lang="fr">Quatre mois après mon baccalauréat, je me suis installé à Montréal pour commencer une maîtrise en ingénierie, génie électrique et informatique. Les projets de silicium, de vérification et d’infonuagique ci-dessus ont tous commencé ici.</span></p>
           <div class="ms-path">
             <div><b>B.Tech</b><span>SRMIST · <span lang="en">May 2022</span><span lang="fr">mai 2022</span> ✓</span></div>
@@ -293,7 +282,6 @@
             <div class="now"><b>M.Eng</b><span>Concordia · <span lang="en">Sep 2022</span><span lang="fr">sept. 2022</span></span></div>
           </div>
         </div>
-
         <div class="entry compact reveal">
           <p class="kicker edu"><span lang="en">Education · Graduated</span><span lang="fr">Formation · Diplômé</span></p>
           <h3><span lang="en">B.Tech, Mechatronics, Robotics &amp; Automation Engineering</span><span lang="fr">B.Tech, génie mécatronique, robotique et automatisation</span></h3>
@@ -303,16 +291,16 @@
       </div>
     </article>
 
-    <!-- ===================== 2021 ===================== -->
     <article class="chapter" data-year="2021">
-      <div class="chapter-year"><span class="yr">2021</span></div>
+      <div class="chapter-year"><span class="yr">2021</span><span class="yr-sub"><span lang="en">to May 2022</span><span lang="fr">jusqu’en mai 2022</span></span></div>
       <div class="chapter-body">
-        <div class="entry reveal">
+        <div class="entry reveal" id="p-rtmc">
           <p class="kicker project"><span lang="en">Project · Telerobotics</span><span lang="fr">Projet · Télérobotique</span></p>
           <h3>RTMC-HG</h3>
+          <p class="when"><span lang="en">Aug 2021 – May 2022</span><span lang="fr">août 2021 – mai 2022</span></p>
           <p class="lede">
-            <span lang="en">Real-time telerobotic manipulator control using hand gestures. A webcam names one of 20 gestures, the command crosses the internet, and five servos pull the tendons of a robot hand somewhere else. Version 2 adds a confidence gate, CRC-checked serial frames and newest-only transport, so the robot keeps up with a person.</span>
-            <span lang="fr">Commande télérobotique en temps réel d’un manipulateur par gestes de la main. Une webcam reconnaît l’un de 20 gestes, la commande traverse Internet, et cinq servomoteurs tirent les tendons d’une main robotique ailleurs. La version 2 ajoute un seuil de confiance, des trames série vérifiées par CRC et un transport qui ne garde que la commande la plus récente : le robot suit enfin le rythme d’une personne.</span>
+            <span lang="en">A remote-controlled robotic arm in the InMoov style, designed in Fusion 360 with generative design and 3D-printed, driven by Arduino and servos. A webcam names one of 20 gestures, the command crosses the internet, and five servos pull the tendons of a robot hand somewhere else. Version 2 adds a confidence gate, CRC-checked serial frames and newest-only transport, so the robot keeps up with a person.</span>
+            <span lang="fr">Un bras robotique télécommandé dans le style InMoov, conçu dans Fusion 360 par conception générative et imprimé en 3D, piloté par Arduino et servomoteurs. Une webcam reconnaît l’un de 20 gestes, la commande traverse Internet, et cinq servomoteurs tirent les tendons d’une main robotique ailleurs. La version 2 ajoute un seuil de confiance, des trames série vérifiées par CRC et un transport qui ne garde que la commande la plus récente : le robot suit enfin le rythme d’une personne.</span>
           </p>
           <p class="links"><a href="https://sundarrajnitish.github.io/RTMC-HG-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/RTMC-HG-Lab">GitHub ↗</a></p>
         </div>
@@ -323,9 +311,8 @@
       </div>
     </article>
 
-    <!-- ===================== 2020 ===================== -->
     <article class="chapter" data-year="2020">
-      <div class="chapter-year"><span class="yr">2020</span><span class="yr-sub"><span lang="en">where it started</span><span lang="fr">là où tout a commencé</span></span></div>
+      <div class="chapter-year"><span class="yr">2020</span></div>
       <div class="chapter-body">
         <div class="entry compact reveal">
           <p class="kicker edu"><span lang="en">Training</span><span lang="fr">Formation</span></p>
@@ -333,38 +320,10 @@
           <p class="org"><span lang="en">Internet of Things certification · 2020</span><span lang="fr">Certification Internet des objets · 2020</span></p>
           <p><span lang="en">Embedded and IoT projects from the training program, all on <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span><span lang="fr">Projets embarqués et IdO du programme de formation, tous sur <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span></p>
         </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · My first robot</span><span lang="fr">Projet · Mon premier robot</span></p>
-          <h3>Handwriting-Machine</h3>
-          <p class="lede">
-            <span lang="en">An ATmega16, two A4988 stepper drivers and a servo-lifted pen on an acrylic frame. It interprets G-code (<code>G01</code> to move, <code>M03</code> pen down, <code>M05</code> pen up) and writes whatever it’s given on a 155 × 155 mm bed.</span>
-            <span lang="fr">Un ATmega16, deux pilotes pas-à-pas A4988 et un stylo levé par servo sur un châssis en acrylique. Il interprète le G-code (<code>G01</code> pour se déplacer, <code>M03</code> stylo baissé, <code>M05</code> stylo levé) et écrit tout ce qu’on lui donne sur une surface de 155 × 155 mm.</span>
-          </p>
-          <p class="links"><a href="https://github.com/sundarrajnitish/Handwriting-Machine">GitHub ↗</a></p>
-        </div>
-        <div class="demo-wrap reveal-scale">
-          <div class="demo-head"><p><span lang="en">Type something. It becomes G-code, and the plotter writes it.</span><span lang="fr">Tapez quelque chose. Le texte devient du G-code, et la table traçante l’écrit.</span></p></div>
-          <div class="demo" data-demo="plotter"></div>
-        </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Agricultural robotics</span><span lang="fr">Projet · Robotique agricole</span></p>
-          <h3>FARM-E</h3>
-          <p class="lede">
-            <span lang="en">A tracked plantation robot. It drives a bed in serpentine rows, stops at a set spacing, drops seed, waters it and moves on, braking within milliseconds when its sonar sees the edge. An Arduino UNO drives it; a NodeMCU serves the phone controls over Wi-Fi, linked by CRC-checked frames.</span>
-            <span lang="fr">Un robot de plantation à chenilles. Il parcourt une planche en rangs serpentins, s’arrête à un espacement donné, dépose la semence, l’arrose et repart, en freinant en quelques millisecondes quand son sonar détecte le bord. Un Arduino UNO le pilote ; un NodeMCU sert les commandes du téléphone par Wi-Fi, reliés par des trames vérifiées par CRC.</span>
-          </p>
-          <p class="links"><a href="https://sundarrajnitish.github.io/FARM-E-Plantation-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/FARM-E-Plantation-Lab">GitHub ↗</a></p>
-        </div>
-        <div class="demo-wrap reveal-scale">
-          <div class="demo-head"><p><span lang="en">Set the spacing and start a planting run. Hit STOP like the phone would.</span><span lang="fr">Réglez l’espacement et lancez une plantation. Appuyez sur ARRÊT comme le ferait le téléphone.</span></p></div>
-          <div class="demo" data-demo="farme"></div>
-        </div>
-
-        <div class="entry reveal">
-          <p class="kicker project"><span lang="en">Project · Control systems</span><span lang="fr">Projet · Systèmes de contrôle</span></p>
+        <div class="entry reveal" id="p-hydro">
+          <p class="kicker project"><span lang="en">Project · Control Systems</span><span lang="fr">Projet · Systèmes de contrôle</span></p>
           <h3>Hydroponinator</h3>
+          <p class="when"><span lang="en">Jan 2020</span><span lang="fr">janv. 2020</span></p>
           <p class="lede">
             <span lang="en">An Arduino Mega controller for a soil-free grow rack. It keeps the nutrient solution between pH 5.5 and 6.5 using dose-and-wait control, runs the lights, pump and climate on a schedule, and stops dosing when a sensor lies. In a simulated 14-day grow, pH stayed in band 100% of the time.</span>
             <span lang="fr">Un contrôleur Arduino Mega pour une culture hors sol. Il maintient la solution nutritive entre pH 5,5 et 6,5 par dosage et attente, gère l’éclairage, la pompe et le climat selon un horaire, et cesse de doser quand un capteur ment. Sur 14 jours de culture simulée, le pH est resté dans la plage 100 % du temps.</span>
@@ -377,11 +336,70 @@
         </div>
       </div>
     </article>
+
+    <article class="chapter" data-year="2019">
+      <div class="chapter-year"><span class="yr">2019</span></div>
+      <div class="chapter-body">
+        <div class="entry reveal" id="p-farme">
+          <p class="kicker project"><span lang="en">Project · Agricultural Robotics</span><span lang="fr">Projet · Robotique agricole</span></p>
+          <h3>FARM-E</h3>
+          <p class="when"><span lang="en">Mar 2019 – Apr 2019</span><span lang="fr">mars 2019 – avr. 2019</span></p>
+          <p class="lede">
+            <span lang="en">A tracked plantation robot (ploughing, sowing, watering, enclosing) that logs temperature and humidity to a web server and is steered from a phone app. It drives a bed in serpentine rows, stops at a set spacing, drops seed, waters it and moves on, braking within milliseconds when its sonar sees the edge. An Arduino UNO drives it; a NodeMCU serves the phone controls over Wi-Fi, linked by CRC-checked frames.</span>
+            <span lang="fr">Un robot de plantation à chenilles (labour, semis, arrosage, fermeture) qui transmet température et humidité à un serveur web et se pilote depuis une appli mobile. Il parcourt une planche en rangs serpentins, s’arrête à un espacement donné, dépose la semence, l’arrose et repart, en freinant en quelques millisecondes quand son sonar détecte le bord. Un Arduino UNO le pilote ; un NodeMCU sert les commandes du téléphone par Wi-Fi, reliés par des trames vérifiées par CRC.</span>
+          </p>
+          <p class="links"><a href="https://sundarrajnitish.github.io/FARM-E-Plantation-Lab/"><span lang="en">Open the lab</span><span lang="fr">Ouvrir le labo</span> ↗</a><a href="https://github.com/sundarrajnitish/FARM-E-Plantation-Lab">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Set the spacing and start a planting run. Hit STOP like the phone would.</span><span lang="fr">Réglez l’espacement et lancez une plantation. Appuyez sur ARRÊT comme le ferait le téléphone.</span></p></div>
+          <div class="demo" data-demo="farme"></div>
+        </div>
+        <div class="entry reveal" id="p-plotter">
+          <p class="kicker project"><span lang="en">Project · My First Robot</span><span lang="fr">Projet · Mon premier robot</span></p>
+          <h3>Handwriting-Machine</h3>
+          <p class="when"><span lang="en">Feb 2019</span><span lang="fr">févr. 2019</span></p>
+          <p class="lede">
+            <span lang="en">An ATmega16, two A4988 stepper drivers and a servo-lifted pen on an acrylic frame. It interprets G-code (<code>G01</code> to move, <code>M03</code> pen down, <code>M05</code> pen up) and writes whatever it’s given on a 155 × 155 mm bed.</span>
+            <span lang="fr">Un ATmega16, deux pilotes pas-à-pas A4988 et un stylo levé par servo sur un châssis en acrylique. Il interprète le G-code (<code>G01</code> pour se déplacer, <code>M03</code> stylo baissé, <code>M05</code> stylo levé) et écrit tout ce qu’on lui donne sur une surface de 155 × 155 mm.</span>
+          </p>
+          <p class="links"><a href="https://github.com/sundarrajnitish/Handwriting-Machine">GitHub ↗</a></p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Type something. It becomes G-code, and the plotter writes it.</span><span lang="fr">Tapez quelque chose. Le texte devient du G-code, et la table traçante l’écrit.</span></p></div>
+          <div class="demo" data-demo="plotter"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="chapter" data-year="2018">
+      <div class="chapter-year"><span class="yr">2018</span><span class="yr-sub"><span lang="en">where it started</span><span lang="fr">là où tout a commencé</span></span></div>
+      <div class="chapter-body">
+        <div class="entry reveal" id="p-wheelchair">
+          <p class="kicker project"><span lang="en">Project · Assistive Robotics</span><span lang="fr">Projet · Robotique d’assistance</span></p>
+          <h3><span lang="en">Bluetooth Miniature Wheelchair</span><span lang="fr">Fauteuil roulant miniature Bluetooth</span></h3>
+          <p class="when"><span lang="en">Sep 2018</span><span lang="fr">sept. 2018</span></p>
+          <p class="lede">
+            <span lang="en">A miniature wheelchair prototype steered from a Bluetooth controller. An ultrasonic sensor watches the way ahead and the chair refuses to drive into anything, so the operator can only turn or back away. Circuit design and C programming.</span>
+            <span lang="fr">Un prototype de fauteuil roulant miniature piloté par une manette Bluetooth. Un capteur à ultrasons surveille la route et le fauteuil refuse de foncer dans un obstacle : l’opérateur ne peut que tourner ou reculer. Conception de circuits et programmation en C.</span>
+          </p>
+        </div>
+        <div class="demo-wrap reveal-scale">
+          <div class="demo-head"><p><span lang="en">Drive with the controller (or the arrow keys). The ultrasonic sensor stops the chair 25 cm from an obstacle.</span><span lang="fr">Pilotez avec la manette (ou les flèches). Le capteur à ultrasons arrête le fauteuil à 25 cm d’un obstacle.</span></p></div>
+          <div class="demo" data-demo="wheelchair"></div>
+        </div>
+        <div class="entry compact reveal">
+          <p class="kicker edu"><span lang="en">Education · Started</span><span lang="fr">Formation · Début</span></p>
+          <h3><span lang="en">B.Tech, Mechatronics, Robotics &amp; Automation Engineering</span><span lang="fr">B.Tech, génie mécatronique, robotique et automatisation</span></h3>
+          <p class="org"><span lang="en">SRM Institute of Science and Technology · Jun 2018</span><span lang="fr">SRM Institute of Science and Technology · juin 2018</span></p>
+          <p><span lang="en">Four years that turned into hobby robots, a first prototype in the first semester and plenty more after it.</span><span lang="fr">Quatre années de robots, avec un premier prototype dès le premier semestre et beaucoup d’autres ensuite.</span></p>
+        </div>
+      </div>
+    </article>
   </section>
 
   <!-- STATS -->
   <section class="stats reveal" id="stats">
-    <div class="stat"><span class="num" data-count="14">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
+    <div class="stat"><span class="num" data-count="15">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
     <div class="stat"><span class="num" data-count="7">0</span><span class="lbl"><span lang="en">years of building</span><span lang="fr">années à construire</span></span></div>
     <div class="stat"><span class="num" data-count="9">0</span><span class="lbl"><span lang="en">layers, gates to cloud</span><span lang="fr">couches, des portes au nuage</span></span></div>
     <div class="stat"><span class="num" data-count="3">0</span><span class="lbl"><span lang="en">languages spoken</span><span lang="fr">langues parlées</span></span></div>
@@ -469,6 +487,7 @@
 <script src="js/demos/plotter.js"></script>
 <script src="js/demos/farme.js"></script>
 <script src="js/demos/hydro.js"></script>
+<script src="js/demos/wheelchair.js"></script>
 <script src="js/visage.js"></script>
 <script src="js/character.js"></script>
 <script src="js/main.js"></script>
