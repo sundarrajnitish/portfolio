@@ -10,7 +10,7 @@
 
   const SCENES = {
     base: { gear: ['sunglasses'], cap: ['Building something', 'En pleine construction'] },
-    site: { gear: ['hardhat', 'safety'], vest: true, cap: ['On site · Schneider Electric', 'Sur le chantier · Schneider Electric'] },
+    site: { gear: ['hardhat', 'safety'], vest: true, cap: ['On site · power systems', 'Sur le chantier · réseaux électriques'] },
     pit: { gear: ['headset', 'eyes'], cap: ['Pit wall · live telemetry', 'Muret des stands · télémétrie'] },
     desk: { gear: ['glasses'], cap: ['Master’s · Concordia', 'Maîtrise · Concordia'] },
     grad: { gear: ['gradcap', 'eyes'], noLaptop: true, cap: ['B.Tech done → M.Eng from Sep 2022', 'B.Tech terminé → M.Eng dès sept. 2022'] },
