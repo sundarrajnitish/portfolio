@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nitish Sundarraj</title>
-<meta name="description" content="Multidisciplinary Engineering Professional in Montréal: electrical power, controls, hardware, robotics and software. Fifteen of my demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on one page.">
+<meta name="description" content="Multidisciplinary Engineering Professional in Montréal: electrical power, controls, hardware, robotics and software. 68 courses across every layer of the engineering stack, and fifteen live demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline.">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/figure.css">
 <script>
   // pick the language before first paint: saved choice, else the browser's
   (function () {
@@ -26,12 +27,12 @@
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="brand"><span class="wave" aria-hidden="true">👋</span> <span lang="en">Welcome to My Portfolio</span><span lang="fr">Bienvenue dans mon portfolio</span></a>
-    <nav class="nav-links">
-      <a href="#now"><span lang="en">Now</span><span lang="fr">Aujourd’hui</span></a>
-      <a href="#timeline"><span lang="en">Timeline</span><span lang="fr">Parcours</span></a>
-      <a href="#about"><span lang="en">About</span><span lang="fr">À propos</span></a>
-      <a href="#contact">Contact</a>
+    <a href="#top" class="brand" aria-label="Nitish Sundarraj"><span class="mono">NS</span><span class="brand-name">Nitish Sundarraj</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#curriculum" data-nav="curriculum"><span lang="en">Stack</span><span lang="fr">Pile</span></a>
+      <a href="#timeline" data-nav="timeline"><span lang="en">Work</span><span lang="fr">Projets</span></a>
+      <a href="#about" data-nav="about"><span lang="en">About</span><span lang="fr">À propos</span></a>
+      <a href="#contact" data-nav="contact">Contact</a>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language / Langue">
       <button type="button" data-set-lang="en">EN</button>
@@ -44,27 +45,47 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-bg" aria-hidden="true"><div class="hero-grid"></div><div class="hero-glow"></div></div>
     <div class="hero-inner" id="heroInner">
       <div class="hero-copy">
-        <p class="eyebrow">
-          <span lang="en">Multidisciplinary Engineering Professional · Montréal</span>
-          <span lang="fr">Professionnel en ingénierie multidisciplinaire · Montréal</span>
+        <p class="badge"><span class="pulse" aria-hidden="true"></span>
+          <span lang="en">Power Application Engineering Specialist · Montréal</span>
+          <span lang="fr">Spécialiste en ingénierie d’applications de puissance · Montréal</span>
         </p>
-        <h1 class="hero-title">Nitish Sundarraj.</h1>
+        <h1 class="hero-title">Nitish<br>Sundarraj<span class="dot">.</span></h1>
         <p class="hero-tag">
-          <span lang="en">I can build anything I put my mind to.</span>
-          <span lang="fr">Je peux construire tout ce que je me mets en tête.</span>
+          <span lang="en">I can build <em class="serif">anything</em> I put my mind to.</span>
+          <span lang="fr">Je peux construire <em class="serif">tout</em> ce que je me mets en tête.</span>
         </p>
         <p class="hero-sub">
-          <span lang="en">Fifteen of my demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline, running live on this page. Scroll back in time.</span>
-          <span lang="fr">Quinze de mes démos, d’un synoptique SCADA de centre de données à un pipeline MIPS à cinq étages, fonctionnent en direct sur cette page. Remontez le temps en défilant.</span>
+          <span lang="en">A multidisciplinary engineer with 68 courses across every layer of the stack, from Maxwell’s equations to serverless APIs, and fifteen live demos on this page to prove the layers connect.</span>
+          <span lang="fr">Un ingénieur multidisciplinaire : 68 cours couvrant chaque couche de la pile, des équations de Maxwell aux API sans serveur, et quinze démos en direct sur cette page pour prouver que les couches se rejoignent.</span>
         </p>
+        <div class="hero-cta">
+          <a class="pill" href="#curriculum"><span lang="en">Explore the stack</span><span lang="fr">Explorer la pile</span> <span aria-hidden="true">→</span></a>
+          <a class="pill ghost" href="#timeline"><span lang="en">See the work</span><span lang="fr">Voir les projets</span></a>
+        </div>
       </div>
-      <div class="visage" id="visage" role="img" aria-label="Line-art portrait of Nitish surrounded by his work"></div>
+      <div class="hero-stage" tabindex="0" role="img" aria-label="Illustrated Nitish at his laptop. Click to take his sunglasses off.">
+        <div class="hero-fig" id="heroFig"></div>
+        <p class="bubble" id="heroBubble" aria-live="polite"></p>
+        <a class="float f1" href="#p-scada" style="--d:0s"><b>⚡</b><span class="k">SCADA</span><span class="v"><i class="led"></i>52-A1 <span data-live="bkr">CLOSED</span></span></a>
+        <a class="float f2" href="#p-mips" style="--d:-1.4s"><b>▦</b><span class="k">clk 100 MHz</span><span class="v">WNS <span data-live="wns">+0.42</span> ns</span></a>
+        <a class="float f3" href="#p-f1" style="--d:-2.6s"><b>⇄</b><span class="k">CAN 0x1A0</span><span class="v" data-live="can">8F 2C 04 1E</span></a>
+        <a class="float f4" href="#p-mcl" style="--d:-3.3s"><b>◎</b><span class="k">MCL pose</span><span class="v" data-live="pose">x 1.42 · θ 31°</span></a>
+        <a class="float f5" href="#curriculum" style="--d:-.7s"><b>∿</b><span class="k" data-live="hz">60.00 Hz</span><span class="v">PF <span data-live="pf">0.98</span></span></a>
+        <p class="stage-hint" aria-hidden="true"><span lang="en">psst, click me</span><span lang="fr">psst, cliquez-moi</span></p>
+      </div>
     </div>
     <a class="scroll-cue" href="#manifesto" aria-label="Scroll"><span></span></a>
   </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>EPMS</span><i>✦</i><span>SCADA · BMS</span><i>✦</i><span>Protection relays</span><i>✦</i><span>Power electronics</span><i>✦</i><span>Control systems</span><i>✦</i><span>VHDL · SystemVerilog</span><i>✦</i><span>UVM</span><i>✦</i><span>Formal verification</span><i>✦</i><span>Embedded C</span><i>✦</i><span>CAN bus</span><i>✦</i><span>Robotics</span><i>✦</i><span>Machine vision</span><i>✦</i><span>AWS serverless</span><i>✦</i><span>React</span><i>✦</i><span>Python · MATLAB</span><i>✦</i><span>Fusion 360</span><i>✦</i>
+      <span>EPMS</span><i>✦</i><span>SCADA · BMS</span><i>✦</i><span>Protection relays</span><i>✦</i><span>Power electronics</span><i>✦</i><span>Control systems</span><i>✦</i><span>VHDL · SystemVerilog</span><i>✦</i><span>UVM</span><i>✦</i><span>Formal verification</span><i>✦</i><span>Embedded C</span><i>✦</i><span>CAN bus</span><i>✦</i><span>Robotics</span><i>✦</i><span>Machine vision</span><i>✦</i><span>AWS serverless</span><i>✦</i><span>React</span><i>✦</i><span>Python · MATLAB</span><i>✦</i><span>Fusion 360</span><i>✦</i>
+    </div>
+  </div>
 
   <div class="stage">
   <div class="stage-main">
@@ -75,11 +96,284 @@
     <p class="scrub" lang="fr">Je suis un professionnel en ingénierie multidisciplinaire. L’énergie électrique et le contrôle le jour ; le micrologiciel embarqué, le matériel numérique, la robotique et le logiciel infonuagique le reste du temps. Je ne reste pas dans une seule couche : j’apprends ce que le problème exige, puis je le mène du premier croquis à quelque chose qui fonctionne. Tout ce qui suit fonctionne en direct sur cette page.</p>
   </section>
 
-  <!-- TIMELINE -->
+  <!-- CURRICULUM: the unique value proposition -->
+  <section class="curriculum" id="curriculum">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="num">01</span><span lang="en">The Stack</span><span lang="fr">La pile</span></p>
+      <h2 class="display"><span lang="en">Full-stack,<br><em class="serif">literally.</em></span><span lang="fr">Polyvalent,<br><em class="serif">littéralement.</em></span></h2>
+      <p class="sec-sub">
+        <span lang="en">Most engineers go deep in one layer. I studied every layer between the physics and the cloud, from electromagnetics and machine design to silicon, control and serverless APIs. When a problem crosses layers, I can follow it all the way down without a hand-off. Pick a layer to see the courses behind it and where they show up in my work.</span>
+        <span lang="fr">La plupart des ingénieurs approfondissent une seule couche. J’ai étudié chaque couche entre la physique et le nuage, de l’électromagnétisme et la conception mécanique jusqu’au silicium, à la commande et aux API sans serveur. Quand un problème traverse plusieurs couches, je peux le suivre jusqu’au bout sans passer le relais. Choisissez une couche pour voir les cours qui la composent et où on les retrouve dans mon travail.</span>
+      </p>
+    </div>
+    <div class="cs-stats reveal">
+      <div><b data-count="68">0</b><span lang="en">courses</span><span lang="fr">cours</span></div>
+      <div><b data-count="9">0</b><span lang="en">technical layers</span><span lang="fr">couches techniques</span></div>
+      <div><b data-count="4">0</b><span lang="en">disciplines: mechanical, electrical, computer, software</span><span lang="fr">disciplines : mécanique, électrique, informatique, logiciel</span></div>
+      <div><b data-count="2">0</b><span lang="en">universities, two continents</span><span lang="fr">universités, deux continents</span></div>
+    </div>
+    <div class="curriculum-app reveal" id="curriculum-app"></div>
+    <div class="certs" id="certs">
+      <div class="certs-head reveal">
+        <h3 class="certs-title"><span lang="en">Beyond the degree</span><span lang="fr">Au-delà des diplômes</span></h3>
+        <p><span lang="en">13 certifications that push the stack further into autonomy, AI and design for manufacturing. Open one to see what it covers and a sample of the work.</span><span lang="fr">13 certifications qui prolongent la pile vers l’autonomie, l’IA et la conception pour la fabrication. Ouvrez-en une pour voir son contenu et un exemple du travail.</span></p>
+      </div>
+      <div class="cert-filters reveal" role="group" aria-label="Filter certifications">
+        <button type="button" class="on" data-cert-filter="all"><span lang="en">All</span><span lang="fr">Toutes</span></button>
+        <button type="button" data-cert-filter="auto"><span lang="en">Autonomy &amp; robotics</span><span lang="fr">Autonomie et robotique</span></button>
+        <button type="button" data-cert-filter="ai"><span lang="en">AI &amp; data</span><span lang="fr">IA et données</span></button>
+        <button type="button" data-cert-filter="design"><span lang="en">Design &amp; manufacturing</span><span lang="fr">Conception et fabrication</span></button>
+        <button type="button" data-cert-filter="beyond"><span lang="en">Beyond engineering</span><span lang="fr">Au-delà de l’ingénierie</span></button>
+      </div>
+      <div class="cert-grid">
+        <details class="cert reveal" data-group="auto">
+          <summary>
+            <span class="cert-issuer">University of Toronto</span>
+            <b class="cert-name">Self-Driving Cars</b>
+            <span class="cert-type"><span lang="en">Specialization · 4 courses</span><span lang="fr">Spécialisation · 4 cours</span></span>
+            <span class="cert-out"><span lang="en">The full autonomy stack for a car: vehicle dynamics and control, sensor fusion, perception and motion planning, tested in the CARLA simulator.</span><span lang="fr">Toute la pile d’autonomie d’une voiture : dynamique et commande du véhicule, fusion de capteurs, perception et planification de trajectoire, testées dans le simulateur CARLA.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Introduction to Self-Driving Cars</li><li>State Estimation and Localization for Self-Driving Cars</li><li>Visual Perception for Self-Driving Cars</li><li>Motion Planning for Self-Driving Cars</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code># Stanley lateral controller (CARLA)
+heading_err = wrap(path_yaw - yaw)
+cross_err   = signed_dist(front_axle, path)
+steer = heading_err + atan2(k * cross_err, ks + v)
+steer = clip(steer, -1.22, 1.22)        # ±70°</code></pre>
+            <p class="cert-cap"><span lang="en">Lateral control: steering that drives both heading error and cross-track error to zero.</span><span lang="fr">Commande latérale : un braquage qui ramène à zéro l’erreur de cap et l’écart latéral.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="auto">
+          <summary>
+            <span class="cert-issuer">Georgia Institute of Technology</span>
+            <b class="cert-name">Control of Mobile Robots</b>
+            <span class="cert-type"><span lang="en">Course</span><span lang="fr">Cours</span></span>
+            <span class="cert-out"><span lang="en">Control theory applied to robots: stability, feedback and hybrid behaviours that switch between go-to-goal, avoid-obstacle and follow-wall.</span><span lang="fr">La théorie de la commande appliquée aux robots : stabilité, rétroaction et comportements hybrides qui alternent entre aller au but, éviter un obstacle et longer un mur.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Dynamical models and PID control</li><li>Linear systems, stability and state feedback</li><li>Controllability and observability</li><li>Hybrid systems and behaviour switching</li><li>Differential-drive robot in simulation</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>% go-to-goal on a differential-drive robot
+theta_g = atan2(yg - y, xg - x);
+w  = K * atan2(sin(theta_g - theta), cos(theta_g - theta));
+vR = (2*v + w*L) / (2*R);
+vL = (2*v - w*L) / (2*R);</code></pre>
+            <p class="cert-cap"><span lang="en">From the unicycle model to wheel speeds: the core of every behaviour in the course.</span><span lang="fr">Du modèle unicycle aux vitesses des roues : le cœur de chaque comportement du cours.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="auto">
+          <summary>
+            <span class="cert-issuer">Lema Labs</span>
+            <b class="cert-name">Kaizen Robotics Program</b>
+            <span class="cert-type"><span lang="en">Program · 2019</span><span lang="fr">Programme · 2019</span></span>
+            <span class="cert-out"><span lang="en">Hands-on robotics with an Internet of Things track: microcontrollers, sensors and actuators, then putting the builds on the network.</span><span lang="fr">Robotique pratique avec un volet Internet des objets : microcontrôleurs, capteurs et actionneurs, puis la mise en réseau des montages.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="links"><a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program"><span lang="en">Program projects on GitHub</span><span lang="fr">Projets du programme sur GitHub</span> ↗</a></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">DeepLearning.AI</span>
+            <b class="cert-name">Deep Learning</b>
+            <span class="cert-type"><span lang="en">Specialization · 5 courses</span><span lang="fr">Spécialisation · 5 cours</span></span>
+            <span class="cert-out"><span lang="en">Neural networks from first principles: backpropagation written by hand in NumPy, then CNNs, sequence models, and how to diagnose and tune them.</span><span lang="fr">Les réseaux de neurones à partir des principes : rétropropagation écrite à la main en NumPy, puis CNN, modèles de séquences, et comment les diagnostiquer et les régler.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Neural Networks and Deep Learning</li><li>Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization</li><li>Structuring Machine Learning Projects</li><li>Convolutional Neural Networks</li><li>Sequence Models</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code># one gradient step, by hand in NumPy
+dZ = A - Y                     # sigmoid + cross-entropy
+dW = (dZ @ X.T) / m
+db = dZ.sum(axis=1, keepdims=True) / m
+W -= lr * dW;  b -= lr * db</code></pre>
+            <p class="cert-cap"><span lang="en">Logistic regression as a one-neuron network, before any framework is allowed.</span><span lang="fr">La régression logistique comme réseau à un neurone, avant d’avoir droit à un framework.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">DeepLearning.AI</span>
+            <b class="cert-name">TensorFlow in Practice</b>
+            <span class="cert-type"><span lang="en">Specialization · 4 courses</span><span lang="fr">Spécialisation · 4 cours</span></span>
+            <span class="cert-out"><span lang="en">Building and training models in TensorFlow and Keras for computer vision, natural language and time-series forecasting.</span><span lang="fr">Concevoir et entraîner des modèles avec TensorFlow et Keras pour la vision, le langage naturel et la prévision de séries temporelles.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning</li><li>Convolutional Neural Networks in TensorFlow</li><li>Natural Language Processing in TensorFlow</li><li>Sequences, Time Series and Prediction</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>model = tf.keras.Sequential([
+    layers.Conv2D(32, 3, activation='relu', input_shape=(150, 150, 3)),
+    layers.MaxPooling2D(),
+    layers.Flatten(),
+    layers.Dense(1, activation='sigmoid'),
+])
+model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])</code></pre>
+            <p class="cert-cap"><span lang="en">An image classifier in a few lines; the course then adds augmentation and transfer learning.</span><span lang="fr">Un classificateur d’images en quelques lignes ; le cours ajoute ensuite l’augmentation de données et l’apprentissage par transfert.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">DeepLearning.AI</span>
+            <b class="cert-name">TensorFlow: Data and Deployment</b>
+            <span class="cert-type"><span lang="en">Specialization · 4 courses</span><span lang="fr">Spécialisation · 4 cours</span></span>
+            <span class="cert-out"><span lang="en">Getting models out of the notebook: in the browser with TensorFlow.js, on phones and microcontrollers with TensorFlow Lite, and behind TF Serving.</span><span lang="fr">Sortir les modèles du notebook : dans le navigateur avec TensorFlow.js, sur téléphones et microcontrôleurs avec TensorFlow Lite, et derrière TF Serving.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Browser-based Models with TensorFlow.js</li><li>Device-based Models with TensorFlow Lite</li><li>Data Pipelines with TensorFlow Data Services</li><li>Advanced Deployment Scenarios with TensorFlow</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>conv = tf.lite.TFLiteConverter.from_saved_model('model/')
+conv.optimizations = [tf.lite.Optimize.DEFAULT]   # 8-bit weights
+open('model.tflite', 'wb').write(conv.convert())</code></pre>
+            <p class="cert-cap"><span lang="en">Quantising a trained model for an edge device, roughly four times smaller.</span><span lang="fr">Quantifier un modèle entraîné pour un appareil embarqué, environ quatre fois plus petit.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">MathWorks</span>
+            <b class="cert-name">Practical Data Science with MATLAB</b>
+            <span class="cert-type"><span lang="en">Specialization · 4 courses</span><span lang="fr">Spécialisation · 4 cours</span></span>
+            <span class="cert-out"><span lang="en">The whole data-science workflow in MATLAB: exploring and cleaning data, engineering features, then training and validating predictive models.</span><span lang="fr">Tout le flux de science des données dans MATLAB : explorer et nettoyer les données, créer des variables, puis entraîner et valider des modèles prédictifs.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Exploratory Data Analysis with MATLAB</li><li>Data Processing and Feature Engineering with MATLAB</li><li>Predictive Modeling and Machine Learning with MATLAB</li><li>Data Science Project: MATLAB for the Real World</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>tbl = rmmissing(data);
+cv  = cvpartition(tbl.Label, 'HoldOut', 0.2);
+mdl = fitctree(tbl(training(cv), :), 'Label');
+acc = 1 - loss(mdl, tbl(test(cv), :))</code></pre>
+            <p class="cert-cap"><span lang="en">Hold-out validation of a classification tree: train on 80 %, score on the 20 % it never saw.</span><span lang="fr">Validation par retenue d’un arbre de classification : entraîné sur 80 %, évalué sur les 20 % jamais vus.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">University at Buffalo · SUNY</span>
+            <b class="cert-name">Computer Vision Basics</b>
+            <span class="cert-type"><span lang="en">Course</span><span lang="fr">Cours</span></span>
+            <span class="cert-out"><span lang="en">How a camera turns light into pixels, and how software gets structure back out: colour, filtering, edges and features.</span><span lang="fr">Comment une caméra transforme la lumière en pixels, et comment le logiciel en retire de la structure : couleur, filtrage, contours et caractéristiques.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Image formation and colour</li><li>Filtering and convolution</li><li>Edge and feature detection</li><li>Applications of computer vision in MATLAB</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>Gx = [-1 0 1; -2 0 2; -1 0 1];       % Sobel kernel
+Ix = conv2(double(I), Gx,  'same');
+Iy = conv2(double(I), Gx', 'same');
+E  = hypot(Ix, Iy) &gt; thr;            % edge map</code></pre>
+            <p class="cert-cap"><span lang="en">Edges from image gradients, the building block behind the machine-vision work on this page.</span><span lang="fr">Des contours à partir des gradients de l’image, la base du travail de vision artificielle sur cette page.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="ai">
+          <summary>
+            <span class="cert-issuer">University of Michigan</span>
+            <b class="cert-name">Python for Everybody</b>
+            <span class="cert-type"><span lang="en">Course series</span><span lang="fr">Série de cours</span></span>
+            <span class="cert-out"><span lang="en">Python from the ground up through real data work: data structures, web scraping and APIs, SQL databases and visualisation.</span><span lang="fr">Python depuis la base, à travers de vraies données : structures de données, extraction web et API, bases SQL et visualisation.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Programming for Everybody (Getting Started with Python)</li><li>Python Data Structures</li><li>Using Python to Access Web Data</li><li>Using Databases with Python</li><li>Retrieving, Processing, and Visualizing Data with Python</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>data = json.loads(urlopen(url).read())
+cur.executemany('INSERT INTO places VALUES (?, ?)',
+                [(p['name'], p['id']) for p in data['results']])
+conn.commit()</code></pre>
+            <p class="cert-cap"><span lang="en">JSON from a web API into SQLite: the pattern the capstone builds on.</span><span lang="fr">Du JSON d’une API web vers SQLite : le modèle sur lequel repose le projet final.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="design">
+          <summary>
+            <span class="cert-issuer">Autodesk</span>
+            <b class="cert-name">Fusion 360</b>
+            <span class="cert-type"><span lang="en">Specialization</span><span lang="fr">Spécialisation</span></span>
+            <span class="cert-out"><span lang="en">Product design end to end in one tool: parametric CAD, assemblies with joints, stress simulation and CNC toolpaths.</span><span lang="fr">La conception de produit de bout en bout dans un seul outil : CAO paramétrique, assemblages avec liaisons, simulation de contraintes et parcours d’outils CNC.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Parametric sketching and part modelling</li><li>Assemblies, joints and motion studies</li><li>Static stress simulation</li><li>CAM toolpaths for CNC machining</li><li>Drawings and documentation</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>User parameters
+  bolt_d   = 6 mm
+  wall     = 2.5 mm
+  boss_od  = bolt_d + 2 * wall      → 11 mm
+Static stress · min safety factor   3.4  ✓</code></pre>
+            <p class="cert-cap"><span lang="en">Parameter-driven features: change one dimension and the model, the simulation and the toolpaths follow.</span><span lang="fr">Des fonctions pilotées par paramètres : changez une cote et le modèle, la simulation et les parcours d’outils suivent.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="design">
+          <summary>
+            <span class="cert-issuer">Autodesk</span>
+            <b class="cert-name">Generative Design</b>
+            <span class="cert-type"><span lang="en">Specialization</span><span lang="fr">Spécialisation</span></span>
+            <span class="cert-out"><span lang="en">Letting the solver propose the shape: define loads, keep-out zones and the manufacturing method, then compare and validate the outcomes.</span><span lang="fr">Laisser le solveur proposer la forme : définir les charges, les zones interdites et le procédé de fabrication, puis comparer et valider les résultats.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Preserve and obstacle geometry</li><li>Loads, constraints and objectives</li><li>Manufacturing methods: additive, milling, casting</li><li>Comparing outcomes and validating with simulation</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>Study       bracket
+Objective   minimise mass
+Limit       safety factor ≥ 2.0
+Material    Al 6061
+Methods     additive · 3-axis milling · die casting
+Outcomes    explored → shortlisted → validated</code></pre>
+            <p class="cert-cap"><span lang="en">A typical study: one problem, several manufacturing methods, the trade-offs side by side.</span><span lang="fr">Une étude type : un problème, plusieurs procédés de fabrication, les compromis côte à côte.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="beyond">
+          <summary>
+            <span class="cert-issuer">Yale University</span>
+            <b class="cert-name">Financial Markets</b>
+            <span class="cert-type"><span lang="en">Course</span><span lang="fr">Cours</span></span>
+            <span class="cert-out"><span lang="en">How risk is priced and shared: diversification, the CAPM, market efficiency, behavioural finance and the institutions behind them.</span><span lang="fr">Comment le risque est évalué et partagé : diversification, MEDAF, efficience des marchés, finance comportementale et les institutions derrière.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-label"><span lang="en">Inside</span><span lang="fr">Contenu</span></p>
+            <ol class="cert-mods"><li>Risk, diversification and insurance</li><li>Portfolio theory and the CAPM</li><li>Efficient markets and behavioural finance</li><li>Forwards, futures and options</li><li>Regulation and financial institutions</li></ol>
+            <p class="cert-label"><span lang="en">Sample</span><span lang="fr">Exemple</span></p>
+            <pre class="cert-sample"><code>E[Rᵢ] = r_f + βᵢ · (E[R_m] − r_f)
+βᵢ    = Cov(Rᵢ, R_m) / Var(R_m)</code></pre>
+            <p class="cert-cap"><span lang="en">The capital asset pricing model: why a project’s risk, not only its return, sets its value.</span><span lang="fr">Le modèle d’évaluation des actifs financiers : pourquoi le risque d’un projet, et pas seulement son rendement, fixe sa valeur.</span></p>
+          </div>
+        </details>
+        <details class="cert reveal" data-group="beyond">
+          <summary>
+            <span class="cert-issuer">Coursera Project Network</span>
+            <b class="cert-name">Guided Projects</b>
+            <span class="cert-type"><span lang="en">Hands-on projects</span><span lang="fr">Projets pratiques</span></span>
+            <span class="cert-out"><span lang="en">Short guided projects done hands-on in a cloud desktop, each one building a single working result in an hour or two.</span><span lang="fr">De courts projets guidés réalisés en pratique sur un poste infonuagique, chacun produisant un résultat fonctionnel en une heure ou deux.</span></span>
+            <span class="cert-more" aria-hidden="true"><span lang="en">See inside</span><span lang="fr">Voir le contenu</span></span>
+          </summary>
+          <div class="cert-body">
+            <p class="cert-cap"><span lang="en">Ask me about the individual projects.</span><span lang="fr">Demandez-moi les projets en détail.</span></p>
+          </div>
+        </details>
+      </div>
+      <p class="cert-note"><span lang="en">Course titles are the official English names. Samples are representative of each course’s assignments, rewritten for this page.</span><span lang="fr">Les titres de cours sont les noms officiels en anglais. Les exemples sont représentatifs des travaux de chaque cours, réécrits pour cette page.</span></p>
+    </div>
+  </section>
+
   <section class="timeline" id="timeline">
-    <div class="timeline-head reveal">
-      <p class="eyebrow"><span lang="en">Timeline</span><span lang="fr">Parcours</span></p>
-      <h2 class="display"><span lang="en">From now, back to<br>the first robot.</span><span lang="fr">D’aujourd’hui<br>au premier robot.</span></h2>
+    <div class="timeline-head sec-head reveal">
+      <p class="eyebrow"><span class="num">02</span><span lang="en">The Work</span><span lang="fr">Les projets</span></p>
+      <h2 class="display"><span lang="en">From now, back to<br><em class="serif">the first robot.</em></span><span lang="fr">D’aujourd’hui<br><em class="serif">au premier robot.</em></span></h2>
     </div>
 
     <div class="rail" aria-hidden="true"><span id="railFill"></span></div>
@@ -89,12 +383,16 @@
       <div class="chapter-body">
         <div class="entry reveal" id="p-scada">
           <p class="kicker work"><span lang="en">Work · Current Role</span><span lang="fr">Emploi · Poste actuel</span></p>
-          <h3><span lang="en">Specialist, Power Application Engineering</span><span lang="fr">Spécialiste, ingénierie d’applications de puissance</span></h3>
+          <h3><span lang="en">Power Application Engineering Specialist</span><span lang="fr">Spécialiste en ingénierie d’applications de puissance</span></h3>
           <p class="org">Montréal, QC · <span lang="en">Aug 2025 – present</span><span lang="fr">août 2025 – aujourd’hui</span></p>
-          <p class="lede">
-            <span lang="en">I deliver electrical power monitoring (EPMS) and IT/OT integrations across Eastern Canada for data centres, hospitals, industrial sites and real-estate portfolios. In practice that means connecting switchgear, UPSs and protection relays to the SCADA and BMS screens operators trust when something trips at 3 a.m.</span>
-            <span lang="fr">Je réalise des intégrations de surveillance de l’énergie électrique (EPMS) et TI/TO dans l’Est du Canada, pour des centres de données, des hôpitaux, des sites industriels et des parcs immobiliers. Concrètement : relier l’appareillage, les ASI et les relais de protection aux écrans SCADA et GTB sur lesquels les opérateurs comptent quand quelque chose déclenche à 3 h du matin.</span>
-          </p>
+          <p class="lede"><span lang="en">I engineer electrical power monitoring systems (EPMS) and their IT/OT integration for mission-critical sites across Eastern Canada: data centres, hospitals, industrial plants and multi-site real estate. These run on low- and medium-voltage distribution where switchgear, UPSs, generators, ATSs and protection relays from many vendors each speak their own protocol.</span><span lang="fr">Je conçois des systèmes de surveillance de l’énergie électrique (EPMS) et leur intégration TI/TO pour des sites critiques dans l’Est du Canada : centres de données, hôpitaux, usines et parcs immobiliers. Ils reposent sur une distribution basse et moyenne tension où appareillage, ASI, génératrices, inverseurs et relais de protection de nombreux fabricants parlent chacun leur protocole.</span></p>
+          <ul class="role-points">
+            <li><span lang="en">Device point lists and the OT communication architecture: Modbus TCP/RTU gateways on segmented Ethernet.</span><span lang="fr">Listes de points et architecture de communication TO : passerelles Modbus TCP/RTU sur Ethernet segmenté.</span></li>
+            <li><span lang="en">Meter and relay register maps, alarm and event logic, and one-line mimics in SCADA.</span><span lang="fr">Tables de registres des compteurs et des relais, logique d’alarmes et d’événements, et synoptiques unifilaires dans le SCADA.</span></li>
+            <li><span lang="en">Points exposed to the building management system over BACnet.</span><span lang="fr">Points exposés au système de gestion du bâtiment en BACnet.</span></li>
+            <li><span lang="en">End-to-end proof in factory and site acceptance tests (FAT/SAT) through commissioning.</span><span lang="fr">Validation de bout en bout aux essais d’acceptation en usine et sur site (FAT/SAT), jusqu’à la mise en service.</span></li>
+          </ul>
+          <p class="role-outcome"><span lang="en">Operators get one trusted view of breaker status, power quality and alarms across every source, with time-stamped events for post-trip analysis, so a 3 a.m. trip is diagnosed from the screen instead of the switchroom.</span><span lang="fr">Les opérateurs disposent d’une vue fiable et unique de l’état des disjoncteurs, de la qualité de l’énergie et des alarmes de toutes les sources, avec des événements horodatés pour l’analyse après déclenchement : un déclenchement à 3 h du matin se diagnostique à l’écran plutôt que dans la salle électrique.</span></p>
         </div>
         <div class="demo-wrap reveal-scale">
           <div class="demo-head">
@@ -109,12 +407,6 @@
     <article class="chapter" data-year="2025b">
       <div class="chapter-year"><span class="yr">2025</span></div>
       <div class="chapter-body">
-        <div class="entry compact reveal">
-          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
-          <h3><span lang="en">Customer Service Specialist</span><span lang="fr">Spécialiste du service à la clientèle</span></h3>
-          <p class="org">Alorica · Montréal · <span lang="en">May – Aug 2025</span><span lang="fr">mai – août 2025</span></p>
-          <p><span lang="en">Resolved customer issues by phone and digital channels under volume, in English and French.</span><span lang="fr">Résolution de demandes clients par téléphone et canaux numériques, à fort volume, en anglais et en français.</span></p>
-        </div>
         <div class="entry reveal" id="p-f1">
           <p class="kicker project"><span lang="en">Project · Automotive Networks</span><span lang="fr">Projet · Réseaux automobiles</span></p>
           <h3>F1 CAN Telemetry</h3>
@@ -132,7 +424,7 @@
         <div class="entry compact reveal">
           <p class="kicker edu"><span lang="en">Education · Completed</span><span lang="fr">Formation · Terminée</span></p>
           <h3><span lang="en">Master of Engineering, Electrical &amp; Computer Engineering</span><span lang="fr">Maîtrise en ingénierie, génie électrique et informatique</span></h3>
-          <p class="org"><span lang="en">Concordia University · Sep 2022 – May 2025</span><span lang="fr">Université Concordia · sept. 2022 – mai 2025</span></p>
+          <p class="org"><span lang="en">Concordia University · Sep 2022 – Jun 2025</span><span lang="fr">Université Concordia · sept. 2022 – juin 2025</span></p>
           <p><span lang="en">Computer architecture, digital systems design, functional and formal hardware verification, robotics. Several of the projects below started as course projects here.</span><span lang="fr">Architecture des ordinateurs, conception de systèmes numériques, vérification fonctionnelle et formelle du matériel, robotique. Plusieurs projets ci-dessous sont nés de cours suivis ici.</span></p>
         </div>
       </div>
@@ -168,12 +460,6 @@
         <div class="demo-wrap reveal-scale">
           <div class="demo-head"><p><span lang="en">Buy something with the test card and follow the payment through the backend. Double-click Pay: you still get one order.</span><span lang="fr">Achetez quelque chose avec la carte de test et suivez le paiement dans le backend. Double-cliquez sur Payer : vous n’obtenez toujours qu’une commande.</span></p></div>
           <div class="demo" data-demo="softhub"></div>
-        </div>
-        <div class="entry compact reveal">
-          <p class="kicker work"><span lang="en">Work</span><span lang="fr">Emploi</span></p>
-          <h3><span lang="en">Outside Sales Representative</span><span lang="fr">Représentant des ventes externes</span></h3>
-          <p class="org">IO Solutions · Montréal · <span lang="en">Dec 2022 – Nov 2024</span><span lang="fr">déc. 2022 – nov. 2024</span></p>
-          <p><span lang="en">Two years of sales alongside my master’s. It taught me to scope a system in terms a client actually trusts, not just what’s technically correct.</span><span lang="fr">Deux ans de vente en parallèle de ma maîtrise. J’y ai appris à présenter un système dans des termes auxquels un client fait vraiment confiance, pas seulement ce qui est techniquement exact.</span></p>
         </div>
         <div class="entry reveal" id="p-dds">
           <p class="kicker project"><span lang="en">Project · Formal Verification</span><span lang="fr">Projet · Vérification formelle</span></p>
@@ -314,12 +600,6 @@
     <article class="chapter" data-year="2020">
       <div class="chapter-year"><span class="yr">2020</span></div>
       <div class="chapter-body">
-        <div class="entry compact reveal">
-          <p class="kicker edu"><span lang="en">Training</span><span lang="fr">Formation</span></p>
-          <h3><span lang="en">Kaizen Robotics Program</span><span lang="fr">Programme de robotique Kaizen</span></h3>
-          <p class="org"><span lang="en">Internet of Things certification · 2020</span><span lang="fr">Certification Internet des objets · 2020</span></p>
-          <p><span lang="en">Embedded and IoT projects from the training program, all on <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span><span lang="fr">Projets embarqués et IdO du programme de formation, tous sur <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span></p>
-        </div>
         <div class="entry reveal" id="p-hydro">
           <p class="kicker project"><span lang="en">Project · Control Systems</span><span lang="fr">Projet · Systèmes de contrôle</span></p>
           <h3>Hydroponinator</h3>
@@ -340,6 +620,12 @@
     <article class="chapter" data-year="2019">
       <div class="chapter-year"><span class="yr">2019</span></div>
       <div class="chapter-body">
+        <div class="entry compact reveal">
+          <p class="kicker edu"><span lang="en">Training · Certification</span><span lang="fr">Formation · Certification</span></p>
+          <h3><span lang="en">Kaizen Robotics Program</span><span lang="fr">Programme de robotique Kaizen</span></h3>
+          <p class="org">Lema Labs · <span lang="en">Robotics &amp; Internet of Things · 2019</span><span lang="fr">Robotique et Internet des objets · 2019</span></p>
+          <p><span lang="en">A hands-on robotics program with an IoT track: microcontrollers, sensors and actuators, then connecting the builds to the network. The projects are on <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span><span lang="fr">Un programme de robotique pratique avec un volet IdO : microcontrôleurs, capteurs et actionneurs, puis la mise en réseau des montages. Les projets sont sur <a href="https://github.com/sundarrajnitish/Kaizen-Robotics-Program">GitHub</a>.</span></p>
+        </div>
         <div class="entry reveal" id="p-farme">
           <p class="kicker project"><span lang="en">Project · Agricultural Robotics</span><span lang="fr">Projet · Robotique agricole</span></p>
           <h3>FARM-E</h3>
@@ -400,23 +686,24 @@
   <!-- STATS -->
   <section class="stats reveal" id="stats">
     <div class="stat"><span class="num" data-count="15">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
-    <div class="stat"><span class="num" data-count="7">0</span><span class="lbl"><span lang="en">years of building</span><span lang="fr">années à construire</span></span></div>
-    <div class="stat"><span class="num" data-count="9">0</span><span class="lbl"><span lang="en">layers, gates to cloud</span><span lang="fr">couches, des portes au nuage</span></span></div>
-    <div class="stat"><span class="num" data-count="3">0</span><span class="lbl"><span lang="en">languages spoken</span><span lang="fr">langues parlées</span></span></div>
+    <div class="stat"><span class="num" data-count="68">0</span><span class="lbl"><span lang="en">courses, physics to cloud</span><span lang="fr">cours, de la physique au nuage</span></span></div>
+    <div class="stat"><span class="num" data-count="8">0</span><span class="lbl"><span lang="en">years of building, since 2018</span><span lang="fr">années à construire, depuis 2018</span></span></div>
+    <div class="stat"><span class="num" data-count="13">0</span><span class="lbl"><span lang="en">certifications beyond the degree</span><span lang="fr">certifications en plus des diplômes</span></span></div>
   </section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
-    <div class="about-head reveal">
-      <p class="eyebrow"><span lang="en">About</span><span lang="fr">À propos</span></p>
-      <h2 class="display"><span lang="en">Electrical foundations.<br>Systems-level thinking.</span><span lang="fr">Des bases en électricité.<br>Une vision système.</span></h2>
+    <div class="about-head sec-head reveal">
+      <p class="eyebrow"><span class="num">03</span><span lang="en">About</span><span lang="fr">À propos</span></p>
+      <h2 class="display"><span lang="en">Electrical foundations.<br><em class="serif">Systems-level thinking.</em></span><span lang="fr">Des bases en électricité.<br><em class="serif">Une vision système.</em></span></h2>
     </div>
-    <div class="about-grid">
-      <div class="glass card reveal">
+    <div class="bento">
+      <div class="glass card b-wide reveal">
         <h4><span lang="en">Where I’m heading</span><span lang="fr">Où je m’en vais</span></h4>
-        <p><span lang="en">From electrical and controls delivery today to a systems engineering role that owns the integration across hardware, controls and software, not just one layer of it.</span><span lang="fr">De la réalisation en électricité et en contrôle aujourd’hui vers un rôle d’ingénierie des systèmes qui porte l’intégration entre matériel, contrôle et logiciel, et pas seulement une couche.</span></p>
+        <p class="big"><span lang="en">From electrical and controls delivery today to a systems engineering role that owns the integration across hardware, controls and software, not just one layer of it.</span><span lang="fr">De la réalisation en électricité et en contrôle aujourd’hui vers un rôle d’ingénierie des systèmes qui porte l’intégration entre matériel, contrôle et logiciel, et pas seulement une couche.</span></p>
+        <div class="path"><span>⚡ <span lang="en">Power &amp; controls</span><span lang="fr">Énergie et contrôle</span></span><i></i><span>▦ <span lang="en">Hardware</span><span lang="fr">Matériel</span></span><i></i><span>☁ <span lang="en">Software</span><span lang="fr">Logiciel</span></span><i></i><span class="goal">◎ <span lang="en">Systems</span><span lang="fr">Systèmes</span></span></div>
       </div>
-      <div class="glass card reveal">
+      <div class="glass card b-tall reveal">
         <h4><span lang="en">What I bring</span><span lang="fr">Ce que j’apporte</span></h4>
         <ul class="ticks">
           <li><span lang="en">EPMS and controls integration</span><span lang="fr">Intégration EPMS et contrôle</span></li>
@@ -425,25 +712,27 @@
           <li><span lang="en">RTL design and hardware verification</span><span lang="fr">Conception RTL et vérification matérielle</span></li>
           <li><span lang="en">Embedded firmware and robotics</span><span lang="fr">Micrologiciel embarqué et robotique</span></li>
           <li><span lang="en">Serverless cloud and web front ends</span><span lang="fr">Infonuagique sans serveur et interfaces web</span></li>
+          <li><span lang="en">Explaining all of it to a client</span><span lang="fr">Expliquer tout cela à un client</span></li>
         </ul>
       </div>
-      <div class="glass card reveal">
-        <h4><span lang="en">Credentials</span><span lang="fr">Titres</span></h4>
-        <ul class="plain">
-          <li>CPI · <span lang="en">Candidate to the engineering profession (OIQ)</span><span lang="fr">Candidat à la profession d’ingénieur (OIQ)</span></li>
-          <li><span lang="en">Construction site health &amp; safety (ASP)</span><span lang="fr">Santé et sécurité générale sur les chantiers de construction</span></li>
-          <li>WHMIS / SIMDUT</li>
-          <li><span lang="en">Self-Driving Cars Specialization</span><span lang="fr">Spécialisation Voitures autonomes</span></li>
-          <li><span lang="en">Kaizen · Internet of Things</span><span lang="fr">Kaizen · Internet des objets</span></li>
-          <li><span lang="en">Winner, Techknow competition</span><span lang="fr">Lauréat, concours Techknow</span></li>
+      <div class="glass card b-span2 reveal">
+        <h4><span lang="en">Professional standing</span><span lang="fr">Statut professionnel</span></h4>
+        <ul class="orgs">
+          <li>
+            <img src="img/logos/oiq.png" alt="Ordre des ingénieurs du Québec" width="120" height="40" loading="lazy">
+            <div><b>CPI</b><span lang="en">Candidate to the engineering profession, Ordre des ingénieurs du Québec</span><span lang="fr">Candidat à la profession d’ingénieur, Ordre des ingénieurs du Québec</span></div>
+          </li>
+          <li>
+            <img src="img/logos/asp-construction.png" alt="ASP Construction" width="117" height="40" loading="lazy">
+            <div><b><span lang="en">Site health &amp; safety</span><span lang="fr">Santé et sécurité</span></b><span lang="en">General construction-site course, required to work on Québec job sites</span><span lang="fr">Cours général pour les chantiers de construction, exigé sur les chantiers du Québec</span></div>
+          </li>
         </ul>
       </div>
-      <div class="glass card reveal">
+      <div class="glass card b-span2 reveal">
         <h4><span lang="en">Languages</span><span lang="fr">Langues</span></h4>
-        <ul class="plain">
-          <li>English · <span lang="en">native / bilingual</span><span lang="fr">langue maternelle / bilingue</span></li>
-          <li>Français · <span lang="en">professional working</span><span lang="fr">compétence professionnelle</span></li>
-          <li>தமிழ் · <span lang="en">native / bilingual</span><span lang="fr">langue maternelle / bilingue</span></li>
+        <ul class="langs langs-row">
+          <li><b>English</b><span lang="en">native / bilingual</span><span lang="fr">langue maternelle / bilingue</span></li>
+          <li><b>Français</b><span lang="en">professional working</span><span lang="fr">compétence professionnelle</span></li>
         </ul>
       </div>
     </div>
@@ -451,7 +740,8 @@
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
-    <h2 class="display reveal"><span lang="en">Let’s build<br>something.</span><span lang="fr">Construisons<br>quelque chose.</span></h2>
+    <p class="eyebrow reveal"><span class="num">04</span>Contact</p>
+    <h2 class="display reveal"><span lang="en">Let’s build<br><em class="serif">something.</em></span><span lang="fr">Construisons<br><em class="serif">quelque chose.</em></span></h2>
     <p class="contact-sub reveal"><span lang="en">Electrical, controls, silicon or software: if it can be built, I’d like to try.</span><span lang="fr">Électricité, contrôle, silicium ou logiciel : si ça peut se construire, j’aimerais essayer.</span></p>
     <div class="contact-links reveal">
       <a class="pill" href="https://www.linkedin.com/in/sundarrajnitish/" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -471,8 +761,9 @@
 <script src="js/vendor/mips-core.js"></script>
 <script src="js/data/f1-lap.js"></script>
 <script src="js/vendor/calc1-model.js"></script>
+<script src="js/data/courses.js"></script>
 <script src="js/core.js"></script>
-<script src="js/portrait.js"></script>
+<script src="js/figure.js"></script>
 <script src="js/demos/scada.js"></script>
 <script src="js/demos/mcl.js"></script>
 <script src="js/demos/f1can.js"></script>
@@ -488,7 +779,9 @@
 <script src="js/demos/farme.js"></script>
 <script src="js/demos/hydro.js"></script>
 <script src="js/demos/wheelchair.js"></script>
-<script src="js/visage.js"></script>
+<script src="js/curriculum.js"></script>
+<script src="js/certs.js"></script>
+<script src="js/hero.js"></script>
 <script src="js/character.js"></script>
 <script src="js/main.js"></script>
 </body>

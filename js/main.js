@@ -50,12 +50,12 @@
       requestAnimationFrame(step);
     });
   }), { threshold: 0.4 });
-  const stats = $('#stats');
-  if (stats) statIO.observe(stats);
+  $$('#stats, .cs-stats').forEach((el) => statIO.observe(el));
 
   /* ---------- scroll-linked effects ---------- */
   const nav = $('#nav'), bar = $('#progressBar'), heroInner = $('#heroInner');
   const rail = $('.rail'), railFill = $('#railFill'), manifesto = $('#manifesto');
+  const navLinks = $$('[data-nav]').map((a) => [a, document.getElementById(a.dataset.nav)]).filter(([, s]) => s);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let ticking = false;
 
@@ -63,12 +63,13 @@
     ticking = false;
     const y = scrollY, vh = innerHeight, max = document.documentElement.scrollHeight - vh;
     nav.classList.toggle('scrolled', y > 10);
+    document.body.classList.toggle('past-hero', y > vh * 0.8);
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 
     if (!reduce && heroInner) {
       const k = Math.min(y / vh, 1);
-      heroInner.style.transform = `translateY(${k * 120}px) scale(${1 - k * 0.12})`;
-      heroInner.style.opacity = String(1 - k * 1.3);
+      heroInner.style.transform = `translateY(${k * 80}px) scale(${1 - k * 0.06})`;
+      heroInner.style.opacity = String(1 - k * 1.1);
     }
 
     if (manifesto && scrubWords.length) {
@@ -77,6 +78,9 @@
       const lit = Math.round(k * scrubWords.length);
       scrubWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
     }
+
+    const mid = vh * 0.4;
+    navLinks.forEach(([a, sec]) => { const r = sec.getBoundingClientRect(); a.classList.toggle('on', r.top < mid && r.bottom > mid); });
 
     if (rail) {
       const r = rail.getBoundingClientRect();

@@ -1,0 +1,39 @@
+/* The animated character (js/figure.js) */
+.fig { width: 100%; height: auto; display: block; overflow: hidden; }
+.fig .f-gear, .fig .f-prop, .fig .f-vest, .fig .f-badge { opacity: 0; visibility: hidden; transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s .55s; }
+.fig .f-gear { transform: translateY(-26px); }
+.fig .f-prop { transform: translateY(14px); }
+.fig .f-gear.on, .fig .f-prop.on, .fig .f-vest.on, .fig .f-badge.on { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--ease) .12s, transform .55s cubic-bezier(.3, 1.5, .5, 1) .12s, visibility 0s; }
+.fig .f-quiff, .fig .f-eyes, .fig .f-laptop { transition: opacity .35s var(--ease); }
+.fig .f-quiff.off, .fig .f-eyes.off, .fig .f-laptop.off { opacity: 0; }
+.fig .p-txt { fill: #a1a1a6; font: 600 12px var(--mono); }
+.fig .p-big { fill: #f5f5f7; font: 700 16px var(--font); }
+.fig .p-led { animation: fLed 1.2s steps(1) infinite; }
+.fig .p-led.r { fill: #ff453a; } .fig .p-led.g { fill: #30d158; animation-delay: -.6s; }
+@keyframes fLed { 50% { opacity: .25; } }
+.fig .p-steam { animation: fSteam 2.4s ease-in-out infinite; }
+@keyframes fSteam { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: .9; } 100% { opacity: 0; transform: translateY(-12px); } }
+.fig .p-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: fSway 4s ease-in-out infinite alternate; }
+@keyframes fSway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+.fig .p-trace { stroke-dasharray: 7 4; animation: fDash .9s linear infinite; }
+@keyframes fDash { to { stroke-dashoffset: -22; } }
+.fig .p-code path { animation: fLed 2.4s steps(1) infinite; }
+.fig .p-code path:nth-child(2n) { animation-delay: -1.2s; }
+.fig .p-car { animation: fCar 3s ease-in-out infinite alternate; }
+@keyframes fCar { to { transform: translateX(10px); } }
+.fig .p-plane { offset-path: path("M-4 274C80 190 320 190 404 274"); offset-rotate: auto; animation: fFly 4.5s ease-in-out infinite; }
+@keyframes fFly { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+.fig .p-confetti rect { animation: fFall 3.6s linear infinite; }
+@keyframes fFall { to { transform: translateY(520px) rotate(540deg); } }
+.fig .p-finger { transform-box: fill-box; transform-origin: 50% 100%; animation: fCurl 1.6s ease-in-out infinite alternate; }
+@keyframes fCurl { to { transform: scaleY(.5); } }
+.fig .p-ping path { animation: fPing 1.4s ease-out infinite; }
+.fig .p-ping path:nth-child(2) { animation-delay: .35s; }
+@keyframes fPing { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+.fig .p-glow { animation: fLamp 5s ease-in-out infinite alternate; }
+@keyframes fLamp { to { opacity: .6; } }
+.fig .p-float { animation: fFloat 3s ease-in-out infinite alternate; }
+@keyframes fFloat { to { transform: translateY(-8px); } }
+.fig .f-tassel { transform-box: view-box; transform-origin: 200px 70px; animation: fTassel 2.2s ease-in-out infinite alternate; }
+@keyframes fTassel { from { transform: rotate(-2deg); } to { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) { .fig * { animation: none !important; } }
