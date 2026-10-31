@@ -81,8 +81,9 @@ button { font: inherit; color: inherit; }
 }
 .nav.scrolled .nav-inner { background: rgba(14, 14, 16, .82); border-color: var(--hair); box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .8); }
 @media (max-width: 1020px) { .nav { left: 12px; right: 12px; } }
-.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font: 600 15px var(--display); letter-spacing: -.01em; white-space: nowrap; }
-.brand .mono { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #000; font: 800 13px var(--display); letter-spacing: -.02em; }
+.brand { display: inline-flex; align-items: center; gap: 10px; padding-left: 6px; color: var(--ink); text-decoration: none; font: 600 15px var(--display); letter-spacing: -.01em; white-space: nowrap; }
+.brand .wave { display: inline-block; font-size: 18px; transform-origin: 70% 80%; animation: wave 2.6s ease-in-out 1s 2; }
+@keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 10%, 30% { transform: rotate(16deg); } 20%, 40% { transform: rotate(-8deg); } }
 .nav-links { display: flex; gap: 4px; font-size: 14px; }
 .nav-links a { color: var(--ink-2); text-decoration: none; padding: 7px 14px; border-radius: 99px; transition: color .2s, background .2s; }
 .nav-links a:hover { color: var(--ink); background: var(--glass-hi); }
@@ -91,7 +92,7 @@ button { font: inherit; color: inherit; }
 .lang-switch button { border: 0; background: none; cursor: pointer; font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 99px; color: var(--ink-2); transition: all .25s var(--ease); }
 .lang-switch button.on { background: var(--accent); color: #000; }
 @media (max-width: 760px) { .nav-links { display: none; } }
-@media (max-width: 420px) { .brand-name { display: none; } }
+@media (max-width: 420px) { .brand { font-size: 13px; gap: 8px; } }
 
 /* ---------- hero ---------- */
 .hero { position: relative; min-height: 100vh; display: grid; place-items: center; padding: 110px 24px 90px; overflow: hidden; }
