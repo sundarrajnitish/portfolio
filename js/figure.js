@@ -226,6 +226,8 @@
     </g>`;
 
   // ---------- scene props (outside the figure, x -110..0 and 400..510) ----------
+  // No words in the signs: the side character is drawn small, where browsers with a minimum font size blow
+  // SVG text up past its box. The caption pill under the figure carries the words instead.
   const range = (n, f) => Array.from({ length: n }, (_, i) => f(i)).join('');
   const PROPS = {
     hello: `
@@ -242,12 +244,11 @@
       <path d="M458 262L446 286H460L450 304" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="454" y="342" text-anchor="middle" class="p-txt">600 V</text>`,
     launch: `
-      <g class="p-sign"><rect x="-108" y="214" width="104" height="58" rx="12" fill="#16161a" stroke="#3a3a42" stroke-width="2"/><text x="-56" y="239" text-anchor="middle" class="p-big">M.Eng ✓</text><text x="-56" y="259" text-anchor="middle" class="p-txt">Jun 2025</text></g>
+      <g class="p-sign"><rect x="-108" y="214" width="104" height="58" rx="12" fill="#16161a" stroke="#3a3a42" stroke-width="2"/><path d="M-73 244L-62 255L-39 231" stroke="#30d158" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
       <path class="p-trace" d="M-56 276V312" stroke="#a1a1a6" stroke-width="2" fill="none"/><path d="M-62 306L-56 314L-50 306" stroke="#a1a1a6" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <g class="p-sign"><rect x="-108" y="318" width="104" height="58" rx="12" fill="#16161a" stroke="var(--accent, #ff8a3d)" stroke-width="2.5"/><text x="-56" y="343" text-anchor="middle" class="p-big">Engineer</text><text x="-56" y="363" text-anchor="middle" class="p-txt">Aug 2025</text></g>
+      <g class="p-sign"><rect x="-108" y="318" width="104" height="58" rx="12" fill="#16161a" stroke="var(--accent, #ff8a3d)" stroke-width="2.5"/><path d="M-51 329L-68 350H-56L-61 366L-44 344H-56Z" fill="var(--accent, #ff8a3d)"/></g>
       <g transform="rotate(-8 -56 436)"><rect x="-96" y="426" width="80" height="18" rx="9" fill="#efe6d2"/><circle cx="-24" cy="435" r="9" fill="#e4d6b8"/><circle cx="-24" cy="435" r="4" fill="#cdb98f"/><rect x="-62" y="426" width="9" height="18" fill="#ff453a"/></g>
       <rect x="406" y="232" width="108" height="86" rx="8" fill="#16161a" stroke="#3a3a42" stroke-width="2"/>
-      <text x="414" y="250" class="p-txt">F1 · side lab</text>
       <polyline class="p-trace" points="${range(40, (i) => `${412 + i * 2.5},${304 - Math.abs(Math.sin(i / 5)) * 38} `)}" fill="none" stroke="#5ac8fa" stroke-width="2.4"/>
       <path d="M460 318v34M440 352h40" stroke="#3a3a42" stroke-width="4"/>
       <g class="p-car"><path d="M408 440H482L492 428H464L454 418H428L420 428H404Z" fill="#ff453a"/><circle cx="422" cy="444" r="8" fill="#0b0b0d" stroke="#555" stroke-width="2"/><circle cx="472" cy="444" r="8" fill="#0b0b0d" stroke="#555" stroke-width="2"/></g>`,
@@ -266,8 +267,8 @@
       <path class="p-glow" d="M426 304L380 420H470Z" fill="url(#fLamp{id})"/>
       <text class="p-txt p-float" x="-60" y="330" text-anchor="middle">∫ ∇ Σ</text>`,
     grad: `
-      <g class="p-sign"><rect x="-108" y="240" width="104" height="66" rx="12" fill="#16161a" stroke="#3a3a42" stroke-width="2"/><text x="-56" y="268" text-anchor="middle" class="p-big">B.Tech</text><text x="-56" y="290" text-anchor="middle" class="p-txt">SRMIST · 2022 ✓</text></g>
-      <g class="p-sign"><rect x="404" y="240" width="104" height="66" rx="12" fill="#16161a" stroke="#ff8a3d" stroke-width="2.5"/><text x="456" y="268" text-anchor="middle" class="p-big">M.Eng</text><text x="456" y="290" text-anchor="middle" class="p-txt">Concordia</text></g>
+      <g class="p-sign"><rect x="-108" y="240" width="104" height="66" rx="12" fill="#16161a" stroke="#3a3a42" stroke-width="2"/><path d="M-73 274L-62 285L-39 261" stroke="#30d158" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <g class="p-sign"><rect x="404" y="240" width="104" height="66" rx="12" fill="#16161a" stroke="#ff8a3d" stroke-width="2.5"/><path d="M432 267L456 253L480 267Z" fill="#ff8a3d"/><path d="M440 272V287M456 272V287M472 272V287" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round"/><path d="M432 293H480" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round"/></g>
       <path d="M-4 274C80 190 320 190 404 274" stroke="#f5f5f7" stroke-opacity=".3" stroke-width="2.4" stroke-dasharray="4 7" fill="none"/>
       <g class="p-plane"><path d="M-9 -5L11 0L-9 5L-5 0Z" fill="#f5f5f7"/></g>
       <g class="p-confetti">${range(16, (i) => `<rect x="${-100 + ((i * 53) % 600)}" y="${-20 - ((i * 37) % 160)}" width="6" height="11" rx="1" fill="${['#ffc21a', '#5ac8fa', '#ff453a', '#30d158'][i % 4]}" style="animation-delay:-${(i * 0.41).toFixed(2)}s"/>`)}</g>`,
