@@ -48,11 +48,11 @@
   const AR = 1.12, TX = 48.5 * AR, TY = 84; // the laptop, in a 112 x 100 box that matches the stage
   const f = (n) => n.toFixed(1);
 
-  // on narrow screens the stage fills the width, so the layers pull in to stay on it
+  // the layers pull in to stay on the stage: on the desktop their labels would run into the headline
   const narrow = matchMedia('(max-width: 900px)');
   let now, parts, current;
   function build() {
-    const X = (px) => (narrow.matches ? Math.min(Math.max(px, 5), 95) : px);
+    const X = (px) => Math.min(Math.max(px, 9), 91);
     const lines = layers.map((L, i) => {
       const x = X(POS[i][0]) * AR, py = POS[i][1];
       const d = `M${f(x)} ${f(py)}Q${f((x + TX) / 2)} ${f(py)} ${f(TX)} ${f(TY)}`;
