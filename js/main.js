@@ -90,6 +90,18 @@
     navInd.style.transform = `translateX(${navOn.offsetLeft}px)`;
   }
 
+  /* ---------- nav: phone menu ---------- */
+  const navToggle = $('#navToggle');
+  function setMenu(open) {
+    nav.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+  }
+  navToggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+  navBox.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', (e) => { if (nav.classList.contains('open') && !nav.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); navToggle.focus(); } });
+  matchMedia('(max-width: 760px)').addEventListener('change', (m) => { if (!m.matches) setMenu(false); moveInd(); });
+
   /* ---------- pointer light: hero grid and cards ---------- */
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const hero = $('#hero'), heroBg = $('.hero-bg');
