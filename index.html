@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nitish Sundarraj</title>
-<meta name="description" content="Multidisciplinary Engineering Professional in Montréal: electrical power, controls, hardware, robotics and software. 68 courses across every layer of the engineering stack, and fifteen live demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline.">
-<meta name="theme-color" content="#000000">
+<meta name="description" content="Multidisciplinary Engineering Professional in Montréal: electrical power, controls, hardware, robotics and software. 68 courses across every layer of the engineering stack, and twenty-two live demos, from a data-centre SCADA mimic to a five-stage MIPS pipeline.">
+<meta name="theme-color" content="#050506">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nitish Sundarraj · Multidisciplinary Engineer">
+<meta property="og:description" content="Electrical power, controls, hardware, robotics and software: 68 courses across every layer of the engineering stack, and twenty-two live demos that prove the layers connect.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23050506'/%3E%3Ctext x='29' y='45' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='800' font-size='38' fill='%23f5f5f7'%3EN%3C/text%3E%3Ccircle cx='49' cy='43' r='5' fill='%23ff8a3d'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -30,6 +34,7 @@
     <a href="#top" class="brand"><span class="wave" aria-hidden="true">👋</span><span lang="en">Welcome to my portfolio</span><span lang="fr">Bienvenue sur mon portfolio</span></a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#curriculum" data-nav="curriculum"><span lang="en">Stack</span><span lang="fr">Pile</span></a>
+      <a href="#systems" data-nav="systems"><span lang="en">Systems</span><span lang="fr">Systèmes</span></a>
       <a href="#timeline" data-nav="timeline"><span lang="en">Work</span><span lang="fr">Projets</span></a>
       <a href="#about" data-nav="about"><span lang="en">About</span><span lang="fr">À propos</span></a>
       <a href="#contact" data-nav="contact">Contact</a>
@@ -45,7 +50,7 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-bg" aria-hidden="true"><div class="hero-grid"></div><div class="hero-glow"></div></div>
+    <div class="hero-bg" aria-hidden="true"><div class="hero-grid"></div><div class="hero-grid hero-spot"></div><div class="hero-glow"></div></div>
     <div class="hero-inner" id="heroInner">
       <div class="hero-copy">
         <h1 class="hero-title">Nitish<br>Sundarraj<span class="dot">.</span></h1>
@@ -54,22 +59,18 @@
           <span lang="fr">Mon plaisir ? Transformer <em class="serif">« et si »</em> en « ça marche ».</span>
         </p>
         <p class="hero-sub">
-          <span lang="en">A multidisciplinary engineer with 68 courses across every layer of the stack, from Maxwell’s equations to serverless APIs, and fifteen live demos on this page to prove the layers connect.</span>
-          <span lang="fr">Un ingénieur multidisciplinaire : 68 cours couvrant chaque couche de la pile, des équations de Maxwell aux API sans serveur, et quinze démos en direct sur cette page pour prouver que les couches se rejoignent.</span>
+          <span lang="en">A multidisciplinary engineer with 68 courses across every layer of the stack, from Maxwell’s equations to serverless APIs, and twenty-two live demos on this page to prove the layers connect.</span>
+          <span lang="fr">Un ingénieur multidisciplinaire : 68 cours couvrant chaque couche de la pile, des équations de Maxwell aux API sans serveur, et vingt-deux démos en direct sur cette page pour prouver que les couches se rejoignent.</span>
         </p>
         <div class="hero-cta">
           <a class="pill" href="#curriculum"><span lang="en">Explore the stack</span><span lang="fr">Explorer la pile</span> <span aria-hidden="true">→</span></a>
           <a class="pill ghost" href="#timeline"><span lang="en">See the work</span><span lang="fr">Voir les projets</span></a>
         </div>
       </div>
-      <div class="hero-stage" tabindex="0" role="img" aria-label="Illustrated Nitish at his laptop. Click to take his sunglasses off.">
+      <div class="hero-stage" tabindex="0" role="img" aria-label="Illustrated Nitish at his laptop, with the nine layers of the stack wired into it. Click to take his sunglasses off.">
+        <div class="orch" id="orch"></div>
         <div class="hero-fig" id="heroFig"></div>
         <p class="bubble" id="heroBubble" aria-live="polite"></p>
-        <a class="float f1" href="#p-scada" style="--d:0s"><b>⚡</b><span class="k">SCADA</span><span class="v"><i class="led"></i>52-A1 <span data-live="bkr">CLOSED</span></span></a>
-        <a class="float f2" href="#p-mips" style="--d:-1.4s"><b>▦</b><span class="k">clk 100 MHz</span><span class="v">WNS <span data-live="wns">+0.42</span> ns</span></a>
-        <a class="float f3" href="#p-f1" style="--d:-2.6s"><b>⇄</b><span class="k">CAN 0x1A0</span><span class="v" data-live="can">8F 2C 04 1E</span></a>
-        <a class="float f4" href="#p-mcl" style="--d:-3.3s"><b>◎</b><span class="k">MCL pose</span><span class="v" data-live="pose">x 1.42 · θ 31°</span></a>
-        <a class="float f5" href="#curriculum" style="--d:-.7s"><b>∿</b><span class="k" data-live="hz">60.00 Hz</span><span class="v">PF <span data-live="pf">0.98</span></span></a>
         <p class="stage-hint" aria-hidden="true"><span lang="en">psst, click me</span><span lang="fr">psst, cliquez-moi</span></p>
       </div>
     </div>
@@ -112,10 +113,11 @@
     <div class="certs" id="certs">
       <div class="certs-head reveal">
         <h3 class="certs-title"><span lang="en">Beyond the degree</span><span lang="fr">Au-delà des diplômes</span></h3>
-        <p><span lang="en">13 certifications that push the stack further into autonomy, AI and design for manufacturing. Open one to see what it covers and a sample of the work.</span><span lang="fr">13 certifications qui prolongent la pile vers l’autonomie, l’IA et la conception pour la fabrication. Ouvrez-en une pour voir son contenu et un exemple du travail.</span></p>
+        <p><span lang="en">13 certifications that push the stack further into autonomy, AI and design for manufacturing. Seven of them run live here: open one and try the idea it taught.</span><span lang="fr">13 certifications qui prolongent la pile vers l’autonomie, l’IA et la conception pour la fabrication. Sept d’entre elles tournent en direct ici : ouvrez-en une et essayez l’idée qu’elle enseigne.</span></p>
       </div>
       <div class="cert-filters reveal" role="group" aria-label="Filter certifications">
         <button type="button" class="on" data-cert-filter="all"><span lang="en">All</span><span lang="fr">Toutes</span></button>
+        <button type="button" data-cert-filter="live"><span lang="en">▶ Live demos</span><span lang="fr">▶ Démos en direct</span></button>
         <button type="button" data-cert-filter="auto"><span lang="en">Autonomy &amp; robotics</span><span lang="fr">Autonomie et robotique</span></button>
         <button type="button" data-cert-filter="ai"><span lang="en">AI &amp; data</span><span lang="fr">IA et données</span></button>
         <button type="button" data-cert-filter="design"><span lang="en">Design &amp; manufacturing</span><span lang="fr">Conception et fabrication</span></button>
@@ -140,6 +142,11 @@ cross_err   = signed_dist(front_axle, path)
 steer = heading_err + atan2(k * cross_err, ks + v)
 steer = clip(steer, -1.22, 1.22)        # ±70°</code></pre>
             <p class="cert-cap"><span lang="en">Lateral control: steering that drives both heading error and cross-track error to zero.</span><span lang="fr">Commande latérale : un braquage qui ramène à zéro l’erreur de cap et l’écart latéral.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-stanley"></div>
+              <p class="cert-cap"><span lang="en">Knock the car off the line and watch the controller pull both errors back to zero. Lower the gain and it gets lazy; raise it and it snaps back.</span><span lang="fr">Poussez la voiture hors de la trajectoire et regardez le contrôleur ramener les deux erreurs à zéro. Baissez le gain : il devient paresseux ; montez-le : il revient d’un coup.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="auto">
@@ -160,6 +167,11 @@ w  = K * atan2(sin(theta_g - theta), cos(theta_g - theta));
 vR = (2*v + w*L) / (2*R);
 vL = (2*v - w*L) / (2*R);</code></pre>
             <p class="cert-cap"><span lang="en">From the unicycle model to wheel speeds: the core of every behaviour in the course.</span><span lang="fr">Du modèle unicycle aux vitesses des roues : le cœur de chaque comportement du cours.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-goal"></div>
+              <p class="cert-cap"><span lang="en">Click anywhere to set a goal. The controller turns the heading error into two wheel speeds, exactly as in the sample.</span><span lang="fr">Cliquez n’importe où pour fixer un objectif. Le contrôleur transforme l’erreur de cap en deux vitesses de roue, exactement comme dans l’exemple.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="auto">
@@ -192,6 +204,11 @@ dW = (dZ @ X.T) / m
 db = dZ.sum(axis=1, keepdims=True) / m
 W -= lr * dW;  b -= lr * db</code></pre>
             <p class="cert-cap"><span lang="en">Logistic regression as a one-neuron network, before any framework is allowed.</span><span lang="fr">La régression logistique comme réseau à un neurone, avant d’avoir droit à un framework.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-logreg"></div>
+              <p class="cert-cap"><span lang="en">The same four lines, running in your browser: one gradient step per frame. Push the learning rate up until the loss starts to bounce.</span><span lang="fr">Les quatre mêmes lignes, dans votre navigateur : un pas de gradient par image. Montez le taux d’apprentissage jusqu’à ce que la perte se mette à osciller.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="ai">
@@ -232,6 +249,11 @@ model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])</code></pre>
 conv.optimizations = [tf.lite.Optimize.DEFAULT]   # 8-bit weights
 open('model.tflite', 'wb').write(conv.convert())</code></pre>
             <p class="cert-cap"><span lang="en">Quantising a trained model for an edge device, roughly four times smaller.</span><span lang="fr">Quantifier un modèle entraîné pour un appareil embarqué, environ quatre fois plus petit.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-quant"></div>
+              <p class="cert-cap"><span lang="en">Drag the bit width down. The white curve is a layer’s weights, the orange one is what survives quantisation: eight bits is nearly free, below four it starts to cost.</span><span lang="fr">Réduisez le nombre de bits. La courbe blanche représente les poids d’une couche, l’orange ce qui survit à la quantification : huit bits ne coûtent presque rien, sous quatre la précision en souffre.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="ai">
@@ -270,6 +292,11 @@ Ix = conv2(double(I), Gx,  'same');
 Iy = conv2(double(I), Gx', 'same');
 E  = hypot(Ix, Iy) &gt; thr;            % edge map</code></pre>
             <p class="cert-cap"><span lang="en">Edges from image gradients, the building block behind the machine-vision work on this page.</span><span lang="fr">Des contours à partir des gradients de l’image, la base du travail de vision artificielle sur cette page.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-sobel"></div>
+              <p class="cert-cap"><span lang="en">Move your pointer over the image to drag the ball. The edge map is recomputed from the gradients on every frame.</span><span lang="fr">Passez le pointeur sur l’image pour déplacer la balle. La carte des contours est recalculée à partir des gradients à chaque image.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="ai">
@@ -309,6 +336,11 @@ conn.commit()</code></pre>
   boss_od  = bolt_d + 2 * wall      → 11 mm
 Static stress · min safety factor   3.4  ✓</code></pre>
             <p class="cert-cap"><span lang="en">Parameter-driven features: change one dimension and the model, the simulation and the toolpaths follow.</span><span lang="fr">Des fonctions pilotées par paramètres : changez une cote et le modèle, la simulation et les parcours d’outils suivent.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-param"></div>
+              <p class="cert-cap"><span lang="en">Change one parameter and the driven dimension follows, the way the model, the simulation and the toolpaths do in the real tool.</span><span lang="fr">Changez un paramètre et la cote pilotée suit, comme le font le modèle, la simulation et les parcours d’outil dans le vrai logiciel.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="design">
@@ -347,6 +379,11 @@ Outcomes    explored → shortlisted → validated</code></pre>
             <pre class="cert-sample"><code>E[Rᵢ] = r_f + βᵢ · (E[R_m] − r_f)
 βᵢ    = Cov(Rᵢ, R_m) / Var(R_m)</code></pre>
             <p class="cert-cap"><span lang="en">The capital asset pricing model: why a project’s risk, not only its return, sets its value.</span><span lang="fr">Le modèle d’évaluation des actifs financiers : pourquoi le risque d’un projet, et pas seulement son rendement, fixe sa valeur.</span></p>
+            <div class="cert-demo">
+              <p class="cert-label"><span lang="en">Try it</span><span lang="fr">Essayez</span></p>
+              <div class="demo cert-live" data-demo="c-capm"></div>
+              <p class="cert-cap"><span lang="en">Move β and the two rates; the expected return slides along the security market line.</span><span lang="fr">Déplacez β et les deux taux ; le rendement espéré glisse le long de la droite de marché.</span></p>
+            </div>
           </div>
         </details>
         <details class="cert reveal" data-group="beyond">
@@ -362,13 +399,26 @@ Outcomes    explored → shortlisted → validated</code></pre>
           </div>
         </details>
       </div>
-      <p class="cert-note"><span lang="en">Course titles are the official English names. Samples are representative of each course’s assignments, rewritten for this page.</span><span lang="fr">Les titres de cours sont les noms officiels en anglais. Les exemples sont représentatifs des travaux de chaque cours, réécrits pour cette page.</span></p>
+      <p class="cert-note"><span lang="en">Course titles are the official English names. Samples and demos are representative of each course’s assignments, rewritten for this page.</span><span lang="fr">Les titres de cours sont les noms officiels en anglais. Les exemples sont représentatifs des travaux de chaque cours, réécrits pour cette page.</span></p>
     </div>
+  </section>
+
+  <!-- SYSTEMS: every project drawn across the layers it crosses -->
+  <section class="systems" id="systems">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="num">02</span><span lang="en">The Systems</span><span lang="fr">Les systèmes</span></p>
+      <h2 class="display"><span lang="en">Layers don’t ship.<br><em class="serif">Systems do.</em></span><span lang="fr">Une couche ne livre rien.<br><em class="serif">Un système, oui.</em></span></h2>
+      <p class="sec-sub">
+        <span lang="en">The systems being built next, from power-dense data centres to autonomous machines, are stacks of disciplines that have to agree with each other. Someone has to hold the whole picture. Each line here is a project from this page, drawn through the layers of coursework behind it. Pick one to trace it, then run it.</span>
+        <span lang="fr">Les systèmes qui se construisent maintenant, des centres de données à forte densité de puissance aux machines autonomes, sont des empilements de disciplines qui doivent s’accorder. Il faut quelqu’un pour tenir la vue d’ensemble. Chaque ligne ici est un projet de cette page, tracé à travers les couches de cours qui le soutiennent. Choisissez-en un pour le suivre, puis lancez-le.</span>
+      </p>
+    </div>
+    <div class="systems-app reveal" id="systems-app"></div>
   </section>
 
   <section class="timeline" id="timeline">
     <div class="timeline-head sec-head reveal">
-      <p class="eyebrow"><span class="num">02</span><span lang="en">The Work</span><span lang="fr">Les projets</span></p>
+      <p class="eyebrow"><span class="num">03</span><span lang="en">The Work</span><span lang="fr">Les projets</span></p>
       <h2 class="display"><span lang="en">From now, back to<br><em class="serif">the first robot.</em></span><span lang="fr">D’aujourd’hui<br><em class="serif">au premier robot.</em></span></h2>
     </div>
 
@@ -681,7 +731,7 @@ Outcomes    explored → shortlisted → validated</code></pre>
 
   <!-- STATS -->
   <section class="stats reveal" id="stats">
-    <div class="stat"><span class="num" data-count="15">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
+    <div class="stat"><span class="num" data-count="22">0</span><span class="lbl"><span lang="en">live demos on this page</span><span lang="fr">démos en direct sur cette page</span></span></div>
     <div class="stat"><span class="num" data-count="68">0</span><span class="lbl"><span lang="en">courses, physics to cloud</span><span lang="fr">cours, de la physique au nuage</span></span></div>
     <div class="stat"><span class="num" data-count="8">0</span><span class="lbl"><span lang="en">years of building, since 2018</span><span lang="fr">années à construire, depuis 2018</span></span></div>
     <div class="stat"><span class="num" data-count="13">0</span><span class="lbl"><span lang="en">certifications beyond the degree</span><span lang="fr">certifications en plus des diplômes</span></span></div>
@@ -690,7 +740,7 @@ Outcomes    explored → shortlisted → validated</code></pre>
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about-head sec-head reveal">
-      <p class="eyebrow"><span class="num">03</span><span lang="en">About</span><span lang="fr">À propos</span></p>
+      <p class="eyebrow"><span class="num">04</span><span lang="en">About</span><span lang="fr">À propos</span></p>
       <h2 class="display"><span lang="en">Electrical foundations.<br><em class="serif">Systems-level thinking.</em></span><span lang="fr">Des bases en électricité.<br><em class="serif">Une vision système.</em></span></h2>
     </div>
     <div class="bento">
@@ -736,7 +786,7 @@ Outcomes    explored → shortlisted → validated</code></pre>
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
-    <p class="eyebrow reveal"><span class="num">04</span>Contact</p>
+    <p class="eyebrow reveal"><span class="num">05</span>Contact</p>
     <h2 class="display reveal"><span lang="en">Let’s build<br><em class="serif">something.</em></span><span lang="fr">Construisons<br><em class="serif">quelque chose.</em></span></h2>
     <p class="contact-sub reveal"><span lang="en">Electrical, controls, silicon or software: if it can be built, I’d like to try.</span><span lang="fr">Électricité, contrôle, silicium ou logiciel : si ça peut se construire, j’aimerais essayer.</span></p>
     <div class="contact-links reveal">
@@ -775,7 +825,9 @@ Outcomes    explored → shortlisted → validated</code></pre>
 <script src="js/demos/farme.js"></script>
 <script src="js/demos/hydro.js"></script>
 <script src="js/demos/wheelchair.js"></script>
+<script src="js/demos/certs.js"></script>
 <script src="js/curriculum.js"></script>
+<script src="js/systems.js"></script>
 <script src="js/certs.js"></script>
 <script src="js/hero.js"></script>
 <script src="js/character.js"></script>

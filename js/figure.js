@@ -215,14 +215,14 @@
     </g>`;
   }
 
+  // seen from the front: the back of the lid (leaning toward the viewer), with the keyboard half hidden behind it
   const LAPTOP = `
     <g class="f-laptop">
-      <path d="M118 352H282C286 352 288 354 288 358L294 436H106L112 358C112 354 114 352 118 352Z" fill="#202025" stroke="#3b3b43" stroke-width="2"/>
-      <path d="M120 356H280" stroke="#55555f" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="200" cy="394" r="11" fill="none" stroke="var(--accent, #ff8a3d)" stroke-width="2.4"/>
-      <path d="M195 398V390L205 398V390" stroke="var(--accent, #ff8a3d)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M86 436H314C318 436 320 440 318 444L314 450H86L82 444C80 440 82 436 86 436Z" fill="#2c2c33"/>
-      <path d="M184 436h32" stroke="#16161a" stroke-width="3"/>
+      <path d="M112 350H288C292.5 350 295.4 353 295 357.5L288 446H112L105 357.5C104.6 353 107.5 350 112 350Z" fill="#202025" stroke="#3b3b43" stroke-width="2"/>
+      <path d="M114 354.5H286" stroke="#55555f" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="200" cy="396" r="11" fill="none" stroke="var(--accent, #ff8a3d)" stroke-width="2.4"/>
+      <path d="M195 400V392L205 400V392" stroke="var(--accent, #ff8a3d)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M124 445H276V450H124Z" fill="#2c2c33"/>
     </g>`;
 
   // ---------- scene props (outside the figure, x -110..0 and 400..510) ----------
