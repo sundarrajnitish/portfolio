@@ -54,6 +54,11 @@
 
   // ---------- SVG parts ----------
   const mirror = (d) => `<g transform="translate(400 0) scale(-1 1)">${d}</g>`;
+  // Shading is painted, not filtered: every soft highlight or shadow is an ellipse filled with a radial gradient
+  // that fades to nothing, so the figure can move every frame without the browser re-running a blur.
+  const blob = (cx, cy, rx, ry, g, op, rot) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${g}{id})" opacity="${op}"${rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : ''}/>`;
+  // the same, for light that comes off the laptop screen: its opacity is driven each frame
+  const glow = (cx, cy, rx, ry, op) => `<ellipse class="f-glow" data-o="${op}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#fSc{id})" opacity="${op}"/>`;
 
 
   // Head traced from Nitish's photo: MediaPipe face landmarks give the jaw, brows, eyes, nose and smile, and the
@@ -74,68 +79,103 @@
   function headSVG(id) {
     const eye = `
       <g class="f-eye" data-cx="169.2" data-cy="152.7">
-        <path d="${HEAD.eye}" fill="#fbf8f4"/>
-        <circle cx="170.0" cy="152.7" r="6.3" fill="#3a2418"/><circle cx="170.0" cy="152.7" r="3.1" fill="#0c0807"/>
-        <circle cx="172.1" cy="150.6" r="1.6" fill="#fff"/>
+        <path d="${HEAD.eye}" fill="url(#fEyeW{id})"/>
+        <g clip-path="url(#fEyeClip{id})">
+          <circle cx="170.0" cy="152.7" r="6.6" fill="url(#fIris{id})"/>
+          <circle cx="170.0" cy="152.7" r="6.6" fill="none" stroke="#1a0e09" stroke-width="1.3"/>
+          <circle cx="170.0" cy="152.7" r="2.9" fill="#070505"/>
+          <path d="${HEAD.eye}" fill="url(#fLidSh{id})"/>
+        </g>
+        <circle cx="172.4" cy="150.2" r="1.9" fill="#fff"/><circle cx="167.5" cy="155.1" r=".9" fill="#fff" opacity=".55"/>
         <path class="f-lid" d="${HEAD.lash}" stroke="${C.hair}" stroke-width="2.8" fill="none" stroke-linecap="round"/>
       </g>`;
     return `
     <g class="f-head">
-      <defs><clipPath id="fFaceClip${id}"><path d="${HEAD.face}"/></clipPath>
-        <linearGradient id="fShade${id}" x1="0" x2="1"><stop offset=".25" stop-color="${C.skinDk}" stop-opacity="0"/><stop offset=".8" stop-color="${C.skinDk}" stop-opacity=".75"/></linearGradient>
-        <clipPath id="fTeeth${id}"><path d="${HEAD.mouthIn}"/></clipPath>
-        <clipPath id="fBelowBrim${id}"><rect x="0" y="116" width="400" height="200"/></clipPath></defs>
+      <defs><clipPath id="fFaceClip{id}"><path d="${HEAD.face}"/></clipPath>
+        <linearGradient id="fShade{id}" x1="0" x2="1"><stop offset=".2" stop-color="#5e3423" stop-opacity="0"/><stop offset=".85" stop-color="#5e3423" stop-opacity=".8"/></linearGradient>
+        <clipPath id="fTeeth{id}"><path d="${HEAD.mouthIn}"/></clipPath>
+        <clipPath id="fEyeClip{id}"><path d="${HEAD.eye}"/></clipPath>
+        <clipPath id="fHairClip{id}"><path d="${HEAD.hair}"/></clipPath>
+        <mask id="fRimF{id}"><path d="${HEAD.face}" fill="#fff"/><path d="${HEAD.face}" fill="#000" transform="translate(-3.2 -.6)"/></mask>
+        <mask id="fRimH{id}"><path d="${HEAD.hair}" fill="#fff"/><path d="${HEAD.hair}" fill="#000" transform="translate(-3 .8)"/><rect x="100" y="20" width="118" height="150" fill="#000"/></mask>
+        <clipPath id="fBelowBrim{id}"><rect x="0" y="116" width="400" height="200"/></clipPath></defs>
       <g class="f-ears">
-        <path d="${HEAD.ear}" fill="${C.skin}"/><path d="${HEAD.earIn}" stroke="${C.skinDk}" stroke-width="3" fill="none" stroke-linecap="round"/>
-        ${mirror(`<path d="${HEAD.ear}" fill="${C.skinDk}"/><path d="${HEAD.earIn}" stroke="#6e3f2b" stroke-width="3" fill="none" stroke-linecap="round"/>`)}
+        <path d="${HEAD.ear}" fill="url(#fEar{id})"/><path d="${HEAD.earIn}" stroke="${C.skinDk}" stroke-width="3" fill="none" stroke-linecap="round"/>
+        ${mirror(`<path d="${HEAD.ear}" fill="#74432f"/><path d="${HEAD.earIn}" stroke="#56301f" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M127 160C121 164 120 176 122 186" class="f-rim" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>`)}
       </g>
-      <path class="f-face" d="${HEAD.face}" fill="url(#fSkin${id})"/>
-      <g clip-path="url(#fFaceClip${id})">
-        <rect x="200" y="90" width="90" height="200" fill="url(#fShade${id})"/>
-        <ellipse cx="200" cy="292" rx="70" ry="28" fill="${C.skinDk}" opacity=".35"/>
+      <path class="f-face" d="${HEAD.face}" fill="url(#fSkin{id})"/>
+      <g clip-path="url(#fFaceClip{id})">
+        <rect x="190" y="50" width="100" height="240" fill="url(#fShade{id})"/>
+        ${blob(200, 94, 72, 18, 'fDk', 0.55)}
+        ${blob(174, 114, 40, 20, 'fLt', 0.6)}
+        ${blob(157, 190, 17, 13, 'fLt', 0.55)}
+        ${blob(243, 191, 12, 10, 'fLt', 0.16)}
+        ${blob(198, 259, 22, 9, 'fLt', 0.45)}
+        ${blob(139, 176, 9, 64, 'fDk', 0.35)}
+        ${blob(200, 280, 76, 20, 'fDk', 0.7)}
+        ${glow(200, 290, 84, 74, 0.34)}
+        ${blob(266, 176, 13, 78, 'fRl', 0.45)}
+        <rect x="120" y="50" width="160" height="230" class="f-rim-fill" mask="url(#fRimF{id})" opacity=".65"/>
       </g>
       <g class="f-feat">
-        <g class="f-cheeks" fill="${C.skinLt}" opacity=".5"><ellipse cx="160" cy="194" rx="12" ry="7"/><ellipse cx="240" cy="194" rx="10" ry="6" opacity=".5"/></g>
+        ${blob(169, 146, 25, 13, 'fDk', 0.5)}${blob(231, 146, 25, 13, 'fDk', 0.55)}
         <g class="f-eyes">${eye}${mirror(eye.replace('data-cx="169.2"', 'data-cx="230.8"'))}</g>
         <g class="f-brows" fill="${C.hair}"><path d="${HEAD.brow}"/>${mirror(`<path d="${HEAD.brow}"/>`)}</g>
-        <g class="f-nose" fill="none" stroke="${C.skinDk}" stroke-linecap="round">
-          <path d="M207 160C209 170 211 179 212 186" stroke-width="2" opacity=".45"/>
-          <path d="M188 183C183 186 183 193 189 195M212 183C217 186 217 193 211 195" stroke-width="2.2" opacity=".75"/>
-          <path d="M192 195C195 198.5 205 198.5 208 195" stroke-width="2.4" opacity=".9"/>
+        <g class="f-nose">
+          ${blob(210, 174, 8, 22, 'fDk', 0.45)}
+          ${blob(197, 168, 5, 21, 'fLt', 0.7)}
+          ${blob(200, 201, 17, 5, 'fDk', 0.75)}
+          <g fill="none" stroke="#6e3f2b" stroke-linecap="round">
+            <path d="M188 183C183 186 183 193 189 195M212 183C217 186 217 193 211 195" stroke-width="2" opacity=".6"/>
+            <path d="M192 195C195 198.5 205 198.5 208 195" stroke-width="2.2" opacity=".8"/>
+          </g>
+          ${blob(198.5, 187, 7, 5, 'fWh', 0.3)}
         </g>
-        <ellipse cx="200" cy="189" rx="5" ry="3" fill="${C.skinLt}" opacity=".45"/>
-        <path d="M181 199C171 205 167 212 168 219M219 199C229 205 233 212 232 219" stroke="${C.skinDk}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+        <path d="M181 199C171 205 167 212 168 219M219 199C229 205 233 212 232 219" stroke="${C.skinDk}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".35"/>
         <g class="f-mouth">
-          <path d="${HEAD.mouthOut}" fill="#874637"/>
+          ${blob(200, 240, 24, 7, 'fDk', 0.55)}
+          <path d="${HEAD.mouthOut}" fill="url(#fLip{id})"/>
           <path d="${HEAD.mouthIn}" fill="${C.mouth}"/>
-          <g clip-path="url(#fTeeth${id})"><rect x="160" y="200" width="80" height="20.2" fill="${C.teeth}"/>
-            <path d="M188 213V220.2M200 213V220.2M212 213V220.2" stroke="#d9d2c8" stroke-width="1"/></g>
+          <g clip-path="url(#fTeeth{id})"><rect x="160" y="200" width="80" height="20.2" fill="url(#fTooth{id})"/>
+            <path d="M188 213V220.2M200 213V220.2M212 213V220.2" stroke="#cfc6ba" stroke-width="1"/></g>
+          ${blob(199, 228.5, 15, 3, 'fWh', 0.3)}
         </g>
-        <path d="M192 252C197 255 203 255 208 252" stroke="${C.skinLt}" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".7"/>
       </g>
       <g class="f-hair">
-        <g class="f-hair-sides" clip-path="url(#fBelowBrim${id})"><path d="${HEAD.hair}" fill="${C.hair}"/></g>
+        <g class="f-hair-sides" clip-path="url(#fBelowBrim{id})"><path d="${HEAD.hair}" fill="url(#fHair{id})"/></g>
         <g class="f-quiff">
-          <path d="${HEAD.hair}" fill="${C.hair}"/>
+          <path d="${HEAD.hair}" fill="url(#fHair{id})"/>
+          <g clip-path="url(#fHairClip{id})">${blob(176, 68, 54, 13, 'fSheen', 0.6, -8)}${blob(234, 76, 26, 8, 'fSheen', 0.3, 14)}</g>
           ${HEAD.strands}
+          <rect x="110" y="30" width="180" height="130" class="f-rim-fill" mask="url(#fRimH{id})" opacity=".36"/>
         </g>
       </g>
       <g class="f-gear-head"></g>
-    </g>`;
+    </g>`.replaceAll('{id}', id);
   }
 
   // gear layers (the head group is translated for parallax, gear goes with the face)
   const GEAR = {
     sunglasses: `
+      ${blob(200, 188, 72, 12, 'fBk', 0.4)}
       <path d="M134 144H195V164C195 180 187 189 174 189H152C141 189 135 181 134 170Z" fill="url(#fLens{id})" stroke="#0b0b0d" stroke-width="2.5" stroke-linejoin="round"/>
       <path d="M266 144H205V164C205 180 213 189 226 189H248C259 189 265 181 266 170Z" fill="url(#fLens{id})" stroke="#0b0b0d" stroke-width="2.5" stroke-linejoin="round"/>
+      <g clip-path="url(#fLensClip{id})"><g class="f-refl">
+        <path d="M143 149H171L161 176H139Z" fill="url(#fReflG{id})"/><path d="M176 149H183L173 176H166Z" fill="url(#fReflG{id})" opacity=".6"/>
+        <path d="M214 149H242L232 176H210Z" fill="url(#fReflG{id})"/><path d="M247 149H254L244 176H237Z" fill="url(#fReflG{id})" opacity=".6"/>
+        ${blob(166, 192, 30, 9, 'fAc', 0.7)}${blob(236, 192, 30, 9, 'fAc', 0.7)}
+        ${blob(198, 164, 7, 20, 'fRl', 0.55)}${blob(268, 164, 9, 22, 'fRl', 0.75)}
+      </g></g>
       <path d="M131 144H269" stroke="#0b0b0d" stroke-width="7" stroke-linecap="round"/>
+      <path d="M134 142.2H266" stroke="#fff" stroke-opacity=".28" stroke-width="1.2" stroke-linecap="round"/>
       <path d="M194 152C198 149 202 149 206 152" stroke="#0b0b0d" stroke-width="3.4" fill="none"/>
       <path d="M133 146L121 152M267 146L279 152" stroke="#0b0b0d" stroke-width="4" stroke-linecap="round"/>
-      <path d="M146 178L162 152M156 182L170 160M214 178L230 152M224 182L238 160" stroke="#fff" stroke-opacity=".32" stroke-width="2.2" stroke-linecap="round"/>`,
+      <path d="M267 146L279 152" class="f-rim" stroke-width="1.4" stroke-linecap="round" opacity=".8"/>`,
     glasses: `
-      <rect x="149" y="139" width="46" height="31" rx="9" fill="rgba(160,210,255,.08)" stroke="#1d1d22" stroke-width="3.4"/>
-      <rect x="205" y="139" width="46" height="31" rx="9" fill="rgba(160,210,255,.08)" stroke="#1d1d22" stroke-width="3.4"/>
+      ${blob(200, 174, 62, 8, 'fBk', 0.28)}
+      <rect x="149" y="139" width="46" height="31" rx="9" fill="url(#fGlass{id})" stroke="#1d1d22" stroke-width="3.4"/>
+      <rect x="205" y="139" width="46" height="31" rx="9" fill="url(#fGlass{id})" stroke="#1d1d22" stroke-width="3.4"/>
+      <path d="M158 139.6H186M214 139.6H242" stroke="#fff" stroke-opacity=".3" stroke-width="1.1" stroke-linecap="round"/>
       <path d="M195 150C198 146 202 146 205 150M149 148L138 151M251 148L262 151" stroke="#1d1d22" stroke-width="3" fill="none" stroke-linecap="round"/>
       <path d="M156 164L166 146M212 164L222 146" stroke="#fff" stroke-opacity=".3" stroke-width="2" stroke-linecap="round"/>`,
     safety: `
@@ -147,14 +187,19 @@
       <rect x="204" y="90" width="48" height="26" rx="12" fill="rgba(120,210,255,.25)" stroke="#5ac8fa" stroke-width="3.4"/>
       <path d="M158 110L168 96M214 110L224 96" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/>`,
     hardhat: `
-      <path d="M124 112C124 58 158 24 200 24C242 24 276 58 276 112Z" fill="#ffc21a"/>
+      ${blob(200, 130, 68, 12, 'fBk', 0.5)}
+      <path d="M124 112C124 58 158 24 200 24C242 24 276 58 276 112Z" fill="url(#fHat{id})"/>
+      ${blob(166, 58, 24, 12, 'fWh', 0.6, -38)}
+      <path d="M270 76C274 88 276 100 276 112" class="f-rim" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
       <path d="M200 24C222 24 240 34 252 50C240 44 226 42 214 44C210 36 206 30 200 24Z" fill="#ffe27a" opacity=".8"/>
       <path d="M188 26H212V108H188Z" fill="#f2a900"/>
       <path d="M104 110C150 100 250 100 296 110C300 118 294 124 286 124H114C106 124 100 118 104 110Z" fill="#f2a900"/>
       <path d="M140 108C176 102 224 102 260 108" stroke="#ffe27a" stroke-width="3" fill="none" opacity=".7"/>`,
     gradcap: `
+      ${blob(200, 132, 64, 10, 'fBk', 0.45)}
       <path d="M140 78V112C170 126 230 126 260 112V78Z" fill="#101013"/>
-      <path d="M96 70L200 34L304 70L200 106Z" fill="#1b1b20" stroke="#3a3a42" stroke-width="2"/>
+      <path d="M96 70L200 34L304 70L200 106Z" fill="url(#fCap{id})" stroke="#3a3a42" stroke-width="2"/>
+      <path d="M200 34L304 70" class="f-rim" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
       <path d="M200 34L304 70L200 106Z" fill="#000" opacity=".25"/>
       <circle cx="200" cy="70" r="5" fill="#ffc21a"/>
       <path class="f-tassel" d="M200 70C240 74 280 80 292 90V128" stroke="#ffc21a" stroke-width="3.2" fill="none" stroke-linecap="round"/>
@@ -178,14 +223,24 @@
     <rect x="191" y="325" width="10" height="11" rx="2" fill="#c7c7cc"/>
     <path d="M191 341H209M204 328H209M204 333H208" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"/>`;
 
+  const SHIRT = 'M176 288C148 294 112 304 90 318C72 330 64 350 62 382L58 456H342L338 382C336 350 328 330 310 318C288 304 252 294 224 288C214 302 186 302 176 288Z';
   function torsoSVG() {
     return `
     <g class="f-torso">
-      <path d="M173 222V300C185 311 215 311 227 300V222Z" fill="${C.skinDk}"/>
-      <path d="M173 268C186 284 214 284 227 268V252C214 270 186 270 173 252Z" fill="#6e3f2b" opacity=".55"/>
-      <path class="f-shirt" d="M176 288C148 294 112 304 90 318C72 330 64 350 62 382L58 456H342L338 382C336 350 328 330 310 318C288 304 252 294 224 288C214 302 186 302 176 288Z" fill="${C.shirt}"/>
-      <path d="M90 318C72 330 64 350 62 382M310 318C328 330 336 350 338 382" stroke="${C.shirtHi}" stroke-width="2" fill="none" opacity=".9"/>
-      <path d="M175 287C185 304 215 304 225 287" stroke="${C.shirtHi}" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <defs><clipPath id="fShirtClip{id}"><path d="${SHIRT}"/></clipPath></defs>
+      <path d="M173 222V300C185 311 215 311 227 300V222Z" fill="url(#fNeck{id})"/>
+      <path d="M173 272C186 288 214 288 227 272V246C214 266 186 266 173 246Z" fill="#4f2a1b" opacity=".7"/>
+      ${glow(200, 300, 30, 26, 0.3)}
+      <path class="f-shirt" d="${SHIRT}" fill="url(#fShirt{id})"/>
+      <g clip-path="url(#fShirtClip{id})">
+        ${blob(116, 322, 50, 17, 'fWh', 0.13, -24)}
+        ${blob(206, 304, 66, 18, 'fBk', 0.75)}
+        ${blob(150, 400, 26, 60, 'fBk', 0.35, 8)}${blob(252, 400, 26, 60, 'fBk', 0.4, -8)}
+        ${blob(326, 344, 20, 44, 'fRl', 0.3, -20)}
+      </g>
+      <path d="M90 318C72 330 64 350 62 382" stroke="#4a4a55" stroke-width="2" fill="none" opacity=".9"/>
+      <path d="M262 298C282 303 298 310 310 318C324 327 331 340 335 358" class="f-rim" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".6"/>
+      <path d="M175 287C185 304 215 304 225 287" stroke="url(#fCollar{id})" stroke-width="5" fill="none" stroke-linecap="round"/>
       <path d="M182 300C192 306 208 306 218 300" stroke="#0c0c0e" stroke-width="1.5" fill="none" opacity=".7"/>
       <g class="f-vest">${VEST}</g>
       <g class="f-badge">${BADGE}</g>
@@ -197,15 +252,15 @@
     return `
     <g class="f-arm f-arm-${side}">
       <g class="f-upper">
-        <path d="M-21 -4C-22 14 -20 32 -18 42H18C20 32 22 14 21 -4C14 -14 -14 -14 -21 -4Z" fill="${C.shirt}" stroke="${C.shirtHi}" stroke-width="2"/>
-        <path d="M-19 40H19" stroke="${C.shirtHi}" stroke-width="3" stroke-linecap="round"/>
-        <path class="f-upper-skin" d="M0 40V${UPPER}" stroke="${C.skin}" stroke-width="22" stroke-linecap="round"/>
+        <path d="M-21 -4C-22 14 -20 32 -18 42H18C20 32 22 14 21 -4C14 -14 -14 -14 -21 -4Z" fill="url(#fSleeve{id})" stroke="#26262c" stroke-width="1.5"/>
+        <path d="M-19 40H19" stroke="#3a3a44" stroke-width="3" stroke-linecap="round"/><path d="M-13 48H13" stroke="#3b2015" stroke-width="5" stroke-linecap="round" opacity=".45"/>
+        <path class="f-upper-skin" d="M0 40V${UPPER}" stroke="url(#fArm{id})" stroke-width="22" stroke-linecap="round"/>
       </g>
-      <g class="f-fore"><path d="M0 0V${FORE}" stroke="${C.skin}" stroke-width="20" stroke-linecap="round"/><path d="M5 6V${FORE - 6}" stroke="${C.skinDk}" stroke-width="6" stroke-linecap="round" opacity=".45"/></g>
+      <g class="f-fore"><path d="M0 0V${FORE}" stroke="url(#fArm{id})" stroke-width="20" stroke-linecap="round"/></g>
       <g class="f-hand">
-        <g class="f-fist"><path d="M-11 -2C-14 8 -13 20 -6 26C-2 29 5 29 9 25C13 18 13 8 11 -2Z" fill="${C.skin}"/><path d="M-6 14H6M-6 20H5" stroke="${C.skinDk}" stroke-width="2" stroke-linecap="round"/></g>
+        <g class="f-fist"><path d="M-11 -2C-14 8 -13 20 -6 26C-2 29 5 29 9 25C13 18 13 8 11 -2Z" fill="url(#fHand{id})"/><path d="M-6 14H6M-6 20H5" stroke="${C.skinDk}" stroke-width="2" stroke-linecap="round"/></g>
         <g class="f-palm">
-          <path d="M-12 -2C-14 8 -12 18 -10 22H10C12 18 14 8 12 -2Z" fill="${C.skin}"/>
+          <path d="M-12 -2C-14 8 -12 18 -10 22H10C12 18 14 8 12 -2Z" fill="url(#fHand{id})"/>
           <g stroke="${C.skin}" stroke-width="6.6" stroke-linecap="round"><path d="M-8.5 18L-10 33"/><path d="M-3 20L-3.5 37"/><path d="M2.6 20L3.2 36"/><path d="M8 18L10 30"/></g>
           <g stroke="${C.skinDk}" stroke-width="1.2" stroke-linecap="round" opacity=".7"><path d="M-5.8 24V31"/><path d="M-0.2 24V33"/><path d="M5.4 24V31"/></g>
           <path d="M12 6C18 8 22 14 22 20" stroke="${C.skin}" stroke-width="7" stroke-linecap="round" fill="none"/>
@@ -216,13 +271,23 @@
   }
 
   // seen from the front: the back of the lid (leaning toward the viewer), with the keyboard half hidden behind it
+  const LID = 'M112 350H288C292.5 350 295.4 353 295 357.5L288 446H112L105 357.5C104.6 353 107.5 350 112 350Z';
   const LAPTOP = `
     <g class="f-laptop">
-      <path d="M112 350H288C292.5 350 295.4 353 295 357.5L288 446H112L105 357.5C104.6 353 107.5 350 112 350Z" fill="#202025" stroke="#3b3b43" stroke-width="2"/>
-      <path d="M114 354.5H286" stroke="#55555f" stroke-width="2" stroke-linecap="round"/>
+      <defs><clipPath id="fLidClip{id}"><path d="${LID}"/></clipPath></defs>
+      ${glow(200, 348, 132, 34, 0.5)}
+      ${blob(200, 449, 170, 9, 'fBk', 0.8)}
+      <path d="${LID}" fill="url(#fLid{id})" stroke="#4a4a55" stroke-width="1.6"/>
+      <g clip-path="url(#fLidClip{id})">
+        <path d="M150 346H214L170 450H106Z" fill="#fff" opacity=".045"/><path d="M226 346H240L196 450H182Z" fill="#fff" opacity=".03"/>
+        ${blob(200, 396, 46, 46, 'fAc', 0.4)}
+        <path d="M288 350C292.5 350 295.4 353 295 357.5L288 446" class="f-rim" stroke-width="5" fill="none" opacity=".35"/>
+      </g>
+      <path d="M113 351.6H287" stroke="#b9b9c6" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
       <circle cx="200" cy="396" r="11" fill="none" stroke="var(--accent, #ff8a3d)" stroke-width="2.4"/>
       <path d="M195 400V392L205 400V392" stroke="var(--accent, #ff8a3d)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M124 445H276V450H124Z" fill="#2c2c33"/>
+      <path d="M124 445H276V450H124Z" fill="#33333b"/>
+      ${blob(200, 451, 120, 5, 'fAc', 0.5)}
     </g>`;
 
   // ---------- scene props (outside the figure, x -110..0 and 400..510) ----------
@@ -231,10 +296,10 @@
   const range = (n, f) => Array.from({ length: n }, (_, i) => f(i)).join('');
   const PROPS = {
     hello: `
-      <g transform="translate(-22 0)"><path d="M432 450V404H476V450Z" fill="#26262c"/><path d="M476 414C488 414 488 434 476 434" stroke="#26262c" stroke-width="6" fill="none"/>
+      <g transform="translate(-22 0)">${blob(456, 450, 44, 6, 'fBk', 0.8)}<path d="M476 414C488 414 488 434 476 434" stroke="#2c2c33" stroke-width="6" fill="none"/><path d="M432 450V404H476V450Z" fill="url(#fMug{id})"/><ellipse cx="454" cy="404" rx="22" ry="3.2" fill="#0d0d10" stroke="#4a4a55" stroke-width="1"/><path d="M475 406V448" class="f-rim" stroke-width="1.6" opacity=".6"/>
       <path class="p-steam" d="M444 396C438 386 450 382 444 370M462 396C456 386 468 382 462 370" stroke="#8e8e93" stroke-width="3" fill="none" stroke-linecap="round"/></g>
-      <g transform="translate(46 0)"><path d="M-84 450L-78 410H-34L-28 450Z" fill="#3a2a22"/>
-      <g class="p-sway"><path d="M-56 410C-62 380 -86 366 -98 360C-90 382 -76 398 -58 410Z" fill="#2f9e5b"/><path d="M-56 410C-52 376 -36 356 -18 348C-22 374 -36 396 -54 410Z" fill="#38b86b"/><path d="M-56 410C-58 386 -56 360 -50 340C-44 364 -46 390 -54 410Z" fill="#2a8a50"/></g></g>`,
+      <g transform="translate(46 0)">${blob(-56, 450, 44, 6, 'fBk', 0.8)}<path d="M-84 450L-78 410H-34L-28 450Z" fill="url(#fPot{id})"/>
+      <g class="p-sway"><path d="M-56 410C-62 380 -86 366 -98 360C-90 382 -76 398 -58 410Z" fill="url(#fLeaf{id})"/><path d="M-56 410C-52 376 -36 356 -18 348C-22 374 -36 396 -54 410Z" fill="url(#fLeaf{id})"/><path d="M-56 410C-58 386 -56 360 -50 340C-44 364 -46 390 -54 410Z" fill="url(#fLeaf2{id})"/><path d="M-57 408C-64 388 -78 374 -94 363M-55 408C-48 384 -36 366 -21 352" stroke="#7fe3a4" stroke-width="1.2" fill="none" opacity=".5"/></g></g>`,
     site: `
       ${range(3, (k) => `<rect x="${-104 + k * 34}" y="214" width="32" height="236" rx="3" fill="#25252b" stroke="#3a3a42" stroke-width="2"/>
         <rect x="${-98 + k * 34}" y="246" width="20" height="14" rx="2" fill="#0e1a12" stroke="#30d158" stroke-width="1.4"/>
@@ -295,6 +360,17 @@
       <rect x="484" y="398" width="20" height="10" rx="3" fill="#5ac8fa"/>
       <g class="p-ping" stroke="#5ac8fa" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M508 396C516 400 516 408 508 412"/><path d="M514 388C528 396 528 412 514 420"/></g>
       <path d="M-100 450V418H-36V450" fill="#1c1c20" stroke="#45454d" stroke-width="2"/><rect x="-82" y="402" width="28" height="16" rx="4" fill="#ff9f0a"/>`,
+    // about: milestones climbed on the left, the target he is pointing at on the right
+    goal: `
+      <rect x="-108" y="420" width="104" height="30" rx="4" fill="#1c1c20" stroke="#45454d" stroke-width="2"/>
+      <rect x="-74" y="390" width="70" height="30" rx="4" fill="#26262c" stroke="#45454d" stroke-width="2"/>
+      <rect x="-40" y="360" width="36" height="30" rx="4" fill="#2f2f36" stroke="#45454d" stroke-width="2"/>
+      <path d="M-98 435L-93 440L-84 430M-64 405L-59 410L-50 400" stroke="#30d158" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <g class="p-sway"><path d="M-22 360V300" stroke="#d1d1d6" stroke-width="4" stroke-linecap="round"/><path d="M-22 302L14 314L-22 328Z" fill="var(--accent, #ff8a3d)"/></g>
+      <path d="M430 330L412 450M482 330L500 450" stroke="#3a3a42" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="456" cy="290" r="48" fill="#f5f5f7"/><circle cx="456" cy="290" r="35" fill="#16161a"/><circle cx="456" cy="290" r="22" fill="#f5f5f7"/>
+      <circle class="p-glow" cx="456" cy="290" r="10" fill="var(--accent, #ff8a3d)"/>
+      <g class="p-ping" stroke="var(--accent, #ff8a3d)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M398 262C390 280 390 300 398 318"/><path d="M386 252C374 276 374 304 386 328"/></g>`,
   };
 
   class Figure {
@@ -309,6 +385,7 @@
       this.blinkAt = 1.5; this.blinkT = -1;
       this.waveUntil = 0;
       this.t = 0; this.visible = true; this.running = false;
+      this.screen = 1; this.screenOn = true;   // how much light the laptop screen is throwing on him
       this.build();
       this.set(opts.scene ? Figure.SCENES[opts.scene] : {});
       this.bind();
@@ -323,28 +400,57 @@
 <svg class="fig" viewBox="${this.opts.viewBox || '-112 0 624 460'}" aria-hidden="true">
   <defs>
     <radialGradient id="fSpot${id}" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="var(--accent, #ff8a3d)" stop-opacity=".26"/><stop offset=".6" stop-color="var(--accent, #ff8a3d)" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-    <linearGradient id="fSkin${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${C.skinLt}"/><stop offset=".45" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.skin}"/></linearGradient>
+    <radialGradient class="f-key" id="fSkin${id}" gradientUnits="userSpaceOnUse" cx="176" cy="124" r="175"><stop offset="0" stop-color="#cf9773"/><stop offset=".3" stop-color="#b47a59"/><stop offset=".62" stop-color="${C.skin}"/><stop offset="1" stop-color="#7c4a34"/></radialGradient>
+    ${[['fLt', '#eab590'], ['fDk', '#4a2616'], ['fBk', '#000'], ['fWh', '#fff'], ['fSheen', '#9c7b69'], ['fSc', '#c9e4ff']].map(([n, c]) => `<radialGradient id="${n}${id}"><stop offset="0" stop-color="${c}"/><stop offset=".45" stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}
+    <radialGradient id="fRl${id}"><stop offset="0" class="f-rim-stop"/><stop offset="1" class="f-rim-stop" stop-opacity="0"/></radialGradient>
+    <radialGradient id="fAc${id}"><stop offset="0" stop-color="var(--accent, #ff8a3d)"/><stop offset=".45" stop-color="var(--accent, #ff8a3d)" stop-opacity=".4"/><stop offset="1" stop-color="var(--accent, #ff8a3d)" stop-opacity="0"/></radialGradient>
+    <radialGradient id="fEyeW${id}" cx=".45" cy=".6" r=".65"><stop offset="0" stop-color="#fffdfa"/><stop offset=".6" stop-color="#ece5dd"/><stop offset="1" stop-color="#b9aca0"/></radialGradient>
+    <radialGradient id="fIris${id}" cx=".5" cy=".72" r=".6"><stop offset="0" stop-color="#9a653c"/><stop offset=".55" stop-color="#4f2f1c"/><stop offset="1" stop-color="#1f110a"/></radialGradient>
+    <linearGradient id="fLidSh${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0c06" stop-opacity=".75"/><stop offset=".5" stop-color="#1a0c06" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fLip${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b3226"/><stop offset=".6" stop-color="#8a4838"/><stop offset="1" stop-color="#a85f4c"/></linearGradient>
+    <linearGradient id="fTooth${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#b9aea2"/><stop offset=".8" stop-color="#f1ebe2"/><stop offset="1" stop-color="#fffdf8"/></linearGradient>
+    <linearGradient id="fEar${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#bf8766"/><stop offset="1" stop-color="#8a563d"/></linearGradient>
+    <linearGradient id="fHair${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2e221d"/><stop offset=".5" stop-color="#16100d"/><stop offset="1" stop-color="#090605"/></linearGradient>
+    <linearGradient id="fNeck${id}" gradientUnits="userSpaceOnUse" x1="173" y1="0" x2="227" y2="0"><stop offset="0" stop-color="#9a6247"/><stop offset=".5" stop-color="#84503a"/><stop offset="1" stop-color="#5c3323"/></linearGradient>
+    <linearGradient id="fShirt${id}" gradientUnits="userSpaceOnUse" x1="70" y1="290" x2="330" y2="456"><stop offset="0" stop-color="#2d2d35"/><stop offset=".45" stop-color="#18181c"/><stop offset="1" stop-color="#0a0a0c"/></linearGradient>
+    <linearGradient id="fCollar${id}" gradientUnits="userSpaceOnUse" x1="175" y1="0" x2="225" y2="0"><stop offset="0" stop-color="#45454f"/><stop offset="1" stop-color="#1d1d22"/></linearGradient>
+    <linearGradient id="fSleeve${id}" gradientUnits="userSpaceOnUse" x1="-22" y1="0" x2="22" y2="0"><stop offset="0" stop-color="#0e0e11"/><stop offset=".3" stop-color="#2f2f38"/><stop offset=".7" stop-color="#18181c"/><stop offset="1" stop-color="#0a0a0c"/></linearGradient>
+    <linearGradient id="fArm${id}" gradientUnits="userSpaceOnUse" x1="-11" y1="0" x2="11" y2="0"><stop offset="0" stop-color="#7d4c36"/><stop offset=".3" stop-color="#c48a68"/><stop offset=".62" stop-color="${C.skin}"/><stop offset="1" stop-color="#6b3d2a"/></linearGradient>
+    <radialGradient id="fHand${id}" cx=".36" cy=".3" r=".85"><stop offset="0" stop-color="#c48a68"/><stop offset=".5" stop-color="${C.skin}"/><stop offset="1" stop-color="#7a4832"/></radialGradient>
+    <linearGradient id="fLid${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d3d47"/><stop offset=".45" stop-color="#202025"/><stop offset="1" stop-color="#111114"/></linearGradient>
     <linearGradient id="fFade${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.hair}"/><stop offset=".55" stop-color="${C.hair}" stop-opacity=".8"/><stop offset="1" stop-color="${C.hair}" stop-opacity=".25"/></linearGradient>
-    <linearGradient id="fLens${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a3a4c"/><stop offset=".45" stop-color="#0a0e14"/><stop offset="1" stop-color="#1e2c3c"/></linearGradient>
+    <linearGradient id="fLens${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#243240"/><stop offset=".5" stop-color="#06080b"/><stop offset="1" stop-color="#1c130d"/></linearGradient>
+    <linearGradient id="fReflG${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dff0ff" stop-opacity=".5"/><stop offset="1" stop-color="#dff0ff" stop-opacity=".04"/></linearGradient>
+    <linearGradient id="fGlass${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe6ff" stop-opacity=".22"/><stop offset=".45" stop-color="#cfe6ff" stop-opacity=".03"/><stop offset="1" stop-color="#cfe6ff" stop-opacity=".1"/></linearGradient>
+    <clipPath id="fLensClip${id}"><path d="M134 144H195V164C195 180 187 189 174 189H152C141 189 135 181 134 170Z"/><path d="M266 144H205V164C205 180 213 189 226 189H248C259 189 265 181 266 170Z"/></clipPath>
+    <radialGradient id="fHat${id}" cx=".34" cy=".22" r=".9"><stop offset="0" stop-color="#ffe98f"/><stop offset=".4" stop-color="#ffc21a"/><stop offset="1" stop-color="#c98300"/></radialGradient>
+    <linearGradient id="fCap${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34343d"/><stop offset=".6" stop-color="#17171b"/><stop offset="1" stop-color="#0d0d10"/></linearGradient>
+    <linearGradient id="fMug${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b1b20"/><stop offset=".3" stop-color="#3a3a44"/><stop offset="1" stop-color="#17171b"/></linearGradient>
+    <linearGradient id="fPot${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2b1e18"/><stop offset=".35" stop-color="#5a4034"/><stop offset="1" stop-color="#261a15"/></linearGradient>
+    <linearGradient id="fLeaf${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fd486"/><stop offset="1" stop-color="#1f7a44"/></linearGradient>
+    <linearGradient id="fLeaf2${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f9e5b"/><stop offset="1" stop-color="#17603a"/></linearGradient>
+    <linearGradient id="fDesk${id}" gradientUnits="userSpaceOnUse" x1="-112" y1="0" x2="512" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".05"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>
     <linearGradient id="fLamp${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd60a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd60a" stop-opacity="0"/></linearGradient>
   </defs>
   <ellipse class="f-spot" cx="200" cy="250" rx="250" ry="230" fill="url(#fSpot${id})"/>
+  <ellipse cx="392" cy="150" rx="150" ry="170" fill="url(#fRl${id})" opacity=".13"/>
+  <g class="f-dust">${range(9, (i) => `<circle cx="${-70 + ((i * 167) % 540)}" cy="${60 + ((i * 97) % 300)}" r="${2 + (i % 3) * 1.6}" fill="url(#${i % 3 ? 'fWh' : 'fAc'}${id})" style="animation-delay:-${(i * 1.7).toFixed(1)}s;animation-duration:${9 + (i % 4) * 3}s"/>`)}</g>
   <g class="f-props">${props}</g>
   <g class="f-body">
     <g class="f-breathe">
-      ${torsoSVG()}
+      ${torsoSVG().replaceAll('{id}', id)}
       ${headSVG(id)}
     </g>
-    ${armSVG('l')}${armSVG('r')}
-    ${this.opts.laptop ? LAPTOP : ''}
+    ${(armSVG('l') + armSVG('r')).replaceAll('{id}', id)}
+    ${this.opts.laptop ? LAPTOP.replaceAll('{id}', id) : ''}
   </g>
-  <path class="f-desk" d="M-112 450H512" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+  <path class="f-desk" d="M-112 450H512" stroke="url(#fDesk${id})" stroke-width="2"/>
 </svg>`;
       const $ = (s) => this.host.querySelector(s);
       this.svg = $('svg');
       this.el = {
         head: $('.f-head'), feat: $('.f-feat'), hair: $('.f-hair'), ears: $('.f-ears'), breathe: $('.f-breathe'),
-        gearHead: $('.f-gear-head'), eyes: [...this.host.querySelectorAll('.f-eye')], laptop: $('.f-laptop'),
+        gearHead: $('.f-gear-head'), eyes: [...this.host.querySelectorAll('.f-eye')], laptop: $('.f-laptop'), key: $('.f-key'),
         arms: ['l', 'r'].map((s) => {
           const a = $(`.f-arm-${s}`);
           return { root: a, upper: a.querySelector('.f-upper'), fore: a.querySelector('.f-fore'), hand: a.querySelector('.f-hand'), fist: a.querySelector('.f-fist'), palm: a.querySelector('.f-palm') };
@@ -352,6 +458,8 @@
       };
       // gear lives inside the head so it turns with it
       this.el.gearHead.innerHTML = gear;
+      this.el.glows = [...this.host.querySelectorAll('.f-glow')].map((n) => [n, +n.dataset.o]);
+      this.el.refl = [...this.host.querySelectorAll('.f-refl')];
     }
 
     /** scene = { gear: [], pose, prop, vest, laptop } ; missing keys keep their value */
@@ -366,7 +474,8 @@
       }
       if ('vest' in sc) this.host.querySelector('.f-vest').classList.toggle('on', !!sc.vest);
       if ('badge' in sc) this.host.querySelector('.f-badge').classList.toggle('on', !!sc.badge);
-      if ('laptop' in sc && this.el.laptop) this.el.laptop.classList.toggle('off', !sc.laptop);
+      if ('laptop' in sc && this.el.laptop) { this.el.laptop.classList.toggle('off', !sc.laptop); this.screenOn = !!sc.laptop; }
+      if (sc.light) this.svg.style.setProperty('--fl', sc.light);
       if (sc.prop !== undefined) this.host.querySelectorAll('.f-prop').forEach((n) => n.classList.toggle('on', n.dataset.prop === sc.prop));
       if (sc.pose && sc.pose !== this.pose) this.setPose(sc.pose);
       if (!this.running) this.frame(0);
@@ -432,6 +541,15 @@
       E.hair.setAttribute('transform', `translate(${(lx * 1.5).toFixed(2)} ${(ly * 1).toFixed(2)})`);
       E.ears.setAttribute('transform', `translate(${(-lx * 2).toFixed(2)} 0)`);
 
+      // lighting: the key light leans toward the cursor, the lenses reflect the other way, and the laptop
+      // screen throws a slightly unsteady glow up onto the chin and chest (none when the laptop is away)
+      E.key.setAttribute('cx', (176 + lx * 18).toFixed(1)); E.key.setAttribute('cy', (124 + ly * 12).toFixed(1));
+      E.refl.forEach((n) => n.setAttribute('transform', `translate(${(-lx * 7).toFixed(2)} ${(-ly * 4).toFixed(2)})`));
+      const on = this.screenOn && this.el.laptop ? 1 : 0;
+      this.screen = dt ? this.screen + (on - this.screen) * (1 - Math.pow(0.02, dt)) : on;
+      const flick = reduce ? 1 : 0.86 + Math.sin(t * 2.3) * 0.09 + Math.sin(t * 17.1) * 0.05;
+      E.glows.forEach(([n, o]) => n.setAttribute('opacity', (o * this.screen * flick).toFixed(3)));
+
       // blink every few seconds (double blink now and then)
       if (!reduce && t > this.blinkAt) { this.blinkT = 0; this.blinkAt = t + 2.4 + Math.random() * 3.2 - (Math.random() < 0.2 ? 2.2 : 0); }
       let lid = 1;
@@ -461,16 +579,17 @@
 
   // ---------- scenes: gear + pose + prop for each chapter ----------
   Figure.SCENES = {
-    hello: { gear: ['sunglasses'], pose: 'type', prop: 'hello', cap: ['Building something', 'En pleine construction'] },
-    site: { gear: ['hardhat', 'safety'], vest: true, pose: 'type', prop: 'site', cap: ['On site · power systems', 'Sur le chantier · réseaux électriques'] },
-    launch: { gear: ['gradcap'], badge: true, pose: 'type', prop: 'launch', cap: ['M.Eng done → engineering role · F1 lab on the side', 'M.Eng terminée → poste d’ingénieur · labo F1 à côté'] },
-    desk: { gear: ['glasses'], pose: 'type', prop: 'desk', cap: ['Master’s · Concordia', 'Maîtrise · Concordia'] },
-    study: { gear: ['glasses'], pose: 'think', prop: 'study', cap: ['68 courses, every layer', '68 cours, toutes les couches'] },
-    grad: { gear: ['gradcap'], pose: 'cheer', prop: 'grad', laptop: false, cap: ['B.Tech done → M.Eng from Sep 2022', 'B.Tech terminé → M.Eng dès sept. 2022'] },
-    hand: { gear: [], pose: 'point', prop: 'hand', cap: ['Telerobotics · gestures', 'Télérobotique · gestes'] },
-    bench: { gear: ['goggles'], pose: 'type', prop: 'bench', cap: ['Workbench · first robots', 'Établi · premiers robots'] },
-    chair: { gear: [], pose: 'pad', prop: 'chair', laptop: false, cap: ['First prototype · Bluetooth wheelchair', 'Premier prototype · fauteuil Bluetooth'] },
-    contact: { gear: ['sunglasses'], pose: 'wave', prop: 'hello', cap: ['Say hello', 'Dites bonjour'] },
+    hello: { light: '#5ac8fa', gear: ['sunglasses'], pose: 'type', prop: 'hello', cap: ['Building something', 'En pleine construction'] },
+    site: { light: '#ffc21a', gear: ['hardhat', 'safety'], vest: true, pose: 'type', prop: 'site', cap: ['On site · power systems', 'Sur le chantier · réseaux électriques'] },
+    launch: { light: '#30d158', gear: ['gradcap'], badge: true, pose: 'type', prop: 'launch', cap: ['M.Eng done → engineering role · F1 lab on the side', 'M.Eng terminée → poste d’ingénieur · labo F1 à côté'] },
+    desk: { light: '#5ac8fa', gear: ['glasses'], pose: 'type', prop: 'desk', cap: ['Master’s · Concordia', 'Maîtrise · Concordia'] },
+    study: { light: '#ffd60a', gear: ['glasses'], pose: 'think', prop: 'study', cap: ['68 courses, every layer', '68 cours, toutes les couches'] },
+    grad: { light: '#ff8a3d', gear: ['gradcap'], pose: 'cheer', prop: 'grad', laptop: false, cap: ['B.Tech done → M.Eng from Sep 2022', 'B.Tech terminé → M.Eng dès sept. 2022'] },
+    hand: { light: '#5ac8fa', gear: [], pose: 'point', prop: 'hand', cap: ['Telerobotics · gestures', 'Télérobotique · gestes'] },
+    bench: { light: '#ff9f0a', gear: ['goggles'], pose: 'type', prop: 'bench', cap: ['Workbench · first robots', 'Établi · premiers robots'] },
+    chair: { light: '#5ac8fa', gear: [], pose: 'pad', prop: 'chair', laptop: false, cap: ['First prototype · Bluetooth wheelchair', 'Premier prototype · fauteuil Bluetooth'] },
+    about: { light: '#ff8a3d', gear: [], pose: 'point', prop: 'goal', cap: ['Next stop · systems engineering', 'Prochain arrêt · ingénierie des systèmes'] },
+    contact: { light: '#5ac8fa', gear: ['sunglasses'], pose: 'wave', prop: 'hello', cap: ['Say hello', 'Dites bonjour'] },
   };
   // fill in defaults so every scene fully specifies the rig
   Object.values(Figure.SCENES).forEach((s) => { s.vest = !!s.vest; s.badge = !!s.badge; if (s.laptop === undefined) s.laptop = true; });

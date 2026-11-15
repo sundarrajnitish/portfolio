@@ -1,4 +1,12 @@
 /* The animated character (js/figure.js) */
+/* --fl is the colour of the rim light. Each scene sets its own, and registering it lets the colour fade between scenes. */
+@property --fl { syntax: "<color>"; inherits: true; initial-value: #5ac8fa; }
+.fig { --fl: #5ac8fa; transition: --fl .9s ease; }
+.fig .f-rim { stroke: var(--fl); }
+.fig .f-rim-fill { fill: var(--fl); }
+.fig .f-rim-stop { stop-color: var(--fl); }
+.fig .f-dust circle { opacity: 0; animation: fDust 12s ease-in-out infinite; }
+@keyframes fDust { 0% { opacity: 0; transform: translate(0, 10px); } 30% { opacity: .22; } 70% { opacity: .14; } 100% { opacity: 0; transform: translate(14px, -34px); } }
 .fig { width: 100%; height: auto; display: block; overflow: hidden; }
 .fig .f-gear, .fig .f-prop, .fig .f-vest, .fig .f-badge { opacity: 0; visibility: hidden; transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s .55s; }
 .fig .f-gear { transform: translateY(-26px); }

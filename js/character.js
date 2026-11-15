@@ -14,6 +14,7 @@
   const zones = [
     ...[...document.querySelectorAll('.chapter')].map((el) => [el, BY_YEAR[el.dataset.year] || 'hello']),
     [document.getElementById('curriculum'), 'study'],
+    [document.getElementById('about'), 'about'],
     [document.getElementById('contact'), 'contact'],
   ].filter(([el]) => el);
 
