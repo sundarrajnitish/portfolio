@@ -131,6 +131,7 @@
   }
 
   function goTo(sel) {
+    if (window.PortfolioNav && window.PortfolioNav.goToProject) return window.PortfolioNav.goToProject(sel);
     const el = document.getElementById(sel);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -163,24 +164,31 @@
   // build-in when the section first scrolls into view
   new IntersectionObserver((es, io) => es.forEach((e) => {
     if (e.isIntersecting) { app.classList.add('built'); io.disconnect(); setTimeout(() => app.classList.add('settled'), 1400); }
-  }), { threshold: 0.25 }).observe(app);
+  }), { threshold: 0.2 }).observe(app);
 
-  // ---------- related coursework chips on each project ----------
+  // ---------- clean engineering-layer pills on each case study ----------
   function chips() {
     Object.entries(D.related).forEach(([pid, [, courses]]) => {
       const entry = document.getElementById(pid);
       if (!entry) return;
+      const layerIds = [...new Set(courses.map((c) => D.layerOf[c]).filter(Boolean))];
       let box = entry.querySelector('.coursework');
-      if (!box) { box = document.createElement('div'); box.className = 'coursework'; entry.append(box); }
-      box.innerHTML = `<span class="cw-label">${T('Related coursework', 'Cours liés')}</span>` +
-        courses.map((c) => { const L = byId[D.layerOf[c]]; return `<button type="button" class="cw-chip" data-layer="${L.id}" style="--c:${L.color}">${esc(c)}</button>`; }).join('');
+      if (!box) {
+        const slot = entry.querySelector('[data-layer-tags]');
+        box = document.createElement('div');
+        box.className = 'coursework';
+        if (slot) slot.append(box); else entry.append(box);
+      }
+      box.innerHTML = `<span class="cw-label">${T('Stack layers', 'Couches')}</span>` +
+        layerIds.map((lid) => { const L = byId[lid]; return `<button type="button" class="cw-chip" data-layer="${L.id}" style="--c:${L.color}">${esc(T(L.en, L.fr))}</button>`; }).join('');
     });
   }
   document.addEventListener('click', (e) => {
     const c = e.target.closest('.cw-chip');
     if (!c) return;
     select(c.dataset.layer);
-    document.getElementById('curriculum').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const dest = document.getElementById('stack') || document.getElementById('craft');
+    if (dest) dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   render(); chips();
