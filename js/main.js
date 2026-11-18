@@ -1,9 +1,11 @@
-/* Page behaviour: language switch, scroll-driven effects, lazy demos. */
+/* Page behaviour: language switch, scroll-driven effects, lazy demos,
+ * thread navigation, and Foundations Lab tab controller. */
 (function () {
   'use strict';
   const root = document.documentElement;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let navReady = false;
 
@@ -13,15 +15,17 @@
     root.lang = lang;
     localStorage.setItem('lang', lang);
     $$('[data-set-lang]').forEach((b) => b.classList.toggle('on', b.dataset.setLang === lang));
-    document.title = lang === 'fr' ? 'Nitish Sundarraj · Professionnel en ingénierie' : 'Nitish Sundarraj · Engineering Professional';
+    document.title = lang === 'fr'
+      ? 'Nitish Sundarraj · Ingénieur systèmes — Énergie, silicium et ère de l’IA'
+      : 'Nitish Sundarraj · Systems-Minded Engineer — Power, Silicon & the AI Era';
     document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
     measureScrub();
     if (typeof moveInd === 'function' && navReady) moveInd();
   }
-  // the switch crossfades the whole page where the browser can
   $$('[data-set-lang]').forEach((b) => b.addEventListener('click', () => {
     const go = () => setLang(b.dataset.setLang);
-    if (document.startViewTransition && !reduce && root.dataset.lang !== b.dataset.setLang) document.startViewTransition(go); else go();
+    if (document.startViewTransition && !reduce && root.dataset.lang !== b.dataset.setLang) document.startViewTransition(go);
+    else go();
   }));
 
   /* ---------- manifesto: split into words once ---------- */
@@ -32,27 +36,66 @@
   let litCount = 0;
   function measureScrub() {
     scrubWords = $$('.scrub .w').filter((w) => w.offsetParent !== null);
-    litCount = Math.min(litCount, scrubWords.length); // the other language's words may be shorter
+    litCount = Math.min(litCount, scrubWords.length);
     scrubWords.forEach((w, i) => w.classList.toggle('lit', i < litCount));
   }
 
   /* ---------- reveal on scroll ---------- */
-  // things that arrive together come in one after another rather than all at once
   const io = new IntersectionObserver((es) => {
     es.filter((e) => e.isIntersecting).forEach((e, i) => {
       const el = e.target;
       io.unobserve(el);
-      if (i) { el.style.transitionDelay = Math.min(i * 70, 420) + 'ms'; setTimeout(() => { el.style.transitionDelay = ''; }, 1500); }
+      if (i) {
+        el.style.transitionDelay = Math.min(i * 65, 390) + 'ms';
+        setTimeout(() => { el.style.transitionDelay = ''; }, 1400);
+      }
       el.classList.add('in');
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
   $$('.reveal, .reveal-scale').forEach((el) => io.observe(el));
 
-  /* ---------- demos mount just before they scroll into view ---------- */
+  /* ---------- demos mount just before scrolling into view ---------- */
   const demoIO = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) { window.Demos.mount(e.target); demoIO.unobserve(e.target); }
+    if (e.isIntersecting && !e.target.closest('[hidden]')) {
+      window.Demos && window.Demos.mount(e.target);
+      demoIO.unobserve(e.target);
+    }
   }), { rootMargin: '600px 0px' });
-  $$('[data-demo]').forEach((el) => demoIO.observe(el));
+  $$('[data-demo]').forEach((el) => {
+    if (!el.closest('.cert') && !el.closest('[hidden]')) demoIO.observe(el);
+  });
+
+  /* ---------- Foundations Lab 3-tab showcase (Thread 03) ---------- */
+  const fndTabs = $$('[data-fnd-tab]');
+  const fndPanels = $$('.fnd-panel');
+  function selectFoundation(id) {
+    if (!id) return;
+    fndTabs.forEach((b) => {
+      const on = b.dataset.fndTab === id;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    fndPanels.forEach((p) => {
+      const on = p.id === id;
+      p.hidden = !on;
+      if (on) {
+        p.querySelectorAll('[data-demo]').forEach((d) => window.Demos && window.Demos.mount(d));
+      }
+    });
+  }
+  fndTabs.forEach((b) => b.addEventListener('click', () => selectFoundation(b.dataset.fndTab)));
+
+  /* ---------- shared project navigation (handles hidden foundation tabs) ---------- */
+  function goToProject(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.classList.contains('fnd-panel')) selectFoundation(id);
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    });
+  }
+  window.PortfolioNav = { goToProject, selectFoundation };
 
   /* ---------- stat counters ---------- */
   const statIO = new IntersectionObserver((es) => es.forEach((e) => {
@@ -61,24 +104,23 @@
     $$('[data-count]', e.target).forEach((n) => {
       const end = +n.dataset.count, t0 = performance.now();
       const step = (now) => {
-        const k = Math.min((now - t0) / 1400, 1);
+        const k = Math.min((now - t0) / 1300, 1);
         n.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
         if (k < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     });
-  }), { threshold: 0.4 });
-  $$('#stats, .cs-stats').forEach((el) => statIO.observe(el));
+  }), { threshold: 0.35 });
+  $$('.cs-stats').forEach((el) => statIO.observe(el));
 
   /* ---------- scroll-linked effects ---------- */
   const nav = $('#nav'), bar = $('#progressBar'), heroInner = $('#heroInner');
-  const rail = $('.rail'), railFill = $('#railFill'), manifesto = $('#manifesto');
+  const manifesto = $('#manifesto');
   const navLinks = $$('[data-nav]').map((a) => [a, document.getElementById(a.dataset.nav)]).filter(([, s]) => s);
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const threadLinks = $$('[data-thread-nav]').map((a) => [a, document.getElementById(a.dataset.threadNav)]).filter(([, s]) => s);
   let ticking = false, heroDone = false;
-  const railDot = rail ? rail.appendChild(document.createElement('i')) : null;
 
-  /* ---------- nav: a single pill slides to the section in view ---------- */
+  /* ---------- sliding nav pill ---------- */
   navReady = true;
   const navBox = $('.nav-links'), navInd = navBox.appendChild(document.createElement('span'));
   navInd.className = 'nav-ind'; navBox.classList.add('has-ind');
@@ -90,7 +132,7 @@
     navInd.style.transform = `translateX(${navOn.offsetLeft}px)`;
   }
 
-  /* ---------- nav: phone menu ---------- */
+  /* ---------- phone menu ---------- */
   const navToggle = $('#navToggle');
   function setMenu(open) {
     nav.classList.toggle('open', open);
@@ -100,15 +142,15 @@
   navBox.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('click', (e) => { if (nav.classList.contains('open') && !nav.contains(e.target)) setMenu(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); navToggle.focus(); } });
-  matchMedia('(max-width: 760px)').addEventListener('change', (m) => { if (!m.matches) setMenu(false); moveInd(); });
+  matchMedia('(max-width: 820px)').addEventListener('change', (m) => { if (!m.matches) setMenu(false); moveInd(); });
 
-  /* ---------- pointer light: hero grid and cards ---------- */
+  /* ---------- pointer light: hero grid and glass cards ---------- */
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     const hero = $('#hero'), heroBg = $('.hero-bg');
     let px = 0, py = 0, card = null, queued = false;
     addEventListener('pointermove', (e) => {
       px = e.clientX; py = e.clientY;
-      card = e.target.closest ? e.target.closest('.glass.card, .cert, .entry.compact, .sy-panel') : null;
+      card = e.target.closest ? e.target.closest('.glass.card, .pillar, .cert, .sy-panel') : null;
       if (queued) return;
       queued = true;
       requestAnimationFrame(() => {
@@ -128,7 +170,7 @@
     }, { passive: true });
   }
 
-  /* ---------- the marquee only runs while it is on screen ---------- */
+  /* ---------- marquee runs only on screen ---------- */
   const marquee = $('.marquee');
   if (marquee) new IntersectionObserver((es) => es.forEach((e) => marquee.classList.toggle('paused', !e.isIntersecting))).observe(marquee);
 
@@ -136,38 +178,35 @@
     ticking = false;
     const y = scrollY, vh = innerHeight, max = document.documentElement.scrollHeight - vh;
     nav.classList.toggle('scrolled', y > 10);
-    document.body.classList.toggle('past-hero', y > vh * 0.8);
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 
     if (!reduce && heroInner && (y < vh || !heroDone)) {
       const k = Math.min(y / vh, 1);
       heroDone = k === 1;
-      heroInner.style.transform = `translateY(${k * 80}px) scale(${1 - k * 0.06})`;
-      heroInner.style.opacity = String(1 - k * 1.1);
+      heroInner.style.transform = `translateY(${k * 64}px) scale(${1 - k * 0.045})`;
+      heroInner.style.opacity = String(1 - k * 1.05);
     }
 
     if (manifesto && scrubWords.length) {
       const r = manifesto.getBoundingClientRect();
-      const k = Math.min(Math.max((vh * 0.85 - r.top) / (r.height * 0.75), 0), 1);
+      const k = Math.min(Math.max((vh * 0.86 - r.top) / (r.height * 0.78), 0), 1);
       const lit = Math.round(k * scrubWords.length);
-      // only the words that changed since the last frame
-      for (let i = Math.min(lit, litCount); i < Math.max(lit, litCount) && i < scrubWords.length; i++) scrubWords[i].classList.toggle('lit', i < lit);
+      for (let i = Math.min(lit, litCount); i < Math.max(lit, litCount) && i < scrubWords.length; i++) {
+        scrubWords[i].classList.toggle('lit', i < lit);
+      }
       litCount = lit;
     }
 
-    const mid = vh * 0.4;
+    const mid = vh * 0.38;
     let on = null;
     navLinks.forEach(([a, sec]) => { const r = sec.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) on = a; });
     if (on !== navOn) { navOn = on; navLinks.forEach(([a]) => a.classList.toggle('on', a === on)); moveInd(); }
 
-    if (rail) {
-      const r = rail.getBoundingClientRect();
-      const k = Math.min(Math.max((vh * 0.5 - r.top) / r.height, 0), 1);
-      railFill.style.transform = `scaleY(${k})`;
-      railDot.style.transform = `translateY(${k * r.height}px)`;
-      railDot.classList.toggle('on', k > 0 && k < 1);
-    }
+    let thOn = null;
+    threadLinks.forEach(([a, sec]) => { const r = sec.getBoundingClientRect(); if (r.top < vh * 0.45 && r.bottom > vh * 0.25) thOn = a; });
+    threadLinks.forEach(([a]) => a.classList.toggle('on', a === thOn));
   }
+
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   addEventListener('resize', () => { measureScrub(); moveInd(); onScroll(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInd);
