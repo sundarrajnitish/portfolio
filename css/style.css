@@ -90,7 +90,7 @@ main { position: relative; z-index: 1; }
 
 .nav { position: fixed; top: 14px; left: 0; right: 0; z-index: 90; pointer-events: none; }
 .nav-inner {
-  pointer-events: auto; max-width: 1060px; margin: 0 auto; height: 54px; padding: 0 8px 0 16px;
+  pointer-events: auto; width: fit-content; max-width: 1060px; margin: 0 auto; height: 54px; padding: 0 8px 0 10px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   background: rgba(10, 12, 18, .66); border: 1px solid var(--hair-2); border-radius: 99px;
   -webkit-backdrop-filter: saturate(180%) blur(22px); backdrop-filter: saturate(180%) blur(22px);
@@ -101,16 +101,6 @@ main { position: relative; z-index: 1; }
   box-shadow: 0 22px 54px -22px rgba(0, 0, 0, .88);
 }
 @media (max-width: 1100px) { .nav { left: 12px; right: 12px; } }
-.brand {
-  display: inline-flex; align-items: center; gap: 10px;
-  color: var(--ink); text-decoration: none; font: 700 15px var(--display); letter-spacing: -.015em; white-space: nowrap;
-}
-.brand-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--green);
-  box-shadow: 0 0 0 3px rgba(52, 211, 153, .18), 0 0 12px var(--green);
-  animation: pulseDot 2.8s ease-in-out infinite;
-}
-@keyframes pulseDot { 50% { opacity: .55; transform: scale(.88); } }
 .nav-links { position: relative; display: flex; gap: 3px; font-size: 13.5px; }
 .nav-links a {
   position: relative; z-index: 1; color: var(--ink-2); text-decoration: none;
@@ -147,7 +137,7 @@ main { position: relative; z-index: 1; }
 .nav.open .nav-toggle span::before { transform: rotate(45deg); }
 .nav.open .nav-toggle span::after { transform: rotate(-45deg); }
 @media (max-width: 820px) {
-  .nav-inner { position: relative; gap: 8px; }
+  .nav-inner { position: relative; width: 100%; padding: 0 8px 0 12px; gap: 8px; }
   .nav-inner .lang-switch { margin-left: auto; }
   .nav-toggle { display: block; }
   .nav-links {
