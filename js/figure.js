@@ -204,6 +204,39 @@
       <circle cx="200" cy="70" r="5" fill="#ffc21a"/>
       <path class="f-tassel" d="M200 70C240 74 280 80 292 90V128" stroke="#ffc21a" stroke-width="3.2" fill="none" stroke-linecap="round"/>
       <path class="f-tassel" d="M286 126h12l-2 18h-8z" fill="#ffc21a"/>`,
+    visor: `
+      ${blob(200, 184, 76, 13, 'fBk', 0.42)}
+      <path d="M126 144L142 137H258L274 144L269 171C267 179 258 184 247 184H220L200 173L180 184H153C142 184 133 179 131 171Z" fill="url(#fVisor{id})" stroke="#0b0f18" stroke-width="2.4" stroke-linejoin="round"/>
+      <g clip-path="url(#fVisorClip{id})">
+        <g class="f-refl">
+          <path d="M138 140H168L154 184H128Z" fill="url(#fReflG{id})" opacity=".72"/>
+          <path d="M174 140H183L169 184H160Z" fill="url(#fReflG{id})" opacity=".42"/>
+          <path d="M226 140H248L234 184H212Z" fill="url(#fReflG{id})" opacity=".55"/>
+          <g class="f-visor-hud">
+            <circle cx="169" cy="158" r="10.5" fill="none" class="f-rim" stroke-width="1.2" stroke-dasharray="5 3" opacity=".88"/>
+            <circle cx="169" cy="158" r="3.4" class="f-rim-fill" opacity=".85"/>
+            <path d="M153 158H157M181 158H185M169 144V147M169 169V172" class="f-rim" stroke-width="1.2" opacity=".75"/>
+            <circle cx="231" cy="158" r="10.5" fill="none" class="f-rim" stroke-width="1.2" stroke-dasharray="5 3" opacity=".88"/>
+            <circle cx="231" cy="158" r="3.4" class="f-rim-fill" opacity=".85"/>
+            <path d="M215 158H219M243 158H247M231 144V147M231 169V172" class="f-rim" stroke-width="1.2" opacity=".75"/>
+            <polyline points="144,175 156,175 161,170 166,177 173,173 184,173" fill="none" stroke="#ff9442" stroke-width="1.3" opacity=".85"/>
+            <path d="M214 174H224M228 174H244M248 174H255" class="f-rim" stroke-width="1.4" stroke-linecap="round" opacity=".75"/>
+          </g>
+          ${blob(168, 184, 34, 10, 'fRl', 0.72)}${blob(232, 184, 34, 10, 'fRl', 0.72)}
+          <rect class="f-visor-scan" x="120" y="136" width="160" height="7" fill="url(#fScan{id})" opacity=".55"/>
+        </g>
+      </g>
+      <path d="M127 143L142 137H258L273 143" fill="none" stroke="#1b2336" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M142 137.4H258" class="f-rim" stroke-width="1.8" stroke-linecap="round" opacity=".92"/>
+      <path d="M131 171C133 179 142 184 153 184H180L200 173L220 184H247C258 184 267 179 269 171" fill="none" class="f-rim" stroke-width="1.35" opacity=".72"/>
+      <path d="M126 146L117 152M274 146L283 152" stroke="#1b2336" stroke-width="4.4" stroke-linecap="round"/>
+      <circle cx="129" cy="148" r="2.2" fill="#ff9442"/><circle cx="271" cy="148" r="2.2" class="f-rim-fill"/>`,
+    cyberlink: `
+      <path d="M261 154L275 158C279 160 280 164 280 171V188C280 194 276 198 270 199L261 200" fill="#101522" stroke="#28354f" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M273 163V191" class="f-rim" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
+      <circle class="f-cyber-led f-rim-fill" cx="268" cy="176" r="2.6"/>
+      <path d="M139 156L127 160C124 162 123 166 123 172V184" fill="none" stroke="#26324a" stroke-width="3" stroke-linecap="round"/>
+      <circle class="f-cyber-led" cx="126" cy="174" r="2.1" fill="#ff9442"/>`,
   };
 
   // torso-level gear (over the shirt, under the arms)
@@ -222,6 +255,23 @@
     <path d="M186 321V317C186 314.8 187.8 313 190 313H210C212.2 313 214 314.8 214 317V321Z" fill="var(--accent, #ff8a3d)"/>
     <rect x="191" y="325" width="10" height="11" rx="2" fill="#c7c7cc"/>
     <path d="M191 341H209M204 328H209M204 333H208" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"/>`;
+
+  const CYBER_JACKET = `
+    <path d="M150 282L166 266C174 268 180 278 182 292L176 318L132 308Z" fill="#0d111c" stroke="#2a3550" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M250 282L234 266C226 268 220 278 218 292L224 318L268 308Z" fill="#0d111c" stroke="#2a3550" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M167 270C173 273 177 282 179 294M233 270C227 273 223 282 221 294" class="f-rim" stroke-width="2" fill="none" stroke-linecap="round" opacity=".9"/>
+    <path d="M148 292C122 299 98 310 83 324C69 337 63 356 61 384L58 456H172L178 338L162 298Z" fill="url(#fCyberJ{id})" stroke="#26324c" stroke-width="1.5"/>
+    <path d="M252 292C278 299 302 310 317 324C331 337 337 356 339 384L342 456H228L222 338L238 298Z" fill="url(#fCyberJ{id})" stroke="#26324c" stroke-width="1.5"/>
+    <path d="M174 300C186 312 214 312 226 300L228 456H172Z" fill="#090c14"/>
+    <path d="M162 298L178 338L172 456M238 298L222 338L228 456" stroke="#2c3a57" stroke-width="1.8" fill="none"/>
+    <path d="M164 302L176 334M236 302L224 334" class="f-rim" stroke-width="1.7" fill="none" stroke-linecap="round" opacity=".78"/>
+    <path d="M110 316L138 308L146 316L118 325Z" fill="#182134" class="f-rim" stroke-width="1.1" opacity=".85"/>
+    <path d="M290 316L262 308L254 316L282 325Z" fill="#182134" class="f-rim" stroke-width="1.1" opacity=".85"/>
+    <path d="M116 320L138 313" class="f-rim" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+    <path d="M284 320L262 313" class="f-rim" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+    <path d="M188 322H212M194 330H206" class="f-rim" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+    <path d="M90 318C72 330 64 350 62 382" class="f-rim" stroke-width="1.5" fill="none" opacity=".6"/>
+    <path d="M268 298C288 304 304 312 316 322C328 333 334 348 338 368" class="f-rim" stroke-width="1.9" fill="none" stroke-linecap="round" opacity=".72"/>`;
 
   const SHIRT = 'M176 288C148 294 112 304 90 318C72 330 64 350 62 382L58 456H342L338 382C336 350 328 330 310 318C288 304 252 294 224 288C214 302 186 302 176 288Z';
   function torsoSVG() {
@@ -243,6 +293,7 @@
       <path d="M175 287C185 304 215 304 225 287" stroke="url(#fCollar{id})" stroke-width="5" fill="none" stroke-linecap="round"/>
       <path d="M182 300C192 306 208 306 218 300" stroke="#0c0c0e" stroke-width="1.5" fill="none" opacity=".7"/>
       <g class="f-vest">${VEST}</g>
+      <g class="f-cyber-jacket">${CYBER_JACKET}</g>
       <g class="f-badge">${BADGE}</g>
     </g>`;
   }
@@ -288,6 +339,34 @@
       <path d="M195 400V392L205 400V392" stroke="var(--accent, #ff8a3d)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M124 445H276V450H124Z" fill="#33333b"/>
       ${blob(200, 451, 120, 5, 'fAc', 0.5)}
+    </g>`;
+
+  const CYBER_LID = 'M110 348H290L298 358L290 446H110L102 358Z';
+  const CYBER_DECK = `
+    <g class="f-laptop f-cyber-deck">
+      <defs><clipPath id="fCyberLidClip{id}"><path d="${CYBER_LID}"/></clipPath></defs>
+      <path class="f-holo-beam" d="M118 350L86 280H314L282 350Z" fill="url(#fHoloBeam{id})"/>
+      ${glow(200, 344, 148, 40, 0.62)}
+      ${blob(200, 449, 178, 10, 'fBk', 0.85)}
+      <path d="${CYBER_LID}" fill="url(#fCyberLid{id})" stroke="#2c3c5a" stroke-width="1.6" stroke-linejoin="round"/>
+      <g clip-path="url(#fCyberLidClip{id})">
+        <path d="M144 346H202L158 450H100Z" fill="#38bdf8" opacity=".05"/>
+        <path d="M214 346H226L182 450H170Z" fill="#fff" opacity=".04"/>
+        ${blob(200, 398, 56, 52, 'fRl', 0.34)}
+        <path d="M114 366H136L144 374M286 366H264L256 374" fill="none" stroke="#38bdf8" stroke-width="1.2" opacity=".45"/>
+        <path d="M116 426H142L150 418M284 426H258L250 418" fill="none" stroke="#ff9442" stroke-width="1.2" opacity=".4"/>
+        <path d="M290 348L298 358L290 446" class="f-rim" stroke-width="4.5" fill="none" opacity=".35"/>
+      </g>
+      <path d="M112 349.5H288" class="f-rim" stroke-width="1.8" stroke-linecap="round" opacity=".88"/>
+      <path d="M104 360L110 350H128M272 350H290L296 360" fill="none" stroke="#ff9442" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+      <g class="f-holo-core">
+        <polygon class="f-holo-ring f-rim" points="200,377 218,387.5 218,408.5 200,419 182,408.5 182,387.5" fill="rgba(6,10,18,.68)" stroke-width="1.7"/>
+        <circle cx="200" cy="398" r="12" fill="none" stroke="#ff9442" stroke-width="1.2" stroke-dasharray="6 4" opacity=".8"/>
+        <path d="M195 403V393L205 403V393" class="f-rim" stroke-width="2.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <path d="M122 444H278V450H122Z" fill="#182032"/>
+      <path d="M140 447H260" class="f-rim" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+      ${blob(200, 451, 134, 6, 'fRl', 0.58)}
     </g>`;
 
   // ---------- scene props (outside the figure, x -110..0 and 400..510) ----------
@@ -371,13 +450,33 @@
       <circle cx="456" cy="290" r="48" fill="#f5f5f7"/><circle cx="456" cy="290" r="35" fill="#16161a"/><circle cx="456" cy="290" r="22" fill="#f5f5f7"/>
       <circle class="p-glow" cx="456" cy="290" r="10" fill="var(--accent, #ff8a3d)"/>
       <g class="p-ping" stroke="var(--accent, #ff8a3d)" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M398 262C390 280 390 300 398 318"/><path d="M386 252C374 276 374 304 386 328"/></g>`,
+    cyber: `
+      <g transform="translate(0 -18)"><g class="p-holo p-holo-l">
+        <path d="M-12 372L56 364V416L-12 424Z" fill="rgba(8,14,26,.82)" class="f-rim" stroke-width="1.4" stroke-opacity=".74"/>
+        <path d="M-12 380V372L-2 371M46 365L56 364V372M-12 416V424L-2 423M46 417L56 416V408" fill="none" stroke="#ff9442" stroke-width="1.8" stroke-linecap="round"/>
+        <polyline class="p-trace f-rim" points="-4,401 6,401 12,386 19,409 27,391 34,398 48,396" fill="none" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M-3 379H16M22 378H46" class="f-rim" stroke-width="1.4" stroke-opacity=".48" stroke-linecap="round"/>
+        <circle class="p-led g" cx="48" cy="374" r="2.4"/>
+        <path d="M22 421L22 456" class="f-rim" stroke-width="1.2" stroke-dasharray="3 4" opacity=".48"/>
+        <ellipse cx="22" cy="462" rx="22" ry="3.2" fill="url(#fRl{id})" opacity=".55"/>
+      </g></g>
+      <g transform="translate(0 -18)"><g class="p-holo p-holo-r">
+        <path d="M344 364L412 372V424L344 416Z" fill="rgba(8,14,26,.82)" class="f-rim" stroke-width="1.4" stroke-opacity=".74"/>
+        <path d="M344 372V364L354 365M402 371L412 372V380M344 408V416L354 417M402 423L412 424V416" fill="none" class="f-rim" stroke-width="1.8" stroke-linecap="round"/>
+        <polygon points="378,376 394,385 394,403 378,412 362,403 362,385" fill="none" stroke="#ff9442" stroke-width="1.4" opacity=".85"/>
+        <polygon points="378,383 388,389 388,399 378,405 368,399 368,389" fill="rgba(56,189,248,.16)" class="f-rim" stroke-width="1.2"/>
+        <circle class="p-glow" cx="378" cy="394" r="3.4" fill="#ff9442"/>
+        <path d="M352 384H360M352 394H359M352 404H360M396 384H404M397 394H404M396 404H404" class="f-rim" stroke-width="1.3" stroke-linecap="round" opacity=".72"/>
+        <path d="M378 421L378 456" class="f-rim" stroke-width="1.2" stroke-dasharray="3 4" opacity=".48"/>
+        <ellipse cx="378" cy="462" rx="22" ry="3.2" fill="url(#fRl{id})" opacity=".55"/>
+      </g></g>`,
   };
 
   class Figure {
     constructor(host, opts = {}) {
       this.host = host;
       this.id = ++uid;
-      this.opts = Object.assign({ props: true, laptop: true, track: true }, opts);
+      this.opts = Object.assign({ props: true, laptop: true, track: true, ambient: true }, opts);
       this.pose = 'type';
       this.blend = 1;            // 0..1 cross-fade from previous hand targets to the new pose
       this.prevHands = null;
@@ -394,8 +493,16 @@
 
     build() {
       const id = this.id;
-      const props = this.opts.props ? Object.entries(PROPS).map(([k, v]) => `<g class="f-prop" data-prop="${k}">${v.replaceAll('{id}', id)}</g>`).join('') : '';
-      const gear = Object.entries(GEAR).map(([k, v]) => `<g class="f-gear" data-gear="${k}">${v.replaceAll('{id}', id)}</g>`).join('');
+      const propKeys = Array.isArray(this.opts.props) ? new Set(this.opts.props) : null;
+      const gearKeys = Array.isArray(this.opts.gear) ? new Set(this.opts.gear) : null;
+      const props = this.opts.props
+        ? Object.entries(PROPS)
+          .filter(([k]) => !propKeys || propKeys.has(k))
+          .map(([k, v]) => `<g class="f-prop" data-prop="${k}">${v.replaceAll('{id}', id)}</g>`).join('')
+        : '';
+      const gear = Object.entries(GEAR)
+        .filter(([k]) => !gearKeys || gearKeys.has(k))
+        .map(([k, v]) => `<g class="f-gear" data-gear="${k}">${v.replaceAll('{id}', id)}</g>`).join('');
       this.host.innerHTML = `
 <svg class="fig" viewBox="${this.opts.viewBox || '-112 0 624 460'}" aria-hidden="true">
   <defs>
@@ -404,6 +511,13 @@
     ${[['fLt', '#eab590'], ['fDk', '#4a2616'], ['fBk', '#000'], ['fWh', '#fff'], ['fSheen', '#9c7b69'], ['fSc', '#c9e4ff']].map(([n, c]) => `<radialGradient id="${n}${id}"><stop offset="0" stop-color="${c}"/><stop offset=".45" stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}
     <radialGradient id="fRl${id}"><stop offset="0" class="f-rim-stop"/><stop offset="1" class="f-rim-stop" stop-opacity="0"/></radialGradient>
     <radialGradient id="fAc${id}"><stop offset="0" stop-color="var(--accent, #ff8a3d)"/><stop offset=".45" stop-color="var(--accent, #ff8a3d)" stop-opacity=".4"/><stop offset="1" stop-color="var(--accent, #ff8a3d)" stop-opacity="0"/></radialGradient>
+    <linearGradient id="fVisor${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1829" stop-opacity=".92"/><stop offset=".5" stop-color="#060c18" stop-opacity=".95"/><stop offset="1" stop-color="#191124" stop-opacity=".92"/></linearGradient>
+    <linearGradient id="fScan${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="f-rim-stop" stop-opacity="0"/><stop offset=".5" class="f-rim-stop" stop-opacity=".75"/><stop offset="1" class="f-rim-stop" stop-opacity="0"/></linearGradient>
+    <clipPath id="fVisorClip${id}"><path d="M126 144L142 137H258L274 144L269 171C267 179 258 184 247 184H220L200 173L180 184H153C142 184 133 179 131 171Z"/></clipPath>
+    <linearGradient id="fCyberJ${id}" gradientUnits="userSpaceOnUse" x1="70" y1="290" x2="330" y2="456"><stop offset="0" stop-color="#1a2234"/><stop offset=".5" stop-color="#101522"/><stop offset="1" stop-color="#080b12"/></linearGradient>
+    <linearGradient id="fCyberLid${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d273c"/><stop offset=".5" stop-color="#111726"/><stop offset="1" stop-color="#090d16"/></linearGradient>
+    <linearGradient id="fHoloBeam${id}" x1="0" y1="1" x2="0" y2="0"><stop offset="0" class="f-rim-stop" stop-opacity=".24"/><stop offset=".55" class="f-rim-stop" stop-opacity=".07"/><stop offset="1" class="f-rim-stop" stop-opacity="0"/></linearGradient>
+    <linearGradient id="fCyberDesk${id}" gradientUnits="userSpaceOnUse" x1="-112" y1="0" x2="512" y2="0"><stop offset="0" class="f-rim-stop" stop-opacity="0"/><stop offset=".24" class="f-rim-stop" stop-opacity=".7"/><stop offset=".5" stop-color="#f4f6fb" stop-opacity=".85"/><stop offset=".76" stop-color="#ff9442" stop-opacity=".65"/><stop offset="1" stop-color="#ff9442" stop-opacity="0"/></linearGradient>
     <radialGradient id="fEyeW${id}" cx=".45" cy=".6" r=".65"><stop offset="0" stop-color="#fffdfa"/><stop offset=".6" stop-color="#ece5dd"/><stop offset="1" stop-color="#b9aca0"/></radialGradient>
     <radialGradient id="fIris${id}" cx=".5" cy=".72" r=".6"><stop offset="0" stop-color="#9a653c"/><stop offset=".55" stop-color="#4f2f1c"/><stop offset="1" stop-color="#1f110a"/></radialGradient>
     <linearGradient id="fLidSh${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0c06" stop-opacity=".75"/><stop offset=".5" stop-color="#1a0c06" stop-opacity="0"/></linearGradient>
@@ -432,8 +546,8 @@
     <linearGradient id="fDesk${id}" gradientUnits="userSpaceOnUse" x1="-112" y1="0" x2="512" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".05"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity=".05"/></linearGradient>
     <linearGradient id="fLamp${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd60a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd60a" stop-opacity="0"/></linearGradient>
   </defs>
-  <ellipse class="f-spot" cx="200" cy="250" rx="250" ry="230" fill="url(#fSpot${id})"/>
-  <ellipse cx="392" cy="150" rx="150" ry="170" fill="url(#fRl${id})" opacity=".13"/>
+  ${this.opts.ambient ? `<ellipse class="f-spot" cx="200" cy="250" rx="250" ry="230" fill="url(#fSpot${id})"/>
+  <ellipse cx="392" cy="150" rx="150" ry="170" fill="url(#fRl${id})" opacity=".13"/>` : ''}
   <g class="f-dust">${range(9, (i) => `<circle cx="${-70 + ((i * 167) % 540)}" cy="${60 + ((i * 97) % 300)}" r="${2 + (i % 3) * 1.6}" fill="url(#${i % 3 ? 'fWh' : 'fAc'}${id})" style="animation-delay:-${(i * 1.7).toFixed(1)}s;animation-duration:${9 + (i % 4) * 3}s"/>`)}</g>
   <g class="f-props">${props}</g>
   <g class="f-body">
@@ -442,9 +556,9 @@
       ${headSVG(id)}
     </g>
     ${(armSVG('l') + armSVG('r')).replaceAll('{id}', id)}
-    ${this.opts.laptop ? LAPTOP.replaceAll('{id}', id) : ''}
+    ${this.opts.laptop ? (this.opts.cyberDeck ? CYBER_DECK : LAPTOP).replaceAll('{id}', id) : ''}
   </g>
-  <path class="f-desk" d="M-112 450H512" stroke="url(#fDesk${id})" stroke-width="2"/>
+  <path class="f-desk" d="M-112 450H512" stroke="url(#${this.opts.cyberDeck ? 'fCyberDesk' : 'fDesk'}${id})" stroke-width="${this.opts.cyberDeck ? '2.2' : '2'}"/>
 </svg>`;
       const $ = (s) => this.host.querySelector(s);
       this.svg = $('svg');
@@ -470,9 +584,10 @@
         this.host.querySelectorAll('.f-gear').forEach((n) => n.classList.toggle('on', g.has(n.dataset.gear)));
         const hat = g.has('hardhat') || g.has('gradcap');
         this.host.querySelector('.f-quiff').classList.toggle('off', hat);
-        this.host.querySelector('.f-eyes').classList.toggle('off', g.has('sunglasses'));
+        this.host.querySelector('.f-eyes').classList.toggle('off', g.has('sunglasses') || g.has('visor'));
       }
       if ('vest' in sc) this.host.querySelector('.f-vest').classList.toggle('on', !!sc.vest);
+      if ('cyberJacket' in sc) this.host.querySelector('.f-cyber-jacket').classList.toggle('on', !!sc.cyberJacket);
       if ('badge' in sc) this.host.querySelector('.f-badge').classList.toggle('on', !!sc.badge);
       if ('laptop' in sc && this.el.laptop) { this.el.laptop.classList.toggle('off', !sc.laptop); this.screenOn = !!sc.laptop; }
       if (sc.light) this.svg.style.setProperty('--fl', sc.light);
@@ -590,9 +705,10 @@
     chair: { light: '#5ac8fa', gear: [], pose: 'pad', prop: 'chair', laptop: false, cap: ['First prototype · Bluetooth wheelchair', 'Premier prototype · fauteuil Bluetooth'] },
     about: { light: '#ff8a3d', gear: [], pose: 'point', prop: 'goal', cap: ['Next stop · systems engineering', 'Prochain arrêt · ingénierie des systèmes'] },
     contact: { light: '#5ac8fa', gear: ['sunglasses'], pose: 'wave', prop: 'hello', cap: ['Say hello', 'Dites bonjour'] },
+    cyber: { light: '#38bdf8', gear: ['visor', 'cyberlink'], cyberJacket: true, pose: 'type', prop: 'cyber', cap: ['Systems online', 'Systèmes en ligne'] },
   };
   // fill in defaults so every scene fully specifies the rig
-  Object.values(Figure.SCENES).forEach((s) => { s.vest = !!s.vest; s.badge = !!s.badge; if (s.laptop === undefined) s.laptop = true; });
+  Object.values(Figure.SCENES).forEach((s) => { s.vest = !!s.vest; s.cyberJacket = !!s.cyberJacket; s.badge = !!s.badge; if (s.laptop === undefined) s.laptop = true; });
 
   window.Figure = Figure;
 })();

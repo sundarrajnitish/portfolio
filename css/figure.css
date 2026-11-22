@@ -1,17 +1,17 @@
 /* The animated character (js/figure.js) */
 /* --fl is the colour of the rim light. Each scene sets its own, and registering it lets the colour fade between scenes. */
 @property --fl { syntax: "<color>"; inherits: true; initial-value: #5ac8fa; }
-.fig { --fl: #5ac8fa; transition: --fl .9s ease; }
+.fig { --fl: #5ac8fa; transition: --fl .55s ease; }
 .fig .f-rim { stroke: var(--fl); }
 .fig .f-rim-fill { fill: var(--fl); }
 .fig .f-rim-stop { stop-color: var(--fl); }
 .fig .f-dust circle { opacity: 0; animation: fDust 12s ease-in-out infinite; }
 @keyframes fDust { 0% { opacity: 0; transform: translate(0, 10px); } 30% { opacity: .22; } 70% { opacity: .14; } 100% { opacity: 0; transform: translate(14px, -34px); } }
 .fig { width: 100%; height: auto; display: block; overflow: hidden; }
-.fig .f-gear, .fig .f-prop, .fig .f-vest, .fig .f-badge { opacity: 0; visibility: hidden; transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s .55s; }
+.fig .f-gear, .fig .f-prop, .fig .f-vest, .fig .f-cyber-jacket, .fig .f-badge { opacity: 0; visibility: hidden; transition: opacity .45s var(--ease), transform .55s var(--ease), visibility 0s .55s; }
 .fig .f-gear { transform: translateY(-26px); }
 .fig .f-prop { transform: translateY(14px); }
-.fig .f-gear.on, .fig .f-prop.on, .fig .f-vest.on, .fig .f-badge.on { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--ease) .12s, transform .55s cubic-bezier(.3, 1.5, .5, 1) .12s, visibility 0s; }
+.fig .f-gear.on, .fig .f-prop.on, .fig .f-vest.on, .fig .f-cyber-jacket.on, .fig .f-badge.on { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--ease) .12s, transform .55s cubic-bezier(.3, 1.5, .5, 1) .12s, visibility 0s; }
 .fig .f-quiff, .fig .f-eyes, .fig .f-laptop { transition: opacity .35s var(--ease); }
 .fig .f-quiff.off, .fig .f-eyes.off, .fig .f-laptop.off { opacity: 0; }
 .fig .p-txt { fill: #a1a1a6; font: 600 12px var(--mono); }
@@ -44,4 +44,15 @@
 @keyframes fFloat { to { transform: translateY(-8px); } }
 .fig .f-tassel { transform-box: view-box; transform-origin: 200px 70px; animation: fTassel 2.2s ease-in-out infinite alternate; }
 @keyframes fTassel { from { transform: rotate(-2deg); } to { transform: rotate(3deg); } }
+.fig .f-visor-scan { animation: fVisorScan 3.4s ease-in-out infinite; }
+@keyframes fVisorScan { 0%, 100% { transform: translateY(0); opacity: .25; } 50% { transform: translateY(42px); opacity: .7; } }
+.fig .f-cyber-led { animation: fCyberLed 2s ease-in-out infinite alternate; }
+@keyframes fCyberLed { from { opacity: .45; } to { opacity: 1; } }
+.fig .f-holo-beam { animation: fHoloBeam 3.8s ease-in-out infinite alternate; }
+@keyframes fHoloBeam { from { opacity: .68; } to { opacity: 1; } }
+.fig .f-holo-ring { transform-box: fill-box; transform-origin: center; animation: fHoloSpin 24s linear infinite; }
+@keyframes fHoloSpin { to { transform: rotate(360deg); } }
+.fig .p-holo { animation: fHoloFloat 4.2s ease-in-out infinite alternate; }
+.fig .p-holo-r { animation-delay: -2.1s; }
+@keyframes fHoloFloat { from { transform: translateY(3px); } to { transform: translateY(-5px); } }
 @media (prefers-reduced-motion: reduce) { .fig * { animation: none !important; } }
